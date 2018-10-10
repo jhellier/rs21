@@ -140,7 +140,7 @@ export default {
      that.mainMap.on("zoom", that.adjustDimensions);
      that.mainMap.on("moveend", that.adjustPan);
 
-
+    let popup = L.popup();
 
      let mainLayer = L.geoJSON(bcData.features, {
         style: {
@@ -154,6 +154,9 @@ export default {
             })
             console.log('Hello mouse over');
             console.log(e);
+            popup.setLatLng(e.latlng)
+                .setContent('Hello John')
+                .openOn(that.mainMap);
          });
          layer.on('mouseout', function(e) {
            mainLayer.resetStyle(this);
