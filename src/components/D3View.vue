@@ -152,7 +152,7 @@ export default {
             target.setStyle({
               color: 'red'
             })
-            console.log('Hello');
+            console.log('Hello mouse over');
             console.log(e);
          });
          layer.on('mouseout', function(e) {
