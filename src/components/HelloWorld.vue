@@ -31,11 +31,31 @@
 </template>
 
 <script>
+
+import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios)
+
+/* eslint-disable */
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  }
+  },
+  computed: {
+    error() {
+      return true;
+    }
+  },
+  mounted() {
+
+        Vue.axios.get('./data/CitiesSort.csv').then((response) => {
+            console.log(response.data);
+        })
+    },
 }
 </script>
 
