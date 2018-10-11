@@ -177,14 +177,14 @@ export default {
 
     that.adjustDimensions();
 
-    that.gMap.append('circle')
-      .attr('r',50)
-      .attr('cx',200)
-      .attr('cy',200)
-      .attr("pointer-events","visible")
-      .on('click', function(d) {
-        console.log('This is ', d);
-      })
+    // that.gMap.append('circle')
+    //   .attr('r',50)
+    //   .attr('cx',200)
+    //   .attr('cy',200)
+    //   .attr("pointer-events","visible")
+    //   .on('click', function(d) {
+    //     console.log('This is ', d);
+    //   })
 
     // Register an event listener when the Vue component is ready
     window.addEventListener("resize", that.onResize);
