@@ -9,7 +9,7 @@
 </template>
 
 <script>
-//import * as d3 from "d3";
+import * as d3 from "d3";
 import { EventBus } from '../main.js';
 import bcData from "../../public/data/BernallioCensusBlocks_Joined.json";
 
@@ -168,14 +168,23 @@ export default {
 
     //let latLonPoint = new L.LatLng(40.7127837, -74.0059413);
 
-    // L.svg().addTo(that.mainMap);
+    L.svg().addTo(that.mainMap);
 
-    // that.gMap = d3
-    //   .select("#world")
-    //   .select("svg")
-    //   .append("g");
+    that.gMap = d3
+      .select("#world")
+      .select("svg")
+      .append("g");
 
-    // that.adjustDimensions();
+    that.adjustDimensions();
+
+    that.gMap.append('circle')
+      .attr('r',50)
+      .attr('cx',200)
+      .attr('cy',200)
+      .attr("pointer-events","visible")
+      .on('click', function(d) {
+        console.log('This is ', d);
+      })
 
     // Register an event listener when the Vue component is ready
     window.addEventListener("resize", that.onResize);
@@ -201,9 +210,9 @@ export default {
        document.getElementById("world").style.height = this.cHeight + "px";
        document.getElementById("world").style.width = this.cWidth + "px";
 
-      // d3.select("#mapSVG")
-      //   .attr("height", this.cHeight)
-      //   .attr("width", this.cWidth);
+      d3.select("#world")
+         .attr("height", this.cHeight)
+         .attr("width", this.cWidth);
 
     },
     getPXFromLat(latLng) {
