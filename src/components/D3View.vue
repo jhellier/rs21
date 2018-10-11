@@ -152,7 +152,6 @@ export default {
             target.setStyle({
               color: 'red'
             })
-            console.log('Hello mouse over');
             console.log(e);
             popup.setLatLng(e.latlng)
                 .setContent('Hello John')
