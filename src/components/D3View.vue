@@ -10,20 +10,17 @@
 
 <script>
 import * as d3 from "d3";
-import { EventBus } from '../main.js';
+import { EventBus } from "../main.js";
 import bcData from "../../public/data/BernallioCensusBlocks_Joined.json";
 
 /* eslint-disable */
 
 let log = true;
 
-
 export default {
   name: "d3-view",
 
   props: {},
-
-  
 
   data() {
     return {
@@ -38,7 +35,9 @@ export default {
       selectedChallenges: [],
       challengeLU: {},
       allCities: [],
-      filteredCities: []
+      filteredCities: [],
+      totalPopulation: {},
+      totalTargetPopulation: {}
     };
   },
 
@@ -51,60 +50,24 @@ export default {
   beforeMount() {},
 
   mounted() {
-
-    
     var that = this;
-  EventBus.$on('whatJohn', msg => {
-    if (log) {
-      console.log(' This is ', msg);
-    }
-    that.selectedChallenges = msg;
-    //this.getFilteredCityArray(['disease-outbreak']);
-    if (msg.length == 0) {
-      this.loadCities(this.allCities);  
-      this.filteredCities = [];
-    } else {
-      this.getFilteredCityArray(msg);
-    }
-  })
+    that.totalTargetPopulation = that.getTargetPopulation('ACS_13_5YR_B01001_with_ann_HD01_VD06');
+    //this.getTotalPopulation('ACS_13_5YR_B01001_with_ann_HD01_VD01');
+    
 
-  // d3.csv("data/CitiesSort.csv", function(d) {
-  //     return {
-  //       city: d.city,
-  //       country: d.country,
-  //       latitude: d.latitude,
-  //       longitude: d.longitude,
-  //       LatLng: new L.LatLng(d.latitude, d.longitude)
-  //     };
-  //   }).then(function(data) {
-  //     that.filteredCities = data;
-  //     that.allCities = data;
-  //     that.loadCities(that.filteredCities);
-  //   });
-
-  // d3.csv("data/challenges.csv", function(d) {
-  //   return {
-  //     challenge: d.challenge,
-  //     region: d.region,
-  //     city: d.city,
-  //     country: d.country
-  //   };
-  //   }).then(function(data) {
-  //     data.forEach(function(d) {
-  //       let challenges = d.challenge.split(' ');
-  //       challenges.forEach(function(challenge,i) {
-  //         if (i != 0) {
-  //           if (that.challengeLU[challenge] === undefined)
-  //             that.challengeLU[challenge] = [];
-  //           that.challengeLU[challenge].push(d.city);
-  //         }
-  //       })
-
-  //     })
-   //  });
-
-
-
+    EventBus.$on("whatJohn", msg => {
+      if (log) {
+        console.log(" This is ", msg);
+      }
+      that.selectedChallenges = msg;
+      //this.getFilteredCityArray(['disease-outbreak']);
+      if (msg.length == 0) {
+        this.loadCities(this.allCities);
+        this.filteredCities = [];
+      } else {
+        this.getFilteredCityArray(msg);
+      }
+    });
 
     that.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.8;
     that.cHeight = document.getElementsByTagName("html")[0].clientHeight * 0.8;
@@ -113,7 +76,7 @@ export default {
     document.getElementById("world").style.height = that.cHeight + "px";
     document.getElementById("world").style.width = that.cWidth + "px";
 
-    that.mainMap = L.map("world").setView([35.1740721, -106.5944350], 12);
+    that.mainMap = L.map("world").setView([35.1740721, -106.594435], 12);
     //that.mainMap = L.map("world").setView([0, 0], 2);
 
     L.tileLayer(
@@ -128,43 +91,44 @@ export default {
       }
     ).addTo(that.mainMap);
 
-    // L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-    //   attribution:
-    //     'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    //   maxZoom: 18,
-    //   minZoom: 2,
-    //   id: "mapbox.light",
-    //   accessToken: this.$mapboxAccessToken
-    // }).addTo(that.mainMap);
-
-     that.mainMap.on("zoom", that.adjustDimensions);
-     that.mainMap.on("moveend", that.adjustPan);
+    that.mainMap.on("zoom", that.adjustDimensions);
+    that.mainMap.on("moveend", that.adjustPan);
 
     let popup = L.popup();
-
-     let mainLayer = L.geoJSON(bcData.features, {
-        style: {
-          'color':'green'          
-        },
-        onEachFeature:  function (feature, layer) {
-          layer.on('mouseover', function(e) {
-            let target = e.target;
-            target.setStyle({
-              color: 'red'
-            })
-            console.log(e);
-            popup.setLatLng(e.latlng)
-                .setContent('Hello John')
-                .openOn(that.mainMap);
-         });
-         layer.on('mouseout', function(e) {
-           mainLayer.resetStyle(this);
-         });
-
-       }
-
-      }
-     ).addTo(that.mainMap);
+    
+    let mainLayer = L.geoJSON(bcData.features, {
+      // style: {
+      //   color: 'green'
+      // },
+      
+      onEachFeature: function(feature, layer) {
+        layer.setStyle(function(el,feature,layer) {
+          //console.log('the el is ', el);
+          //console.log('The count is ',);
+          let count = feature.properties['ACS_13_5YR_B01001_with_ann_HD01_VD06']
+          //return {color:'rgb(' + count + ',' + count + ',' + count + ')'}
+          //return {color: 'rgba(0,0,0,0.9'}
+          var opacity = count/200;
+          console.log(opacity);
+          return {color: 'rgba(255,0,0,0.9', "fillOpacity": opacity}
+          //return {color: 'rgb(100,100,200)'}
+        }(this,feature,layer));
+        layer.on("mouseover", function(e) {
+          let target = e.target;
+          let count = e.sourceTarget.feature.properties['ACS_13_5YR_B01001_with_ann_HD01_VD06']
+          // target.setStyle({
+          //   color: "red"
+          // });
+          //console.log(e);
+          popup.setLatLng(e.latlng)
+              .setContent('Hello John ' + count )
+              .openOn(that.mainMap);
+        });
+        layer.on("mouseout", function(e) {
+          // mainLayer.resetStyle(this);
+        });
+      }.bind(this)
+    }).addTo(that.mainMap);
 
     //let latLonPoint = new L.LatLng(40.7127837, -74.0059413);
 
@@ -196,24 +160,19 @@ export default {
   },
 
   methods: {
-
-
-    onResize(event) {
-    },
-    adjustPan() {
-    },
+    onResize(event) {},
+    adjustPan() {},
     adjustDimensions() {
-       this.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.8;
-       this.cHeight =
-         document.getElementsByTagName("html")[0].clientHeight * 0.8;
+      this.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.8;
+      this.cHeight =
+        document.getElementsByTagName("html")[0].clientHeight * 0.8;
 
-       document.getElementById("world").style.height = this.cHeight + "px";
-       document.getElementById("world").style.width = this.cWidth + "px";
+      document.getElementById("world").style.height = this.cHeight + "px";
+      document.getElementById("world").style.width = this.cWidth + "px";
 
       d3.select("#world")
-         .attr("height", this.cHeight)
-         .attr("width", this.cWidth);
-
+        .attr("height", this.cHeight)
+        .attr("width", this.cWidth);
     },
     getPXFromLat(latLng) {
       let latLonPoint = new L.LatLng(latLng.lat, latLng.lng);
@@ -222,10 +181,29 @@ export default {
     getPXFromLng(latLng) {
       let latLonPoint = new L.LatLng(latLng.lat, latLng.lng);
       return this.mainMap.latLngToLayerPoint(latLonPoint).y;
-    }
+    },
 
+    getTotalPopulation(targetKey) {
+      let features = this.bcData.features;
+      this.totalPopulation = 0;
+      features.forEach(element => {
+        let amount = element.properties[targetKey];
+        this.totalPopulation += +amount;
+      });
+     // console.log(this.totalPopulation);
+      
+    },
 
-
+    getTargetPopulation(targetKey) {
+      let features = this.bcData.features;
+      let total = 0;
+      features.forEach(element => {
+        let amount = element.properties[targetKey];
+        total += +amount;
+      });
+      //console.log(total);
+      return total;
+    } 
   }
 };
 </script>
