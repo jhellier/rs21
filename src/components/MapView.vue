@@ -204,7 +204,7 @@ export default {
             return count;
           })
           var opacity = count/(that.selectedAges.length * 200);
-          return {color: 'rgba(255,0,0,0.9', "fillOpacity": opacity}
+          return {color: 'rgba(0,215,0,0.8', "fillOpacity": opacity}
           
         }(that, featureLayer));
       })

@@ -38,14 +38,16 @@
         </div>
         <div class="selectBlock">        
             <span class="selectLabel">Earnings</span>
-            <select id="TransportSelect" v-model="selectedEarnings" @change="selectedEarn">
+            <select id="EarningsSelect" v-model="selectedEarnings" @change="selectedEarn">
                     <option v-for="option in optionsEarnings" v-bind:key="option.value" v-bind:value="option.value">
                         {{ option.text }}
                     </option>    
             </select>
         </div>
         </div>
+        <div class="filterButtons"> 
         <button id="clearSelection" @click="clearSelections">Clear</button>
+        </div>
 
     </div>       
 </template>
@@ -104,7 +106,7 @@ export default {
     selectedEarn: function(event) {
       console.log(event.currentTarget.value);
       let msg = {};
-      msg.meta = event.currentTarget.id.split("Select")[0];
+      msg.meta = '';
       msg.value = event.currentTarget.value;
       msg.label = event.currentTarget.selectedOptions[0].label;
       this.selectedList.push(msg);
@@ -158,11 +160,17 @@ button {
 }
 
 .selectBlock {
-  padding: 10px;
+  margin: 10px;
 }
 
 .filterViewHeader {
     text-align: center;
+}
+
+.filterButtons {
+    font-size: 14px;
+    padding: 10px;
+    margin-top: 20px;
 }
 
 .textNoWrap {
