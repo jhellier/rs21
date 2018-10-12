@@ -5,7 +5,7 @@
         </div>    
         <div>
         <div class="selectBlock">
-            <span class="ageLabel">Male Age</span>
+            <span class="selectLabel">Male Age</span>
             <select id="MaleAgeSelect" v-model="selectedM" @change="selectedAgeBand">
                     <option v-for="option in optionsM" v-bind:key="option.value" v-bind:value="option.value">
                         {{ option.text }}
@@ -13,9 +13,17 @@
             </select>
         </div>
         <div class="selectBlock">        
-            <span class="ageLabel">Female Age</span>
+            <span class="selectLabel">Female Age</span>
             <select id="FemaleAgeSelect" v-model="selectedF" @change="selectedAgeBand">
                     <option v-for="option in optionsF" v-bind:key="option.value" v-bind:value="option.value">
+                        {{ option.text }}
+                    </option>    
+            </select>
+        </div>
+        <div class="selectBlock">        
+            <span class="selectLabel">Transport</span>
+            <select id="TransportationSelect" v-model="selectedTransportation" @change="selectedTransport">
+                    <option v-for="option in optionsTransportation" v-bind:key="option.value" v-bind:value="option.value">
                         {{ option.text }}
                     </option>    
             </select>
@@ -37,9 +45,11 @@ export default {
     return {
       selectedM: "",
       selectedF: "",
+      selectedTransportation: "",
       filePlace: this.fileLocation,
-      optionsM: loadSelect("data/lookups/B01001_Male.csv"),
-      optionsF: loadSelect("data/lookups/B01001_Female.csv"),
+      optionsM: loadSelect("data/lookups/B01001_Age_Male.csv"),
+      optionsF: loadSelect("data/lookups/B01001_Age_Female.csv"),
+      optionsTransportation: loadSelect("data/lookups/B08301_Transportation.csv"),
       selectedList: []
     };
   },
@@ -53,6 +63,9 @@ export default {
       this.selectedList.push(msg);
       EventBus.$emit("selectionChange", this.selectedList);
     },
+    selectedTransport: function(event) {
+        console.log(event.currentTarget.value);
+    },
     clearSelections: function(event) {
       this.selectedList = [];
       this.selectedM = "";
@@ -62,9 +75,9 @@ export default {
   }
 };
 
-function loadSelect(gender) {
+function loadSelect(file) {
   let selectArray = [];
-  d3.csv(gender, function(d) {
+  d3.csv(file, function(d) {
     return {
       key: d.key,
       value: d.value,
@@ -91,7 +104,7 @@ button {
   border-radius: 5px;
 }
 
-.ageLabel {
+.selectLabel {
   padding: 5px;
   font-size: 14px;
   white-space: nowrap;
