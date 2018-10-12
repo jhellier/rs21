@@ -21,6 +21,16 @@
             </select>
         </div>
         <div class="selectBlock">        
+            <span class="selectLabel">Median Age</span>
+            <select id="MedianAgeSelect" v-model="selectedMedian" @change="selectedMedAge">
+                    <option v-for="option in optionsMedianAge" v-bind:key="option.value" v-bind:value="option.value">
+                        {{ option.text }}
+                    </option>    
+            </select>
+        </div>
+    
+
+        <div class="selectBlock">        
             <span class="selectLabel">Transport</span>
             <select id="TransportSelect" v-model="selectedTransportation" @change="selectedTransport">
                     <option v-for="option in optionsTransportation" v-bind:key="option.value" v-bind:value="option.value">
@@ -67,8 +77,10 @@ export default {
       selectedTransportation: "",
       selectedHousehold: "",
       selectedEarnings: "",      
+      selectedMedianAge: "",
       optionsM: loadSelect("data/lookups/B01001_Age_Male.csv"),
       optionsF: loadSelect("data/lookups/B01001_Age_Female.csv"),
+      optionsMedianAge: loadSelect("data/lookups/B01002_Median_Age.csv"),
       optionsTransportation: loadSelect("data/lookups/B08301_Transportation.csv"),
       optionsHousehold: loadSelect('data/lookups/B11001_Household.csv'),
       optionsEarnings: loadSelect('data/lookups/B19051_earnings.csv'),
@@ -80,6 +92,15 @@ export default {
       console.log(event.currentTarget.value);
       let msg = {};
       msg.meta = event.currentTarget.id.split("Age")[0];
+      msg.value = event.currentTarget.value;
+      msg.label = event.currentTarget.selectedOptions[0].label;
+      this.selectedList.push(msg);
+      EventBus.$emit("selectionChange", this.selectedList);
+    },
+    selectedMedAge: function(event) {
+      console.log(event.currentTarget.value);
+      let msg = {};
+      msg.meta = event.currentTarget.id.split("Select")[0];
       msg.value = event.currentTarget.value;
       msg.label = event.currentTarget.selectedOptions[0].label;
       this.selectedList.push(msg);
@@ -111,6 +132,9 @@ export default {
       msg.label = event.currentTarget.selectedOptions[0].label;
       this.selectedList.push(msg);
       EventBus.$emit("selectionChange", this.selectedList);
+    },
+    selectMedianAge: function(event) {
+        console.log(event.currentTarget.value);
     },
     clearSelections: function(event) {
       this.selectedList = [];
@@ -171,6 +195,11 @@ button {
     font-size: 14px;
     padding: 10px;
     margin-top: 20px;
+}
+
+.radioCenter {
+    padding-left: 50px;
+    white-space: nowrap;
 }
 
 .textNoWrap {
