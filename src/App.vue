@@ -93,7 +93,7 @@ export default {
 }
 @media (min-width: 700px) {
   .wrapper {
-    grid-template-columns: 4fr 1fr;
+    grid-template-columns: 5fr 2fr;
     grid-template-areas: 
       "header header"
       "content sidebar"

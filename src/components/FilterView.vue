@@ -28,6 +28,22 @@
                     </option>    
             </select>
         </div>
+        <div class="selectBlock">        
+            <span class="selectLabel">Household</span>
+            <select id="HouseholdSelect" v-model="selectedHousehold" @change="selectedHouse">
+                    <option v-for="option in optionsHousehold" v-bind:key="option.value" v-bind:value="option.value">
+                        {{ option.text }}
+                    </option>    
+            </select>
+        </div>
+        <div class="selectBlock">        
+            <span class="selectLabel">Earnings</span>
+            <select id="TransportSelect" v-model="selectedEarnings" @change="selectedEarn">
+                    <option v-for="option in optionsEarnings" v-bind:key="option.value" v-bind:value="option.value">
+                        {{ option.text }}
+                    </option>    
+            </select>
+        </div>
         </div>
         <button id="clearSelection" @click="clearSelections">Clear</button>
 
@@ -38,18 +54,22 @@
 import * as d3 from "d3";
 import { EventBus } from "../main.js";
 
+
+
 export default {
   name: "select1",
-  props: { fileLocation: String },
   data() {
     return {
       selectedM: "",
       selectedF: "",
       selectedTransportation: "",
-      filePlace: this.fileLocation,
+      selectedHousehold: "",
+      selectedEarnings: "",      
       optionsM: loadSelect("data/lookups/B01001_Age_Male.csv"),
       optionsF: loadSelect("data/lookups/B01001_Age_Female.csv"),
       optionsTransportation: loadSelect("data/lookups/B08301_Transportation.csv"),
+      optionsHousehold: loadSelect('data/lookups/B11001_Household.csv'),
+      optionsEarnings: loadSelect('data/lookups/B19051_earnings.csv'),
       selectedList: []
     };
   },
@@ -72,11 +92,31 @@ export default {
       this.selectedList.push(msg);
       EventBus.$emit("selectionChange", this.selectedList);
     },
+    selectedHouse: function(event) {
+      console.log(event.currentTarget.value);
+      let msg = {};
+      msg.meta = event.currentTarget.id.split("Select")[0];
+      msg.value = event.currentTarget.value;
+      msg.label = event.currentTarget.selectedOptions[0].label;
+      this.selectedList.push(msg);
+      EventBus.$emit("selectionChange", this.selectedList);
+    },
+    selectedEarn: function(event) {
+      console.log(event.currentTarget.value);
+      let msg = {};
+      msg.meta = event.currentTarget.id.split("Select")[0];
+      msg.value = event.currentTarget.value;
+      msg.label = event.currentTarget.selectedOptions[0].label;
+      this.selectedList.push(msg);
+      EventBus.$emit("selectionChange", this.selectedList);
+    },
     clearSelections: function(event) {
       this.selectedList = [];
       this.selectedM = "";
       this.selectedF = "";
       this.selectedTransportation = "";
+      this.selectedHousehold = "";
+      this.selectedEarnings = "";
       EventBus.$emit("selectionChange", this.selectedList);
     }
   }
