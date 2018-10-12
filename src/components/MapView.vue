@@ -54,9 +54,9 @@ export default {
       that.selectedAges = msg;
 
       if (msg.length != 0)
-        that.resetLayer(true);
+        that.clearLayer(false);
       else 
-        that.resetLayer(false);  
+        that.clearLayer(true);  
      });
 
     that.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.8;
@@ -67,7 +67,6 @@ export default {
     document.getElementById("world").style.width = that.cWidth + "px";
 
     that.mainMap = L.map("world").setView([35.1740721, -106.594435], 12);
-    //that.mainMap = L.map("world").setView([0, 0], 2);
 
     L.tileLayer(
       "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
@@ -183,11 +182,11 @@ export default {
       return total;
     },
     
-    resetLayer(notClear) {
+    clearLayer(clear) {
       let that = this;
       this.mainLayer.eachLayer(function(featureLayer) {
         featureLayer.setStyle(function(el,feature) {
-          if (!notClear) {
+          if (clear) {
             return {color: '#8cc48b', fillOpacity: 0.2};
             //that.mainLayer.resetStyle();
           }

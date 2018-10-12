@@ -3,7 +3,7 @@
         <button id="clearSelection" @click="clearSelections">Clear</button>
 <div class="selectBlock">
         <span class="ageLabel">Male Age</span>
-        <select v-model="selectedM" @change="selectedChallenge">
+        <select v-model="selectedM" @change="selectedAgeBand">
                 <option v-for="option in optionsM" v-bind:key="option.value" v-bind:value="option.value">
                     {{ option.text }}
                 </option>    
@@ -11,7 +11,7 @@
 </div>
 <div class="selectBlock">        
         <span class="ageLabel">Female Age</span>
-        <select v-model="selectedF" @change="selectedChallenge">
+        <select v-model="selectedF" @change="selectedAgeBand">
                 <option v-for="option in optionsF" v-bind:key="option.value" v-bind:value="option.value">
                     {{ option.text }}
                 </option>    
@@ -38,10 +38,11 @@ export default {
             }
         },
         methods: {
-            selectedChallenge: function(event) {
+            selectedAgeBand: function(event) {
                 console.log(event.currentTarget.value);
                 let msg = {};
-                msg.value = 'B01001-' + event.currentTarget.value;
+                msg.meta = 'Male';
+                msg.value = event.currentTarget.value;
                 msg.label = event.currentTarget.selectedOptions[0].label;
                 this.selectedList.push(msg);
                 EventBus.$emit('selectionChange', this.selectedList);
