@@ -94,6 +94,7 @@ button {
 .ageLabel {
   padding: 5px;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .selectBlock {
@@ -102,5 +103,9 @@ button {
 
 .filterViewHeader {
     text-align: center;
+}
+
+.textNoWrap {
+    white-space: nowrap;
 }
 </style>
