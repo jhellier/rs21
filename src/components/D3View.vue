@@ -96,6 +96,11 @@ export default {
 
     let popup = L.popup();
     
+
+    that.selectedAges = ['B01001-HD01_VD06',
+                        'B01001-HD01_VD07',
+                        'B01001-HD01_VD08'];
+
     let mainLayer = L.geoJSON(bcData.features, {
       // style: {
       //   color: 'green'
@@ -103,17 +108,21 @@ export default {
       
       onEachFeature: function(feature, layer) {
         layer.setStyle(function(el,feature,layer) {
-          let count = feature.properties['B01001-HD01_VD06']
-          var opacity = count/200;
+          //let count = feature.properties['B01001-HD01_VD06']
+          let count = 0;
+          that.selectedAges.forEach(element => count += +feature.properties[element])
+          var opacity = count/(that.selectedAges.length * 200);
           return {color: 'rgba(255,0,0,0.9', "fillOpacity": opacity}
         }(this,feature,layer));
         layer.on("mouseover", function(e) {
           let target = e.target;
-          let count = e.sourceTarget.feature.properties['B01001-HD01_VD06']
+//          let count = e.sourceTarget.feature.properties['B01001-HD01_VD06']
           // target.setStyle({
           //   color: "red"
           // });
           //console.log(e);
+          let count = 0;
+          that.selectedAges.forEach(element => count += +e.sourceTarget.feature.properties[element])
           popup.setLatLng(e.latlng)
               .setContent('Hello John ' + count )
               .openOn(that.mainMap);

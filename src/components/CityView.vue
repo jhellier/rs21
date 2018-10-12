@@ -207,7 +207,7 @@ export default {
 }
 
 .nodes circle {
-  stroke: rgb(90, 89, 89);
+  stroke: rgb(71, 69, 69);
   stroke-width: 1.5px;
 }
 
