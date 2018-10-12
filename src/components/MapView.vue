@@ -5,7 +5,7 @@
         <div id='world'>
           <ul id="selectedAges" class="selectedAges">
             <li v-for="age in selectedAges" v-bind:key="age.label">
-              {{ age.label }}
+              {{ age.meta + " " + age.label }}
             </li>
           </ul>           
         </div>    
@@ -95,9 +95,17 @@ export default {
         layer.on("mouseover", function(e) {
           let target = e.target;
           let count = 0;
-          that.selectedAges.forEach(element => count += +e.sourceTarget.feature.properties[element.value])
+          let popupText = '';
+          that.selectedAges.forEach(function(element) {
+            count += +e.sourceTarget.feature.properties[element.value];
+            popupText += '<div>' + element.meta 
+                            + ' ' + element.label 
+                            + ' ' + +e.sourceTarget.feature.properties[element.value]
+                            + '</div>';
+          })
+          let popupHeader = "<div class='popupHeader'>Total Count For Section: " + count + '</div>'; 
           popup.setLatLng(e.latlng)
-              .setContent('Hello John ' + count )
+              .setContent("<div class='popupBody'>" + popupHeader + popupText + '</div>')
               .openOn(that.mainMap);
         });
         layer.on("mouseout", function(e) {
@@ -221,5 +229,14 @@ export default {
   opacity: 0.5;
   list-style-type: none;
   text-align: right;
-} 
+}
+
+.popupHeader {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.popupBody {
+  font-size: 12px;
+}
 </style>
