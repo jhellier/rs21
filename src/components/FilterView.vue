@@ -21,8 +21,8 @@
             </select>
         </div>
         <div class="selectBlock">        
-            <span class="selectLabel">Transport</span>
-            <select id="TransportationSelect" v-model="selectedTransportation" @change="selectedTransport">
+            <span class="selectLabel">Transportation</span>
+            <select id="TransportSelect" v-model="selectedTransportation" @change="selectedTransport">
                     <option v-for="option in optionsTransportation" v-bind:key="option.value" v-bind:value="option.value">
                         {{ option.text }}
                     </option>    
@@ -64,7 +64,13 @@ export default {
       EventBus.$emit("selectionChange", this.selectedList);
     },
     selectedTransport: function(event) {
-        console.log(event.currentTarget.value);
+      console.log(event.currentTarget.value);
+      let msg = {};
+      msg.meta = event.currentTarget.id.split("Select")[0];
+      msg.value = event.currentTarget.value;
+      msg.label = event.currentTarget.selectedOptions[0].label;
+      this.selectedList.push(msg);
+      EventBus.$emit("selectionChange", this.selectedList);
     },
     clearSelections: function(event) {
       this.selectedList = [];
