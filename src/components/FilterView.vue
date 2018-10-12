@@ -40,13 +40,17 @@ export default {
         methods: {
             selectedChallenge: function(event) {
                 console.log(event.currentTarget.value);
-                this.selectedList.push(event.currentTarget.selectedOptions[0].label);
+                let msg = {};
+                msg.value = 'B01001-' + event.currentTarget.value;
+                msg.label = event.currentTarget.selectedOptions[0].label;
+                this.selectedList.push(msg);
                 EventBus.$emit('whatJohn', this.selectedList);
 
             },
             clearSelections: function(event) {
                 this.selectedList = [];
-                this.selected = '';
+                this.selectedM = '';
+                this.selectedF = '';
                 EventBus.$emit('whatJohn', this.selectedList);
             }
         }

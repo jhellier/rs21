@@ -3,9 +3,9 @@
     <div class="map-view"> 
        <div>
         <div id='world'>
-          <ul id="selectedChallenges" class="selectedChallenges">
-            <li v-for="challenge in selectedChallenges" v-bind:key="challenge">
-              {{ challenge }}
+          <ul id="selectedAges" class="selectedAges">
+            <li v-for="age in selectedAges" v-bind:key="age.label">
+              {{ age.label }}
             </li>
           </ul>           
         </div>    
@@ -37,12 +37,12 @@ export default {
       rsCities: [],
       cWidth: {},
       cHeight: {},
-      selectedChallenges: [],
-      challengeLU: {},
       allCities: [],
+      selectedAges: [],
       filteredCities: [],
       totalPopulation: {},
-      totalTargetPopulation: {}
+      totalTargetPopulation: {},
+      mainLayer: {}
     };
   },
 
@@ -65,14 +65,13 @@ export default {
       if (log) {
         console.log(" This is ", msg);
       }
-      that.selectedChallenges = msg;
-      //this.getFilteredCityArray(['disease-outbreak']);
-    //   if (msg.length == 0) {
-    //     this.loadCities(this.allCities);
-    //     this.filteredCities = [];
-    //   } else {
-    //     this.getFilteredCityArray(msg);
-    //   }
+      that.selectedAges = msg;
+      // Apply the array of msg values to update the map.
+      // iterating over msg for each element get element.value to apply the age band to the map.
+      if (msg.length != 0)
+        that.resetLayer(true);
+      else 
+        that.resetLayer(false);  
      });
 
     that.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.8;
@@ -103,11 +102,11 @@ export default {
     let popup = L.popup();
     
 
-    that.selectedAges = ['B01001-HD01_VD06',
-                        'B01001-HD01_VD07',
-                        'B01001-HD01_VD08'];
+    // that.selectedAges = ['B01001-HD01_VD06',
+    //                     'B01001-HD01_VD07',
+    //                     'B01001-HD01_VD08'];
 
-    let mainLayer = L.geoJSON(bcData.features, {
+    that.mainLayer = L.geoJSON(bcData.features, {
       // style: {
       //   color: 'green'
       // },
@@ -118,7 +117,10 @@ export default {
           let count = 0;
           that.selectedAges.forEach(element => count += +feature.properties[element])
           var opacity = count/(that.selectedAges.length * 200);
-          return {color: 'rgba(255,0,0,0.9', "fillOpacity": opacity}
+          if (count != 0) {
+              return {color: 'rgba(255,0,0,0.9', "fillOpacity": opacity}
+          }
+          
         }(this,feature,layer));
         layer.on("mouseover", function(e) {
           let target = e.target;
@@ -128,7 +130,7 @@ export default {
           // });
           //console.log(e);
           let count = 0;
-          that.selectedAges.forEach(element => count += +e.sourceTarget.feature.properties[element])
+          that.selectedAges.forEach(element => count += +e.sourceTarget.feature.properties[element.value])
           popup.setLatLng(e.latlng)
               .setContent('Hello John ' + count )
               .openOn(that.mainMap);
@@ -214,7 +216,26 @@ export default {
       });
       //console.log(total);
       return total;
-    } 
+    },
+    
+    resetLayer(notClear) {
+      let that = this;
+      this.mainLayer.eachLayer(function(featureLayer) {
+        featureLayer.setStyle(function(el,feature) {
+          if (!notClear) {
+            return {color: 'blue', fillOpacity: 0.2};
+          }
+          let count = 0;
+          that.selectedAges.forEach(function(element) {
+            count += +feature.feature.properties[element.value];;
+            return count;
+          })
+          var opacity = count/(that.selectedAges.length * 200);
+          return {color: 'rgba(255,0,0,0.9', "fillOpacity": opacity}
+          
+        }(that, featureLayer));
+      })
+    }
   }
 };
 </script>
@@ -226,7 +247,7 @@ export default {
   margin-left: 10px;
 }
 
- .selectedChallenges {
+ .selectedAges {
   z-index: 1000;
   position: absolute;
   right: 30px;
