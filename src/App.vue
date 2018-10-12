@@ -4,13 +4,12 @@
 
 <div id="mainPage" class="wrapper">
         <header class="main-head">RS21 Code Challenge</header>
-           <D3View/>
+           <MapView/>
 
-        <aside class="side">Sidebar</aside>
+        <aside class="side">
+          <FilterView fileLocation="data/lookups/B01001_lookup.csv"/>
+        </aside>
         <footer class="main-footer">
-            <div id="challengeSelect">
-            </div>
-                  
         </footer>
 </div>
 
@@ -19,15 +18,15 @@
 </template>
 
 <script>
-import CityView from './components/CityView.vue'
-import D3View from './components/D3View.vue'
+import MapView from './components/MapView.vue'
 import HelloWorld from './components/HelloWorld.vue'
+import FilterView from './components/FilterView.vue'
 
 export default {
   name: 'mainPage',
   components: {
-    CityView,
-    D3View,
+    MapView,
+    FilterView,
     HelloWorld
   }
 }
@@ -80,9 +79,9 @@ export default {
     "footer";
 }
 
-#challengeSelect {
+/* #challengeSelect {
   float: right;
-}
+} */
 
 @media (min-width: 500px) {
   .wrapper {

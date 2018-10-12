@@ -1,6 +1,6 @@
 
 <template>
-    <div class="d3-view"> 
+    <div class="map-view"> 
        <div>
         <div id='world'>
         </div>    
@@ -18,7 +18,7 @@ import bcData from "../../public/data/BernallioCensusBlocks_Joined.json";
 let log = true;
 
 export default {
-  name: "d3-view",
+  name: "map-view",
 
   props: {},
 
