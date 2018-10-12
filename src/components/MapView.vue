@@ -148,7 +148,7 @@ export default {
     },
     adjustPan() {},
     adjustDimensions() {
-      this.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.8;
+      this.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.7;
       this.cHeight =
         document.getElementsByTagName("html")[0].clientHeight * 0.8;
 

@@ -93,15 +93,13 @@ export default {
 }
 @media (min-width: 700px) {
   .wrapper {
-    grid-template-columns: 5fr 2fr;
+    grid-template-columns: 3fr 1fr;
     grid-template-areas: 
       "header header"
       "content sidebar"
-      "footer sidebar"
+      "footer footer"
    }
-   nav ul {
-     flex-direction: column;
-   }
+
 }
 
 
