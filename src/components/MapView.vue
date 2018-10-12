@@ -47,13 +47,12 @@ export default {
      that.totalTargetPopulation = that.getTargetPopulation('B01001-HD01_VD06');
    
 
-    EventBus.$on("whatJohn", msg => {
+    EventBus.$on("selectionChange", msg => {
       if (log) {
         console.log(" This is ", msg);
       }
       that.selectedAges = msg;
-      // Apply the array of msg values to update the map.
-      // iterating over msg for each element get element.value to apply the age band to the map.
+
       if (msg.length != 0)
         that.resetLayer(true);
       else 

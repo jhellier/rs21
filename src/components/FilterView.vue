@@ -44,14 +44,14 @@ export default {
                 msg.value = 'B01001-' + event.currentTarget.value;
                 msg.label = event.currentTarget.selectedOptions[0].label;
                 this.selectedList.push(msg);
-                EventBus.$emit('whatJohn', this.selectedList);
+                EventBus.$emit('selectionChange', this.selectedList);
 
             },
             clearSelections: function(event) {
                 this.selectedList = [];
                 this.selectedM = '';
                 this.selectedF = '';
-                EventBus.$emit('whatJohn', this.selectedList);
+                EventBus.$emit('selectionChange', this.selectedList);
             }
         }
 }
