@@ -40,7 +40,7 @@ export default {
         methods: {
             selectedChallenge: function(event) {
                 console.log(event.currentTarget.value);
-                this.selectedList.push(event.currentTarget.value);
+                this.selectedList.push(event.currentTarget.selectedOptions[0].label);
                 EventBus.$emit('whatJohn', this.selectedList);
 
             },

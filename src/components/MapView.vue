@@ -3,6 +3,11 @@
     <div class="map-view"> 
        <div>
         <div id='world'>
+          <ul id="selectedChallenges" class="selectedChallenges">
+            <li v-for="challenge in selectedChallenges" v-bind:key="challenge">
+              {{ challenge }}
+            </li>
+          </ul>           
         </div>    
        </div> 
     </div>
@@ -51,7 +56,8 @@ export default {
 
   mounted() {
     var that = this;
-    that.totalTargetPopulation = that.getTargetPopulation('B01001-HD01_VD06');
+
+     that.totalTargetPopulation = that.getTargetPopulation('B01001-HD01_VD06');
     //this.getTotalPopulation('ACS_13_5YR_B01001_with_ann_HD01_VD01');
     
 
@@ -61,13 +67,13 @@ export default {
       }
       that.selectedChallenges = msg;
       //this.getFilteredCityArray(['disease-outbreak']);
-      if (msg.length == 0) {
-        this.loadCities(this.allCities);
-        this.filteredCities = [];
-      } else {
-        this.getFilteredCityArray(msg);
-      }
-    });
+    //   if (msg.length == 0) {
+    //     this.loadCities(this.allCities);
+    //     this.filteredCities = [];
+    //   } else {
+    //     this.getFilteredCityArray(msg);
+    //   }
+     });
 
     that.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.8;
     that.cHeight = document.getElementsByTagName("html")[0].clientHeight * 0.8;
@@ -163,7 +169,9 @@ export default {
   },
 
   methods: {
-    onResize(event) {},
+    onResize(event) {
+      this.adjustDimensions();
+    },
     adjustPan() {},
     adjustDimensions() {
       this.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.8;
@@ -218,7 +226,7 @@ export default {
   margin-left: 10px;
 }
 
-/* .selectedChallenges {
+ .selectedChallenges {
   z-index: 1000;
   position: absolute;
   right: 30px;
@@ -227,5 +235,5 @@ export default {
   opacity: 0.5;
   list-style-type: none;
   text-align: right;
-} */
+} 
 </style>
