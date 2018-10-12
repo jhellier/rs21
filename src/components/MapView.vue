@@ -29,37 +29,23 @@ export default {
 
   data() {
     return {
-      color: "orange",
-      data: {},
       bcData,
       mainMap: {},
+      mainLayer: {},
       gMap: {},
-      rsCities: [],
       cWidth: {},
       cHeight: {},
-      allCities: [],
       selectedAges: [],
-      filteredCities: [],
       totalPopulation: {},
-      totalTargetPopulation: {},
-      mainLayer: {}
+      totalTargetPopulation: {}
     };
   },
-
-  computed: {
-    // runIt: function() {
-    //   console.log("Hello there John ", this);
-    // }
-  },
-
-  beforeMount() {},
 
   mounted() {
     var that = this;
 
      that.totalTargetPopulation = that.getTargetPopulation('B01001-HD01_VD06');
-    //this.getTotalPopulation('ACS_13_5YR_B01001_with_ann_HD01_VD01');
-    
+   
 
     EventBus.$on("whatJohn", msg => {
       if (log) {
@@ -124,12 +110,12 @@ export default {
 
     //let latLonPoint = new L.LatLng(40.7127837, -74.0059413);
 
-    L.svg().addTo(that.mainMap);
+    // L.svg().addTo(that.mainMap);
 
-    that.gMap = d3
-      .select("#world")
-      .select("svg")
-      .append("g");
+    // that.gMap = d3
+    //   .select("#world")
+    //   .select("svg")
+    //   .append("g");
 
     that.adjustDimensions();
 
@@ -148,7 +134,6 @@ export default {
 
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize);
-    this.data = {};
   },
 
   methods: {
