@@ -22,7 +22,7 @@
         </div>
         <div class="selectBlock">        
             <span class="selectLabel">Median Age</span>
-            <select id="MedianAgeSelect" v-model="selectedMedian" @change="selectedMedAge">
+            <select id="MedianAgeSelect" v-model="selectedMedianAge" @change="selectedMedAge">
                     <option v-for="option in optionsMedianAge" v-bind:key="option.value" v-bind:value="option.value">
                         {{ option.text }}
                     </option>    
@@ -140,6 +140,7 @@ export default {
       this.selectedList = [];
       this.selectedM = "";
       this.selectedF = "";
+      this.selectedMedianAge = "";
       this.selectedTransportation = "";
       this.selectedHousehold = "";
       this.selectedEarnings = "";
