@@ -51,7 +51,7 @@ export default {
 
   mounted() {
     var that = this;
-    that.totalTargetPopulation = that.getTargetPopulation('ACS_13_5YR_B01001_with_ann_HD01_VD06');
+    that.totalTargetPopulation = that.getTargetPopulation('B01001-HD01_VD06');
     //this.getTotalPopulation('ACS_13_5YR_B01001_with_ann_HD01_VD01');
     
 
@@ -103,19 +103,13 @@ export default {
       
       onEachFeature: function(feature, layer) {
         layer.setStyle(function(el,feature,layer) {
-          //console.log('the el is ', el);
-          //console.log('The count is ',);
-          let count = feature.properties['ACS_13_5YR_B01001_with_ann_HD01_VD06']
-          //return {color:'rgb(' + count + ',' + count + ',' + count + ')'}
-          //return {color: 'rgba(0,0,0,0.9'}
+          let count = feature.properties['B01001-HD01_VD06']
           var opacity = count/200;
-          console.log(opacity);
           return {color: 'rgba(255,0,0,0.9', "fillOpacity": opacity}
-          //return {color: 'rgb(100,100,200)'}
         }(this,feature,layer));
         layer.on("mouseover", function(e) {
           let target = e.target;
-          let count = e.sourceTarget.feature.properties['ACS_13_5YR_B01001_with_ann_HD01_VD06']
+          let count = e.sourceTarget.feature.properties['B01001-HD01_VD06']
           // target.setStyle({
           //   color: "red"
           // });
