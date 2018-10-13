@@ -1,8 +1,14 @@
 <template>
     <div id='sidebar'>
         <div class="filterButtons"> 
-           <font-awesome-icon :icon="['fab','facebook']" class="iconStyle" style="color: blue"/>
-           <font-awesome-icon :icon="['fab','twitter']" class="iconStyle" style="color: lightblue"/>
+          <span id="facebookToggle">
+              <font-awesome-icon :icon="['fab','facebook']" class="iconStyle" style="color: blue"/>
+          </span>
+          <span id="twitterToggle" @click="clickedIt">
+              <font-awesome-icon :icon="['fab','twitter']" class="iconStyle" style="color: lightblue"/>
+          </span>  
+           
+           
         </div>
        <div id="tabPanel">
            <b-tabs>
@@ -187,9 +193,14 @@ export default {
       this.selectedHousehold = "";
       this.selectedEarnings = "";
       EventBus.$emit("selectionChange", this.selectedList);
+    },
+
+    clickedIt: function(event) {
+        console.log('Clicked it');
     }
   }
 };
+
 
 function loadSelect(file) {
   let selectArray = [];
@@ -226,6 +237,10 @@ function loadSelect(file) {
     margin-left: 5px;
     font-size: 30px;
     float: right;
+}
+
+.iconStyledGreyed {
+    opacity: 0.3;
 }
 
 select {
