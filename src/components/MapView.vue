@@ -104,6 +104,25 @@ that.div = d3.select("body").append("div")
       onEachFeature: function(feature, layer) {
         layer.setStyle({color: '#8cc48b' , fillOpacity: 0.2})          
         layer.on("mouseover", function(e) {
+          // let target = e.target;
+          // let count = 0;
+          // let popupText = '';
+          // that.selectedAges.forEach(function(element) {
+          //   count += +e.sourceTarget.feature.properties[element.value];
+          //   popupText += '<div>' + element.meta 
+          //                   + ' ' + element.label 
+          //                   + ' ' + +e.sourceTarget.feature.properties[element.value]
+          //                   + '</div>';
+          // })
+          // let popupHeader = "<div class='popupHeader'>Total Count For Section: " + count + '</div>'; 
+          // // popup.setLatLng(e.latlng)
+          //     .setContent("<div class='popupBody'>" + popupHeader + popupText + '</div>')
+          //     .openOn(that.mainMap);
+        });
+        layer.on("mouseout", function(e) {
+          // mainLayer.resetStyle(this);
+        });
+        layer.on('click', function(e) {
           let target = e.target;
           let count = 0;
           let popupText = '';
@@ -115,13 +134,13 @@ that.div = d3.select("body").append("div")
                             + '</div>';
           })
           let popupHeader = "<div class='popupHeader'>Total Count For Section: " + count + '</div>'; 
+         
+          
           popup.setLatLng(e.latlng)
               .setContent("<div class='popupBody'>" + popupHeader + popupText + '</div>')
               .openOn(that.mainMap);
-        });
-        layer.on("mouseout", function(e) {
-          // mainLayer.resetStyle(this);
-        });
+
+        })
       }.bind(this)
     }).addTo(that.mainMap);
 
@@ -187,20 +206,14 @@ that.div = d3.select("body").append("div")
                 .style("top", (d3.event.pageY - 28) + "px");
           
           
-          console.log(d.place); d3.select(this).style('cursor','pointer')})
+            d3.select(this).style('cursor','pointer')})
         .on('mouseout', function(d) { 
-          console.log('Out now');
-          d3.select(this).style('cursor','default')
-              // d3.select('.toolTip').transition()		
-              //   .duration(500)		
-              //   .style("opacity", 0);	
-          
-          
+
+            d3.select(this).style('cursor','default')
+            d3.select('.toolTip').transition()		
+                .duration(500)		
+                .style("opacity", 0);	
           })
-
-
-
-          
         });
 
     },
@@ -304,15 +317,17 @@ that.div = d3.select("body").append("div")
 div.toolTip {	
     position: absolute;			
     text-align: center;			
-    width: 60px;					
-    height: 28px;					
+    width: 200px;					
+    height: 100px;					
     padding: 2px;				
     font: 12px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
+    background: rgb(218, 220, 223);	
+    border: 1px;
+    border-style: solid;		
     border-radius: 8px;			
     pointer-events: none;	
-    z-index: 2000;		
+    z-index: 2000;
+
 }
 
 </style>
