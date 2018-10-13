@@ -16,6 +16,7 @@
 <script>
 import * as d3 from "d3";
 import { EventBus } from "../main.js";
+//import fbCheckins from "../../public/data/clean/FacebookPlaces_ABQ.csv";
 import bcData from "../../public/data/BernallioCensusBlocks_Joined.json";
 
 /* eslint-disable */
@@ -30,6 +31,7 @@ export default {
   data() {
     return {
       bcData,
+      fbCheckins: [],
       mainMap: {},
       mainLayer: {},
       gMap: {},
@@ -43,8 +45,9 @@ export default {
 
   mounted() {
     var that = this;
+    that.getFacebookCheckins();
 
-     that.totalTargetPopulation = that.getTargetPopulation('B01001-HD01_VD06');
+    that.totalTargetPopulation = that.getTargetPopulation('B01001-HD01_VD06');
    
 
     EventBus.$on("selectionChange", msg => {
@@ -143,6 +146,22 @@ export default {
   },
 
   methods: {
+    getFacebookCheckins() {
+      let that = this;
+      d3.csv("data/clean/FacebookPlaces_ABQ.csv", function(d) {
+          return {
+            place: d.place,
+            bus_type: d.bus_type,
+            checkins: d.checkins,
+            lat: d.lat,
+            lon: d.lon
+          };
+        }).then(function(data) {
+          that.fbCheckins = data;
+          //console.log(that.fbCheckins);            
+        });
+
+    },
     onResize(event) {
       this.adjustDimensions();
     },
