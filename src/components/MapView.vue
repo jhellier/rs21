@@ -1,22 +1,29 @@
 
 <template>
     <div class="map-view"> 
-       <div>
         <div id='world'>
           <ul id="selectedAges" class="selectedAges">
             <li v-for="age in selectedAges" v-bind:key="age.label">
               {{ age.meta + " " + age.label }}
             </li>
-          </ul>           
+          </ul>
         </div>    
-       </div>
     </div>
 </template>
+
+
+
 
 <script>
 import * as d3 from "d3";
 import { EventBus } from "../main.js";
 import bcData from "../../public/data/clean/BernallioCensusBlocks_Joined.json";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faFacebook } from '@fortawesome/free-brands-svg-icons'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faFacebook,faTwitter)
 
 /* eslint-disable */
 
@@ -24,6 +31,13 @@ let log = true;
 
 export default {
   name: "map-view",
+
+  components: {
+    library,
+    faFacebook,
+    faTwitter,
+    FontAwesomeIcon
+  },
 
   data() {
     return {
@@ -402,6 +416,15 @@ export default {
   opacity: 0.5;
   list-style-type: none;
   text-align: right;
+}
+
+#toggleButtonPanel {
+  z-index: 1000;
+  position: absolute;
+  left: 30px;
+  bottom: 20px;
+  font-size: 20px;
+
 }
 
 .popupHeader {

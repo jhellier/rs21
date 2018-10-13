@@ -56,18 +56,17 @@
         </div>
         </div>
         <div class="filterButtons"> 
-        <button id="clearSelection" @click="clearSelections">Clear</button>
+           <button id="clearSelection" @click="clearSelections">Clear</button>
+           <font-awesome-icon :icon="['fab','facebook']" class="iconStyle" style="color: blue"/>
+           <font-awesome-icon :icon="['fab','twitter']" class="iconStyle" style="color: lightblue"/>
+
         </div>
 
-       <div>
+       <div id="tabPanel">
            <b-tabs>
                 <b-tab title="BC Census" active>
                     <div class="tabContent">
-                        <!-- <font-awesome-icon icon="coffee" /> -->
-                        <font-awesome-icon :icon="['fab','facebook']" size="5x" style="color: blue"/>
-                        <font-awesome-icon :icon="['fab','twitter']" />
-
-                        <br>I'm the first fading tab
+                        <br>I'm the first tab
                     </div>                    
                 </b-tab>
                 <b-tab title="Facebook" >
@@ -214,8 +213,18 @@ function loadSelect(file) {
     font-size: 14px;
 }
 
+#tabPanel {
+    margin-top: 20px;
+}
+
 .tabContent {
     font-size: 12px;
+}
+
+.iconStyle {
+    margin-left: 5px;
+    font-size: 30px;
+    float: right;
 }
 
 select {
@@ -227,6 +236,7 @@ button {
   font-size: 14px;
   margin-right: 10px;
   border-radius: 5px;
+  padding-bottom: 5px;
 }
 
 .selectLabel {
