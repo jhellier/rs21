@@ -61,13 +61,13 @@
 
        <div>
            <b-tabs>
-  <b-tab title="first" active>
+  <b-tab title="BC Census" active>
     <br>I'm the first fading tab
   </b-tab>
-  <b-tab title="second" >
+  <b-tab title="Facebook" >
     <br>I'm the second tab content
   </b-tab>
-  <b-tab title="disabled" disabled>
+  <b-tab title="Twitter">
     <br>Disabled tab!
   </b-tab>
 </b-tabs>
@@ -189,6 +189,10 @@ function loadSelect(file) {
 </script>
 
 <style>
+.nav-tabs {
+    font-size: 14px;
+}
+
 select {
   font-size: 14px;
   float: right;
