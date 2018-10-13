@@ -63,6 +63,9 @@ export default {
     // Get the Twitter feeds
     this.getTwitterFeeds();
 
+    // Adds div based tooltips for the facebook checkin and twitter feed elements
+    //this.addTooltipDiv();
+
     // Register an event listener when the Vue component is ready
     window.addEventListener("resize", this.onResize);
   },
@@ -98,7 +101,7 @@ export default {
       ).addTo(that.mainMap);
 
       that.mainMap.on("zoom", that.adjustDimensions);
-      //that.mainMap.on("moveend", that.adjustPan);
+      that.mainMap.on("moveend", that.adjustPan);
 
       let popup = L.popup();
 
@@ -154,6 +157,7 @@ export default {
     // This is a div based tooltip for the Facebook checkins where each
     // checkin location is rendered as a D3 circle element
     addTooltipDiv() {
+      console.log('Tool tip added');
       // Define the div for the tooltip
       this.div = d3
         .select("body")
@@ -224,6 +228,7 @@ export default {
           .data(that.fbCheckins.filter(element => element.checkins > 5000))
           .enter()
           .append("circle")
+          .attr('class','facebookLocations')
           .attr("pointer-events", "visible")
           .attr("r", 5)
           .attr("fill", function(d, i) {
@@ -232,23 +237,20 @@ export default {
           .attr("cx", d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
           .attr("cy", d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
           .on("mouseover", function(d) {
-            d3.selectAll(".toolTip")
-              .style("opacity", 0.9);
-            d3.selectAll(".toolTip")
+            d3.select("body")
+              .append("div")
+              .attr("class", "toolTip")
+              .attr('id','toolTip')
               .html(d.place + "<br>" + d.bus_type)
               .style("left", d3.event.pageX + "px")
               .style("top", d3.event.pageY - 28 + "px");
-
             d3.select(this).style("cursor", "pointer");
           })
           .on("mouseout", function(d) {
-            d3.select(this).style("cursor", "default");
-            d3.select(".toolTip")
-              .style("opacity", 0);
+            d3.selectAll('#toolTip').remove();
+
           });
       });
-     // Adds div based tooltips for the facebook checkin elements
-     that.addTooltipDiv();
 
     },
 
@@ -269,31 +271,29 @@ export default {
         //console.log(that.fbCheckins);
         that.gMap
           .selectAll("rect")
-          //.data(that.twitterFeeds.filter(element => element.checkins > 5000))
           .data(that.twitterFeeds)
           .enter()
           .append("rect")
+          .attr('class','tweetLocations')
           .attr("pointer-events", "visible")
           .attr('x', d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
           .attr('y', d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
           .attr('height',5)
           .attr('width',5)
           .on("mouseover", function(d) {
-            d3.selectAll(".toolTip")
-              .style("opacity", 0.9);
-            d3.selectAll(".toolTip")
+            d3.select("body")
+              .append("div")
+              .attr("class", "toolTip")
+              .attr('id','toolTip')
               .classed('tweetToolTipSizing',true)
-              .html(d.tweet + "<br>" + d.username + "<br>" + d.time)
+                .html(d.tweet + "<br>" + d.username + "<br>" + d.time)
               .style("left", d3.event.pageX + "px")
               .style("top", d3.event.pageY - 28 + "px");
 
             d3.select(this).style("cursor", "pointer");
           })
           .on("mouseout", function(d) {
-            d3.select(this).style("cursor", "default");
-            d3.select(".toolTip")
-              .classed('tweetToolTipSizing',false)
-              .style("opacity", 0);
+            d3.selectAll('#toolTip').remove();
           });
       })          
     },
@@ -375,6 +375,13 @@ export default {
           })(that, featureLayer)
         );
       });
+    },
+
+    adjustPan() {
+      this.gMap.selectAll('.tweetLocations').remove();
+      this.gMap.selectAll('.facebookLocations').remove();
+      this.getFacebookCheckins();
+      this.getTwitterFeeds();
     },
 
     // This is a utility function that will declare handlers any EventBus events
