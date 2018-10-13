@@ -63,9 +63,6 @@ export default {
     // Get the Twitter feeds
     this.getTwitterFeeds();
 
-    // Adds div based tooltips for the facebook checkin and twitter feed elements
-    //this.addTooltipDiv();
-
     // Register an event listener when the Vue component is ready
     window.addEventListener("resize", this.onResize);
   },
@@ -152,18 +149,6 @@ export default {
         .select("#world")
         .select("svg")
         .append("g");
-    },
-    
-    // This is a div based tooltip for the Facebook checkins where each
-    // checkin location is rendered as a D3 circle element
-    addTooltipDiv() {
-      console.log('Tool tip added');
-      // Define the div for the tooltip
-      this.div = d3
-        .select("body")
-        .append("div")
-        .attr("class", "toolTip")
-        .style("opacity", 0);
     },
 
     // This is used to color the circles of the Facebook checkins
