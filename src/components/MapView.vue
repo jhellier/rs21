@@ -17,7 +17,7 @@
 import * as d3 from "d3";
 import { EventBus } from "../main.js";
 //import fbCheckins from "../../public/data/clean/FacebookPlaces_ABQ.csv";
-import bcData from "../../public/data/BernallioCensusBlocks_Joined.json";
+import bcData from "../../public/data/clean/BernallioCensusBlocks_Joined.json";
 
 /* eslint-disable */
 
