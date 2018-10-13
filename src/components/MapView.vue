@@ -9,7 +9,7 @@
             </li>
           </ul>           
         </div>    
-       </div> 
+       </div>
     </div>
 </template>
 
@@ -20,6 +20,8 @@ import { EventBus } from "../main.js";
 import bcData from "../../public/data/BernallioCensusBlocks_Joined.json";
 
 /* eslint-disable */
+
+
 
 let log = true;
 
@@ -32,6 +34,7 @@ export default {
     return {
       bcData,
       fbCheckins: [],
+      toolTipDiv: {},
       mainMap: {},
       mainLayer: {},
       gMap: {},
@@ -45,6 +48,12 @@ export default {
 
   mounted() {
     var that = this;
+
+
+// Define the div for the tooltip
+that.div = d3.select("body").append("div")	
+    .attr("class", "toolTip")				
+    .style("opacity", 0);
 
     that.totalTargetPopulation = that.getTargetPopulation('B01001-HD01_VD06');
    
@@ -169,8 +178,25 @@ export default {
             .attr('r',5)
             .attr("cx", d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
             .attr("cy", d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
-        .on('mouseover', function(d) { console.log(d.place); d3.select(this).style('cursor','pointer')})
-        .on('mouseout', function(d) { d3.select(this).style('cursor','default')})
+        .on('mouseover', function(d) {
+            d3.selectAll('.toolTip').transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+            d3.selectAll('.toolTip').html(d.place)	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+          
+          
+          console.log(d.place); d3.select(this).style('cursor','pointer')})
+        .on('mouseout', function(d) { 
+          console.log('Out now');
+          d3.select(this).style('cursor','default')
+              // d3.select('.toolTip').transition()		
+              //   .duration(500)		
+              //   .style("opacity", 0);	
+          
+          
+          })
 
 
 
@@ -274,4 +300,19 @@ export default {
 .popupBody {
   font-size: 12px;
 }
+
+div.toolTip {	
+    position: absolute;			
+    text-align: center;			
+    width: 60px;					
+    height: 28px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;	
+    z-index: 2000;		
+}
+
 </style>
