@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id='sidebar'>
         <div class="filterViewHeader">
             Demographics Filter
         </div>    
@@ -59,17 +59,39 @@
         <button id="clearSelection" @click="clearSelections">Clear</button>
         </div>
 
+       <div>
+           <b-tabs>
+  <b-tab title="first" active>
+    <br>I'm the first fading tab
+  </b-tab>
+  <b-tab title="second" >
+    <br>I'm the second tab content
+  </b-tab>
+  <b-tab title="disabled" disabled>
+    <br>Disabled tab!
+  </b-tab>
+</b-tabs>
+
+       </div>     
     </div>       
 </template>
 
 <script>
 import * as d3 from "d3";
 import { EventBus } from "../main.js";
+import bTabs from 'bootstrap-vue/es/components/tabs/tabs';
+import bTab from 'bootstrap-vue/es/components/tabs/tab';
 
 
+/* eslint-disable */
 
 export default {
-  name: "select1",
+  name: "sidebar",
+  components: {
+    bTabs,
+    bTab
+  },
+
   data() {
     return {
       selectedM: "",

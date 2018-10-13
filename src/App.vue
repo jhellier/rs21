@@ -33,6 +33,10 @@ export default {
 </script>
 
 <style>
+#mainPage {
+  margin: 5px;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
