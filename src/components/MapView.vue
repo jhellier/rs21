@@ -282,6 +282,7 @@ export default {
             d3.selectAll(".toolTip")
               .style("opacity", 0.9);
             d3.selectAll(".toolTip")
+              .classed('tweetToolTipSizing',true)
               .html(d.tweet + "<br>" + d.username + "<br>" + d.time)
               .style("left", d3.event.pageX + "px")
               .style("top", d3.event.pageY - 28 + "px");
@@ -291,6 +292,7 @@ export default {
           .on("mouseout", function(d) {
             d3.select(this).style("cursor", "default");
             d3.select(".toolTip")
+              .classed('tweetToolTipSizing',false)
               .style("opacity", 0);
           });
       })          
@@ -430,4 +432,9 @@ div.toolTip {
   pointer-events: none;
   z-index: 2000;
 }
+
+div.toolTip.tweetToolTipSizing {
+  height: 150px;
+
+} 
 </style>
