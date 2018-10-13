@@ -61,16 +61,26 @@
 
        <div>
            <b-tabs>
-  <b-tab title="BC Census" active>
-    <br>I'm the first fading tab
-  </b-tab>
-  <b-tab title="Facebook" >
-    <br>I'm the second tab content
-  </b-tab>
-  <b-tab title="Twitter">
-    <br>Disabled tab!
-  </b-tab>
-</b-tabs>
+                <b-tab title="BC Census" active>
+                    <div class="tabContent">
+                        <!-- <font-awesome-icon icon="coffee" /> -->
+                        <font-awesome-icon :icon="['fab','facebook']" size="5x" style="color: blue"/>
+                        <font-awesome-icon :icon="['fab','twitter']" />
+
+                        <br>I'm the first fading tab
+                    </div>                    
+                </b-tab>
+                <b-tab title="Facebook" >
+                    <div class="tabContent">
+                        <br>I'm the second tab
+                    </div>                    
+                </b-tab>
+                <b-tab title="Twitter">
+                    <div class="tabContent">
+                        <br>I'm the third tab
+                    </div>                    
+                </b-tab>
+           </b-tabs>
 
        </div>     
     </div>       
@@ -81,7 +91,13 @@ import * as d3 from "d3";
 import { EventBus } from "../main.js";
 import bTabs from 'bootstrap-vue/es/components/tabs/tabs';
 import bTab from 'bootstrap-vue/es/components/tabs/tab';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faFacebook } from '@fortawesome/free-brands-svg-icons'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+library.add(faCoffee,faFacebook,faTwitter)
 
 /* eslint-disable */
 
@@ -89,7 +105,12 @@ export default {
   name: "sidebar",
   components: {
     bTabs,
-    bTab
+    bTab,
+    library,
+    faCoffee,
+    faFacebook,
+    faTwitter,
+    FontAwesomeIcon
   },
 
   data() {
@@ -191,6 +212,10 @@ function loadSelect(file) {
 <style>
 .nav-tabs {
     font-size: 14px;
+}
+
+.tabContent {
+    font-size: 12px;
 }
 
 select {
