@@ -1,5 +1,13 @@
 <template>
     <div id='sidebar'>
+        <div class="filterButtons"> 
+           <font-awesome-icon :icon="['fab','facebook']" class="iconStyle" style="color: blue"/>
+           <font-awesome-icon :icon="['fab','twitter']" class="iconStyle" style="color: lightblue"/>
+        </div>
+       <div id="tabPanel">
+           <b-tabs>
+                <b-tab title="BC Census" active>
+                    <div class="tabContent">
         <div class="filterViewHeader">
             Demographics Filter
         </div>    
@@ -57,16 +65,8 @@
         </div>
         <div class="filterButtons"> 
            <button id="clearSelection" @click="clearSelections">Clear</button>
-           <font-awesome-icon :icon="['fab','facebook']" class="iconStyle" style="color: blue"/>
-           <font-awesome-icon :icon="['fab','twitter']" class="iconStyle" style="color: lightblue"/>
 
         </div>
-
-       <div id="tabPanel">
-           <b-tabs>
-                <b-tab title="BC Census" active>
-                    <div class="tabContent">
-                        <br>I'm the first tab
                     </div>                    
                 </b-tab>
                 <b-tab title="Facebook" >
@@ -215,6 +215,7 @@ function loadSelect(file) {
 
 #tabPanel {
     margin-top: 20px;
+    padding-top: 5px;
 }
 
 .tabContent {
@@ -250,13 +251,15 @@ button {
 }
 
 .filterViewHeader {
+    padding-top: 10px;
     text-align: center;
+    font-size: 14px;
 }
 
 .filterButtons {
     font-size: 14px;
     padding: 10px;
-    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .radioCenter {
