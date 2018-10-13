@@ -45,7 +45,6 @@ export default {
 
   mounted() {
     var that = this;
-    that.getFacebookCheckins();
 
     that.totalTargetPopulation = that.getTargetPopulation('B01001-HD01_VD06');
    
@@ -119,14 +118,16 @@ export default {
 
     //let latLonPoint = new L.LatLng(40.7127837, -74.0059413);
 
-    // L.svg().addTo(that.mainMap);
+    L.svg().addTo(that.mainMap);
 
-    // that.gMap = d3
-    //   .select("#world")
-    //   .select("svg")
-    //   .append("g");
+    that.gMap = d3
+      .select("#world")
+      .select("svg")
+      .append("g");
 
     that.adjustDimensions();
+    that.getFacebookCheckins();
+
 
     // that.gMap.append('circle')
     //   .attr('r',50)
@@ -154,11 +155,26 @@ export default {
             bus_type: d.bus_type,
             checkins: d.checkins,
             lat: d.lat,
-            lon: d.lon
+            lon: d.lon,
+            LatLng: new L.LatLng(d.lat,d.lon)
           };
         }).then(function(data) {
           that.fbCheckins = data;
-          //console.log(that.fbCheckins);            
+          //console.log(that.fbCheckins);  
+           that.gMap.selectAll('circle')
+            .data(that.fbCheckins.filter(element => element.checkins > 5000))
+            .enter()
+            .append('circle')
+            .attr("pointer-events","visible")
+            .attr('r',5)
+            .attr("cx", d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
+            .attr("cy", d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
+        .on('mouseover', function(d) { console.log(d.place); d3.select(this).style('cursor','pointer')})
+        .on('mouseout', function(d) { d3.select(this).style('cursor','default')})
+
+
+
+          
         });
 
     },
