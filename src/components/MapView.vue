@@ -98,7 +98,7 @@ export default {
       ).addTo(that.mainMap);
 
       that.mainMap.on("zoom", that.adjustDimensions);
-      that.mainMap.on("moveend", that.adjustPan);
+      //that.mainMap.on("moveend", that.adjustPan);
 
       let popup = L.popup();
 
