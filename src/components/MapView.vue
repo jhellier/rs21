@@ -362,6 +362,9 @@ export default {
       });
     },
 
+    // FIXME  This is a poor way to handle the resetting of the SVG elements
+    // when the map moves. Need to put in a function that walks the SVG tree and
+    // resets the element position based on the movement of the map. 
     adjustPan() {
       this.gMap.selectAll('.tweetLocations').remove();
       this.gMap.selectAll('.facebookLocations').remove();
