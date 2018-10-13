@@ -34,6 +34,7 @@ export default {
     return {
       bcData,
       fbCheckins: [],
+      busTypes: {},
       toolTipDiv: {},
       mainMap: {},
       mainLayer: {},
@@ -175,8 +176,22 @@ that.div = d3.select("body").append("div")
   },
 
   methods: {
+
+    getColor(n) {
+        var colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
+        return colors[n % colors.length];
+    },
     getFacebookCheckins() {
       let that = this;
+
+      d3.csv("data/clean/BusTypes.csv", function(d) {
+        return {
+          name: d.column1
+        };
+      }).then(function(data) {
+        data.forEach(function(element,index) {that.busTypes[element.name] = index})
+      })
+
       d3.csv("data/clean/FacebookPlaces_ABQ.csv", function(d) {
           return {
             place: d.place,
@@ -195,13 +210,15 @@ that.div = d3.select("body").append("div")
             .append('circle')
             .attr("pointer-events","visible")
             .attr('r',5)
+            .attr('fill',function(d,i) { return that.getColor(that.busTypes[d.bus_type])})
             .attr("cx", d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
             .attr("cy", d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
         .on('mouseover', function(d) {
-            d3.selectAll('.toolTip').transition()		
-                .duration(200)		
+            d3.selectAll('.toolTip')
+                // .transition()		
+                // .duration(200)		
                 .style("opacity", .9);		
-            d3.selectAll('.toolTip').html(d.place)	
+            d3.selectAll('.toolTip').html(d.place + '<br>' + d.bus_type)	
                 .style("left", (d3.event.pageX) + "px")		
                 .style("top", (d3.event.pageY - 28) + "px");
           
@@ -210,8 +227,9 @@ that.div = d3.select("body").append("div")
         .on('mouseout', function(d) { 
 
             d3.select(this).style('cursor','default')
-            d3.select('.toolTip').transition()		
-                .duration(500)		
+            d3.select('.toolTip')
+                // .transition()		
+                // .duration(500)		
                 .style("opacity", 0);	
           })
         });
@@ -318,7 +336,7 @@ div.toolTip {
     position: absolute;			
     text-align: center;			
     width: 200px;					
-    height: 100px;					
+    height: 50px;					
     padding: 2px;				
     font: 12px sans-serif;		
     background: rgb(218, 220, 223);	
