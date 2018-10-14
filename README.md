@@ -1,4 +1,7 @@
-# rs21
+# rs21 Challenge
+This is a project in support of a coding challenge as part of the interview process for [RS 21](https://rs21.io/)
+
+You can checkout and build this project locally by following these steps. The primary data sets were provided by RS 21. All other data and development was performed by John Hellier. Any questions: qmnoise@gmail.com
 
 ## Project setup
 ```
