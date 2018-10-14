@@ -2,11 +2,6 @@
     <div id='sidebar'>
         <div class="filterButtons">
           <div class="toggleElement">  
-          <span id="filterButtonsTitle">
-              Views
-          </span>
-          </div>  
-          <div class="toggleElement">  
           <span id="twitterToggle" @click="twitterToggle"  title="Click to toggle display">
               <font-awesome-icon :icon="['fab','twitter']" transform="down-3" class="iconStyle" style="color: lightblue"/>
           </span>
