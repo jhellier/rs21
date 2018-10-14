@@ -7,7 +7,7 @@ The app stack includes:
 * Vue.js 2.5.17
   * Vue-Bootstrap
   * Vue-FontAwesome
-* D3.js V 5.7.0
+* D3.js 5.7.0
 * Leaflet.js 1.3.4
 
 
