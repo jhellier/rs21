@@ -69,6 +69,7 @@ export default {
 
     // Use this constuct for summary BC census data.
     //this.totalTargetPopulation = this.getTargetPopulation('B01001-HD01_VD06');
+    //this.getTotalPopulation('B01001-HD01_VD26');
 
     // Once the map is placed adjust the dimensions
     this.adjustDimensions();
@@ -261,7 +262,7 @@ export default {
               .append("div")
               .attr("class", "toolTip")
               .attr('id','toolTip')
-              .html(d.place + "<br>" + d.bus_type)
+              .html(d.place + "<br>"  + d.checkins + ' checkins' + "<br><br>" + d.bus_type)
               .style("left", d3.event.pageX + "px")
               .style("top", d3.event.pageY - 28 + "px");
             d3.select(this).style("cursor", "pointer");
@@ -274,6 +275,8 @@ export default {
 
     },
 
+    // Gets the twitter feeds and generate d3 rects for all tweet locations.
+    // Each tweet has a lat and lon position.
     getTwitterFeeds() {
       let that = this;
 
@@ -306,7 +309,7 @@ export default {
               .attr("class", "toolTip")
               .attr('id','toolTip')
               .classed('tweetToolTipSizing',true)
-                .html(d.tweet + "<br>" + d.username + "<br>" + d.time)
+                .html(d.tweet + "<br><br>" + d.username + "<br>" + d.time)
               .style("left", d3.event.pageX + "px")
               .style("top", d3.event.pageY - 28 + "px");
 
@@ -359,7 +362,7 @@ export default {
         let amount = element.properties[targetKey];
         this.totalPopulation += +amount;
       });
-      // console.log(this.totalPopulation);
+      console.log(this.totalPopulation);
     },
 
     // This gets the target population from the BC Census data
@@ -539,7 +542,7 @@ div.toolTip {
   position: absolute;
   text-align: center;
   width: 200px;
-  height: 50px;
+  height: 80px;
   padding: 2px;
   font: 12px sans-serif;
   background: rgb(218, 220, 223);

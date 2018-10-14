@@ -139,6 +139,22 @@ The tweets are all location based.
            <button id="clearSelection" @click="clearSelections">Clear</button>
 
         </div>
+                        <table class="table">
+                        <tbody>
+                            <tr>
+                            <td>Total Population</td>
+                            <td align="right">667092</td>
+                            </tr>
+                            <tr>
+                            <td>Total Male Population</td>
+                            <td align="right">326983</td>
+                            </tr>
+                            <tr>
+                            <td>Total Female Population</td>
+                            <td align="right">340109</td>
+                            </tr>
+                        </tbody>
+                        </table>        
 <div>
   At any time you can clear the selections and start with a new 
   investigation. You can click on any colored section to see the makeup of that
