@@ -470,6 +470,7 @@ function loadSelect(file) {
 .toggleElement {
     white-space: no-wrap;
     float: left;
+    cursor: pointer;
 }
 
 #overviewPanel {
@@ -504,7 +505,7 @@ function loadSelect(file) {
 .iconStyle {
   margin-left: 25px;
   font-size: 30px;
-  /* float: right; */
+  cursor: pointer;
 }
 
 .iconStyledGreyed {
