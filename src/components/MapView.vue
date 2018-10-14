@@ -389,12 +389,39 @@ export default {
     // This is a utility function that will declare handlers any EventBus events
     // from other components. All your EventBus handlers should be declared in here.
     addEventBusHandlers() {
+      let that = this;
+
       EventBus.$on("selectionChange", msg => {
         this.selectedAges = msg;
 
         if (msg.length != 0) this.clearLayer(false);
         else this.clearLayer(true);
       });
+
+      EventBus.$on("toggleTwitterView", msg => {
+        if (msg)
+          d3.selectAll('.tweetLocations')
+              .style('opacity',0)
+              .attr("pointer-events", "none")
+
+        else
+          d3.selectAll('.tweetLocations')
+              .style('opacity',1)
+              .attr("pointer-events", "visible")
+      });
+
+      EventBus.$on("toggleFacebookView", msg => {
+        if (msg)
+          d3.selectAll('.facebookLocations')
+              .style('opacity',0)
+              .attr("pointer-events", "none")
+
+        else
+          d3.selectAll('.facebookLocations')
+              .style('opacity',1)
+              .attr("pointer-events", "visible")
+      });
+
     }
   }
 };

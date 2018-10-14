@@ -4,11 +4,11 @@
           <span id="filterButtonsTitle">
               Toggle Views
           </span>  
-          <span id="twitterToggle" @click="clickedIt">
+          <span id="twitterToggle" @click="twitterToggle">
               <font-awesome-icon :icon="['fab','twitter']" transform="down-3" class="iconStyle" style="color: lightblue"/>
           </span>  
 
-          <span id="facebookToggle">
+          <span id="facebookToggle" @click="facebookToggle">
               <font-awesome-icon :icon="['fab','facebook']" transform="down-3" class="iconStyle" style="color: blue"/>
           </span>
           <input id="facebookCheckinThreshold" size="10">            
@@ -135,7 +135,9 @@ export default {
       optionsTransportation: loadSelect("data/lookups/B08301_Transportation.csv"),
       optionsHousehold: loadSelect('data/lookups/B11001_Household.csv'),
       optionsEarnings: loadSelect('data/lookups/B19051_earnings.csv'),
-      selectedList: []
+      selectedList: [],
+      twitterShowing: false,
+      facebookShowing: false
     };
   },
   methods: {
@@ -198,9 +200,15 @@ export default {
       EventBus.$emit("selectionChange", this.selectedList);
     },
 
-    clickedIt: function(event) {
+    twitterToggle: function(event) {
         console.log('Clicked it');
-        EventBus.$emit("toggleTwitterView", true);
+        this.twitterShowing = !this.twitterShowing;
+        EventBus.$emit("toggleTwitterView", this.twitterShowing);
+    },
+    facebookToggle: function(event) {
+        console.log('Clicked it');
+        this.facebookShowing = !this.facebookShowing;
+        EventBus.$emit("toggleFacebookView", this.facebookShowing);
     }
   }
 };
