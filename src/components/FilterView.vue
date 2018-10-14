@@ -50,6 +50,19 @@ sections correspond to different data sets: Bernallilo County
                    </div>                         
                 </b-tab>  
                 <b-tab title="Get Started">
+                  <div  id="getStartedPanel">  
+Click on the BC Census tab
+<br>
+<br>
+The Demographics Filter allows you to select any demographic slice of the ABQ population and see the makeup of all the ABQ neighborhoods. You can combine selections across most slices. Your selections will appear on the upper right corner of the map. The map will reflect the selections you have made by the change in color for each neighborhood. The darker the color the higher the count. Except for the Median Age slice, all values are the number of people for that slice. At any time you can clear the selections and start with a new investigation.                    
+<br>
+<br>
+Click on the Facebook tab
+<br>
+<br>
+The Facebook data is a collection of Checkins for businesses in ABQ. The checkins show where someone has been. The more checkins for a business the more likely it is popular. 
+</div>
+
                 </b-tab>      
                 <b-tab title="BC Census" >
                     <div class="tabContent">
@@ -115,8 +128,74 @@ sections correspond to different data sets: Bernallilo County
                     </div>                    
                 </b-tab>
                 <b-tab title="Facebook" >
-                    <div class="tabContent">
-                        <br>I'm the second tab
+                    <div class="tabContent" style="overflow:scroll; height: 400px;">
+                        <br>
+                        The Facebook data is a collection of Checkins for businesses in ABQ. The checkins show where someone has been. The more checkins for a business the more likely it is popular.
+                        The map will show each checkin site as a colored circle. The color of the circle corresponds
+                        to the busines type. There are more than 80 business types listed in this data set.
+                        <br>
+                        <br>
+                        The Facebook icon in the toggle views section allows you to toggle the facebook checkin view
+                        as well as set the number of checkins to limit to view for. For example, if you only wanted
+                        places that had checkins more than 5000 then you would enter 5000 into the textfield
+                        next the Facebook icon. Then hit the redo button. This will show an updated selection
+                        of checkins sites on the map. 
+                        <br>
+                        <br>
+                        <span style="font-weight: bold;">Most Popular Checkins</span>
+                        <br>
+                        <br>
+
+                        <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Place</th>
+                            <th scope="col">Checkins</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Century Rio 24</td>
+                            <td align="right">132671</td>
+                            </tr>
+                            <tr>
+                            <td>Sandia Resort & Casino Arts</td>
+                            <td align="right">111136</td>
+                            </tr>
+                            <tr>
+                            <td>Isotopes Park</td>
+                            <td align="right">106606</td>
+                            </tr>
+                            <tr>
+                            <td>The University of New Mexico - UNM</td>
+                            <td align="right">83461</td>
+                            </tr>
+                            <tr>
+                            <td>Ojos Locos</td>
+                            <td align="right">65108</td>
+                            </tr>
+                            <tr>
+                            <td>The Pit</td>
+                            <td align="right">49364</td>
+                            </tr>
+                            <tr>
+                            <td>Hooters on San Mateo</td>
+                            <td align="right">49079</td>
+                            </tr>
+                            <tr>
+                            <td>Tucanos Brazilian Grill</td>
+                            <td align="right">46212</td>
+                            </tr>
+                            <tr>
+                            <td>Elephant Bar</td>
+                            <td align="right">45619</td>
+                            </tr>
+                            <tr>
+                            <td>Frontier Restaurant</td>
+                            <td align="right">44488</td>
+                            </tr>
+                        </tbody>
+                        </table>
                     </div>                    
                 </b-tab>
                 <b-tab title="Twitter">
@@ -307,6 +386,13 @@ function loadSelect(file) {
   margin-top: 20px;
   font-size: 12px;
 }
+
+#getStartedPanel {
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 12px;
+}
+
 #facebookCheckinThreshold {
   margin-left: 10px;
 }
