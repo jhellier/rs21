@@ -1,29 +1,56 @@
 <template>
     <div id='sidebar'>
         <div class="filterButtons">
+          <div class="toggleElement">  
           <span id="filterButtonsTitle">
               Toggle Views
-          </span>  
+          </span>
+          </div>  
+          <div class="toggleElement">  
           <span id="twitterToggle" @click="twitterToggle"  title="Click to toggle display">
               <font-awesome-icon :icon="['fab','twitter']" transform="down-3" class="iconStyle" style="color: lightblue"/>
-          </span>  
-
+          </span>
+          </div>  
+          <div class="toggleElement">  
           <span id="facebookToggle" @click="facebookToggle" title="Click to toggle display">
               <font-awesome-icon :icon="['fab','facebook']" transform="down-3" class="iconStyle" style="color: blue"/>
           </span>
-          Checkins ><input id="facebookCheckinThreshold" size="5" v-model="checkinThreshold" title="Checkin Threshold">            
+          <input id="facebookCheckinThreshold" size="5" v-model="checkinThreshold" title="Checkins Greater Than">            
           <span id="facebookResetCheckinThreshold" @click="resetCheckinThreshold" title="Click to Redo">
             <font-awesome-icon :icon="['fas','redo']" transform="right-3"/>
           </span>
+          </div>
 
         </div>
        <div id="tabPanel">
            <b-tabs>
                 <b-tab title="Overview" active>
                    <div id="overviewPanel">
-                       Welcome to the ABQ View
+                       <h6 style="text-align: center;">Welcome to the ABQ View</h6>
+                       <p style="">
+Let’s see Albuquerque! In a highly interactive space, we allow you to explore neighborhoods to see who lives there, what places they frequent and what they have to say about life, the universe and everything.
+<br>
+<br>
+This section is the primary controller for navigating 
+the app where you can toggle views showing all the tweets 
+for a certain time period, the Facebook checkins for local 
+businesses or drill down into who lives where. The tabbed 
+sections correspond to different data sets: Bernallilo County
+ Demographics, Facebook Checkins and Twitter Feeds.  By 
+ clicking on any one tab you can explore what the data has 
+ to offer and how it is related to the other data sets.  
+ <br>
+ <br>
+ Click on the <b>Get Started</b> tab to see what you can do</p>
+
+
+
+
+
                    </div>                         
-                </b-tab>    
+                </b-tab>  
+                <b-tab title="Get Started">
+                </b-tab>      
                 <b-tab title="BC Census" >
                     <div class="tabContent">
         <div class="filterViewHeader">
@@ -106,15 +133,15 @@
 <script>
 import * as d3 from "d3";
 import { EventBus } from "../main.js";
-import bTabs from 'bootstrap-vue/es/components/tabs/tabs';
-import bTab from 'bootstrap-vue/es/components/tabs/tab';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faRedo } from '@fortawesome/free-solid-svg-icons'
-import { faFacebook } from '@fortawesome/free-brands-svg-icons'
-import { faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import bTabs from "bootstrap-vue/es/components/tabs/tabs";
+import bTab from "bootstrap-vue/es/components/tabs/tab";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faRedo } from "@fortawesome/free-solid-svg-icons";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faRedo,faFacebook,faTwitter)
+library.add(faRedo, faFacebook, faTwitter);
 
 /* eslint-disable */
 
@@ -136,14 +163,16 @@ export default {
       selectedF: "",
       selectedTransportation: "",
       selectedHousehold: "",
-      selectedEarnings: "",      
+      selectedEarnings: "",
       selectedMedianAge: "",
       optionsM: loadSelect("data/lookups/B01001_Age_Male.csv"),
       optionsF: loadSelect("data/lookups/B01001_Age_Female.csv"),
       optionsMedianAge: loadSelect("data/lookups/B01002_Median_Age.csv"),
-      optionsTransportation: loadSelect("data/lookups/B08301_Transportation.csv"),
-      optionsHousehold: loadSelect('data/lookups/B11001_Household.csv'),
-      optionsEarnings: loadSelect('data/lookups/B19051_earnings.csv'),
+      optionsTransportation: loadSelect(
+        "data/lookups/B08301_Transportation.csv"
+      ),
+      optionsHousehold: loadSelect("data/lookups/B11001_Household.csv"),
+      optionsEarnings: loadSelect("data/lookups/B19051_earnings.csv"),
       selectedList: [],
       twitterShowing: false,
       facebookShowing: false,
@@ -153,13 +182,12 @@ export default {
   },
   methods: {
     toggleShowBCCountTotal: function(stringCheck) {
-        // Checking to see if all is in the list of selected bands
-        // If is is then the toatl coutns wont' make sense, so don't display 
-        // total count for those cases.
-        if (stringCheck.toUpperCase().indexOf('ALL') != -1)
-            this.showBCCountTotal = false;
-
-    },   
+      // Checking to see if all is in the list of selected bands
+      // If is is then the toatl coutns wont' make sense, so don't display
+      // total count for those cases.
+      if (stringCheck.toUpperCase().indexOf("ALL") != -1)
+        this.showBCCountTotal = false;
+    },
     selectedAgeBand: function(event) {
       let msg = {};
       msg.meta = event.currentTarget.id.split("Age")[0];
@@ -167,7 +195,7 @@ export default {
       msg.label = event.currentTarget.selectedOptions[0].label;
       this.toggleShowBCCountTotal(msg.label);
       this.selectedList.push(msg);
-      let sendMsg= {};
+      let sendMsg = {};
       sendMsg.showBCCountTotal = this.showBCCountTotal;
       sendMsg.selectedList = this.selectedList;
       EventBus.$emit("selectionChange", sendMsg);
@@ -210,7 +238,7 @@ export default {
     },
     selectedEarn: function(event) {
       let msg = {};
-      msg.meta = '';
+      msg.meta = "";
       msg.value = event.currentTarget.value;
       msg.label = event.currentTarget.selectedOptions[0].label;
       this.toggleShowBCCountTotal(msg.label);
@@ -236,20 +264,19 @@ export default {
     },
 
     twitterToggle: function(event) {
-        this.twitterShowing = !this.twitterShowing;
-        EventBus.$emit("toggleTwitterView", this.twitterShowing);
+      this.twitterShowing = !this.twitterShowing;
+      EventBus.$emit("toggleTwitterView", this.twitterShowing);
     },
     facebookToggle: function(event) {
-        this.facebookShowing = !this.facebookShowing;
-        EventBus.$emit("toggleFacebookView", this.facebookShowing);
+      this.facebookShowing = !this.facebookShowing;
+      EventBus.$emit("toggleFacebookView", this.facebookShowing);
     },
 
     resetCheckinThreshold: function(event) {
-        EventBus.$emit('resetThreshold', this.checkinThreshold);
+      EventBus.$emit("resetThreshold", this.checkinThreshold);
     }
   }
 };
-
 
 function loadSelect(file) {
   let selectArray = [];
@@ -270,36 +297,40 @@ function loadSelect(file) {
 
 <style>
 
+.toggleElement {
+    white-space: no-wrap;
+    float: left;
+}
+
 #overviewPanel {
-    margin: 10px;
-    margin-top: 20px;
-    font-size: 16px;
-    text-align: center;
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 12px;
 }
 #facebookCheckinThreshold {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 .nav-tabs {
-    font-size: 14px;
+  font-size: 12px;
 }
 
 #tabPanel {
-    margin-top: 20px;
-    padding-top: 5px;
+  margin-top: 40px;
+  padding-top: 5px;
 }
 
 .tabContent {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .iconStyle {
-    margin-left: 25px;
-    font-size: 30px;
-    /* float: right; */
+  margin-left: 25px;
+  font-size: 30px;
+  /* float: right; */
 }
 
 .iconStyledGreyed {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
 select {
@@ -325,27 +356,27 @@ button {
 }
 
 .filterViewHeader {
-    padding-top: 10px;
-    text-align: center;
-    font-size: 14px;
+  padding-top: 10px;
+  text-align: center;
+  font-size: 14px;
 }
 
 .filterButtons {
-    font-size: 14px;
-    padding: 10px;
-    margin-bottom: 10px;
+  font-size: 14px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 #filterButtonsTitle {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .radioCenter {
-    padding-left: 50px;
-    white-space: nowrap;
+  padding-left: 50px;
+  white-space: nowrap;
 }
 
 .textNoWrap {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 </style>
