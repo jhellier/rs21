@@ -521,6 +521,7 @@ button {
   font-size: 12px;
   margin-right: 10px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .selectLabel {
