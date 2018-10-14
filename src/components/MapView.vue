@@ -99,7 +99,7 @@ export default {
       document.getElementById("world").style.height = that.cHeight + "px";
       document.getElementById("world").style.width = that.cWidth + "px";
 
-      that.mainMap = L.map("world").setView([35.1740721, -106.594435], 12);
+      that.mainMap = L.map("world").setView([35.1240721, -106.594435], 12);
 
       L.tileLayer(
         "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
