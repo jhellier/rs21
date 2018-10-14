@@ -1,14 +1,17 @@
 <template>
     <div id='sidebar'>
-        <div class="filterButtons"> 
-          <span id="facebookToggle">
-              <font-awesome-icon :icon="['fab','facebook']" class="iconStyle" style="color: blue"/>
-          </span>
-          <span id="twitterToggle" @click="clickedIt">
-              <font-awesome-icon :icon="['fab','twitter']" class="iconStyle" style="color: lightblue"/>
+        <div class="filterButtons">
+          <span id="filterButtonsTitle">
+              Toggle Views
           </span>  
-           
-           
+          <span id="twitterToggle" @click="clickedIt">
+              <font-awesome-icon :icon="['fab','twitter']" transform="down-3" class="iconStyle" style="color: lightblue"/>
+          </span>  
+
+          <span id="facebookToggle">
+              <font-awesome-icon :icon="['fab','facebook']" transform="down-3" class="iconStyle" style="color: blue"/>
+          </span>
+          <input id="facebookCheckinThreshold" size="10">            
         </div>
        <div id="tabPanel">
            <b-tabs>
@@ -197,6 +200,7 @@ export default {
 
     clickedIt: function(event) {
         console.log('Clicked it');
+        EventBus.$emit("toggleTwitterView", true);
     }
   }
 };
@@ -220,6 +224,10 @@ function loadSelect(file) {
 </script>
 
 <style>
+
+#facebookCheckinThreshold {
+    margin-left: 10px;
+}
 .nav-tabs {
     font-size: 14px;
 }
@@ -234,9 +242,9 @@ function loadSelect(file) {
 }
 
 .iconStyle {
-    margin-left: 5px;
+    margin-left: 25px;
     font-size: 30px;
-    float: right;
+    /* float: right; */
 }
 
 .iconStyledGreyed {
@@ -275,6 +283,10 @@ button {
     font-size: 14px;
     padding: 10px;
     margin-bottom: 10px;
+}
+
+#filterButtonsTitle {
+    font-size: 16px;
 }
 
 .radioCenter {
