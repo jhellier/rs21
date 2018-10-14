@@ -174,43 +174,43 @@ The tweets are all location based.
                         </thead>
                         <tbody>
                             <tr>
-                            <td>Century Rio 24</td>
+                            <td><span class="linkCheckin" @click="highlightFilteredCheckin(132671)">Century Rio 24</span></td>
                             <td align="right">132671</td>
                             </tr>
                             <tr>
-                            <td>Sandia Resort & Casino Arts</td>
+                            <td><span class="linkCheckin" @click="highlightFilteredCheckin(111136)">Sandia Resort & Casino Arts</span></td>
                             <td align="right">111136</td>
                             </tr>
                             <tr>
-                            <td>Isotopes Park</td>
+                            <td><span class="linkCheckin" @click="highlightFilteredCheckin(106606)">Isotopes Park</span></td>
                             <td align="right">106606</td>
                             </tr>
                             <tr>
-                            <td>The University of New Mexico - UNM</td>
+                            <td><span class="linkCheckin" @click="highlightFilteredCheckin(83461)">The University of New Mexico - UNM</span></td>
                             <td align="right">83461</td>
                             </tr>
                             <tr>
-                            <td>Ojos Locos</td>
+                            <td><span class="linkCheckin" @click="highlightFilteredCheckin(65108)">Ojos Locos</span></td>
                             <td align="right">65108</td>
                             </tr>
                             <tr>
-                            <td>The Pit</td>
+                            <td><span class="linkCheckin" @click="highlightFilteredCheckin(49364)">The Pit</span></td>
                             <td align="right">49364</td>
                             </tr>
                             <tr>
-                            <td>Hooters on San Mateo</td>
+                            <td><span class="linkCheckin" @click="highlightFilteredCheckin(49079)">Hooters on San Mateo</span></td>
                             <td align="right">49079</td>
                             </tr>
                             <tr>
-                            <td>Tucanos Brazilian Grill</td>
+                            <td><span class="linkCheckin" @click="highlightFilteredCheckin(46212)">Tucanos Brazilian Grill</span></td>
                             <td align="right">46212</td>
                             </tr>
                             <tr>
-                            <td>Elephant Bar</td>
+                            <td><span class="linkCheckin" @click="highlightFilteredCheckin(45619)">Elephant Bar</span></td>
                             <td align="right">45619</td>
                             </tr>
                             <tr>
-                            <td>Frontier Restaurant</td>
+                            <td><span class="linkCheckin" @click="highlightFilteredCheckin(44488)">Frontier Restaurant</span></td>
                             <td align="right">44488</td>
                             </tr>
                         </tbody>
@@ -320,6 +320,9 @@ export default {
   },
   methods: {
 
+    highlightFilteredCheckin: function(count) {
+        EventBus.$emit('highlightFilteredCheckin', count);
+    },  
     highlightTweeter: function(tweeter) {
         EventBus.$emit('highlightTweeter',tweeter);
     },  
@@ -439,7 +442,7 @@ function loadSelect(file) {
 
 <style>
 
-.linkTweeter {
+.linkTweeter, .linkCheckin {
     color: blue;
     cursor: pointer;
 }

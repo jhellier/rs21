@@ -468,6 +468,17 @@ export default {
               return 1;
             } else return 0;
           });
+      });
+
+      EventBus.$on('highlightFilteredCheckin', msg => {
+        console.log(' Highlight Checking',msg);
+        d3.selectAll('.facebookLocations')
+          .style('opacity', function(d) {
+            if (d.checkins == msg && d.checkins > 20000)
+              return 1;
+            else 
+              return 0;  
+          })
       })
 
     }
