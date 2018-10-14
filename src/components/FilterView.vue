@@ -161,7 +161,6 @@ export default {
 
     },   
     selectedAgeBand: function(event) {
-      console.log(event.currentTarget.value);
       let msg = {};
       msg.meta = event.currentTarget.id.split("Age")[0];
       msg.value = event.currentTarget.value;
@@ -174,7 +173,6 @@ export default {
       EventBus.$emit("selectionChange", sendMsg);
     },
     selectedMedAge: function(event) {
-      console.log(event.currentTarget.value);
       let msg = {};
       msg.meta = event.currentTarget.id.split("Select")[0];
       msg.value = event.currentTarget.value;
@@ -187,7 +185,6 @@ export default {
       EventBus.$emit("selectionChange", sendMsg);
     },
     selectedTransport: function(event) {
-      console.log(event.currentTarget.value);
       let msg = {};
       msg.meta = event.currentTarget.id.split("Select")[0];
       msg.value = event.currentTarget.value;
@@ -200,7 +197,6 @@ export default {
       EventBus.$emit("selectionChange", sendMsg);
     },
     selectedHouse: function(event) {
-      console.log(event.currentTarget.value);
       let msg = {};
       msg.meta = event.currentTarget.id.split("Select")[0];
       msg.value = event.currentTarget.value;
@@ -213,7 +209,6 @@ export default {
       EventBus.$emit("selectionChange", sendMsg);
     },
     selectedEarn: function(event) {
-      console.log(event.currentTarget.value);
       let msg = {};
       msg.meta = '';
       msg.value = event.currentTarget.value;
@@ -224,9 +219,6 @@ export default {
       sendMsg.showBCCountTotal = this.showBCCountTotal;
       sendMsg.selectedList = this.selectedList;
       EventBus.$emit("selectionChange", sendMsg);
-    },
-    selectMedianAge: function(event) {
-        console.log(event.currentTarget.value);
     },
     clearSelections: function(event) {
       this.selectedList = [];
@@ -244,12 +236,10 @@ export default {
     },
 
     twitterToggle: function(event) {
-        console.log('Clicked it');
         this.twitterShowing = !this.twitterShowing;
         EventBus.$emit("toggleTwitterView", this.twitterShowing);
     },
     facebookToggle: function(event) {
-        console.log('Clicked it');
         this.facebookShowing = !this.facebookShowing;
         EventBus.$emit("toggleFacebookView", this.facebookShowing);
     },
