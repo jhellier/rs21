@@ -3,6 +3,14 @@ This is a project in support of a coding challenge as part of the interview proc
 
 The app is currently hosted on: [Quin Moto](http://quinmoto.com/rs21.html)
 
+The app stack includes:
+* Vue.js 2.5.17
+  * Vue-Bootstrap
+  * Vue-FontAwesome
+* D3.js V 5.7.0
+* Leaflet.js 1.3.4
+
+
 You can checkout and build this project locally by following these steps. The primary data sets were provided by RS 21. All other data and development was performed by John Hellier. Any questions: qmnoise@gmail.com
 
 ## Project setup
