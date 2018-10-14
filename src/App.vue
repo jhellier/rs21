@@ -20,15 +20,13 @@
 
 <script>
 import MapView from './components/MapView.vue'
-import HelloWorld from './components/HelloWorld.vue'
 import FilterView from './components/FilterView.vue'
 
 export default {
   name: 'mainPage',
   components: {
     MapView,
-    FilterView,
-    HelloWorld
+    FilterView
   }
 }
 </script>
