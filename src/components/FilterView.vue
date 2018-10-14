@@ -21,124 +21,118 @@
            <b-tabs>
                 <b-tab title="Overview" active>
                    <div id="overviewPanel">
-                       <h6 style="text-align: center;">Welcome to the ABQ View</h6>
-                       <p style="">
-Let’s see Albuquerque! In a highly interactive space, we allow you to explore neighborhoods to see who lives there, what places they frequent and what they have to say about life, the universe and everything.
-<br>
-<br>
-This section is the primary controller for navigating 
-the app where you can toggle views showing all the tweets 
-for a certain time period, the Facebook checkins for local 
-businesses or drill down into who lives where. The tabbed 
-sections correspond to different data sets: Bernallilo County
- Demographics, Facebook Checkins and Twitter Feeds.  By 
- clicking on any one tab you can explore what the data has 
- to offer and how it is potentially connected to data in the other data sets.  
- <br>
- <br>
- Click on the <b>Get Started</b> tab to see what you can do</p>
-
-
-
-
-
+                       <h6 style="text-align: center;">Welcome to ABQ View</h6>
+                            Let’s see Albuquerque! In a highly interactive space, we allow you to explore neighborhoods to see who lives there, what places they frequent and what they have to say about life, the universe and everything.
+                            <br>
+                            <br>
+                            This section is the primary controller for navigating 
+                            the app where you can toggle views showing all the tweets 
+                            for a certain time period, the Facebook checkins for local 
+                            businesses or drill down into who lives where. The tabbed 
+                            sections correspond to different data sets: Bernallilo County
+                            Demographics, Facebook Checkins and Twitter Feeds.  By 
+                            clicking on any one tab you can explore what the data has 
+                            to offer and how it is potentially connected to data in the other data sets.  
+                            <br>
+                            <br>
+                            Click on the <b>Get Started</b> tab to see what you can do
                    </div>                         
                 </b-tab>  
                 <b-tab title="Get Started">
                   <div  id="getStartedPanel" style="overflow: auto; height: 400px">  
-Click on the BC Census tab
-<br>
-<br>
-The Demographics Filter allows you to select any demographic slice of the ABQ population
- and see the makeup of all the ABQ neighborhoods. You can combine selections 
- across most slices. Your selections will appear on the upper right corner of
-  the map. The map will reflect the selections you have made by the change in 
-  color for each neighborhood. The darker the color the higher the count. 
-  Except for the Median Age slice, all values are the number of people for 
-  that slice. 
-  <br>
-  <br>
-  At any time you can clear the selections and start with a new 
-  investigation. You can click on any colored section to see the makeup of that
-  section. Since the popup stays open you can compare the makeup of the section against the Facebook checkins
-  or the Twitter tweets by mousing over either. 
-<br>
-<br>
-Click on the Facebook tab
-<br>
-<br>
-The Facebook data is a collection of Checkins for businesses in ABQ. The checkins show where someone has been. The more checkins for a business the more likely it is popular. 
-<br>
-<br>
-Click on the Twitter tab
-<br>
-<br>
-The Twitter data is a collection of tweets in ABQ over September 30 2014. 
-The tweets are all location based.  
-</div>
+                        Click on the BC Census tab
+                        <br>
+                        <br>
+                        The Demographics Filter allows you to select any demographic slice of the ABQ population
+                        and see the makeup of all the ABQ neighborhoods. You can combine selections 
+                        across most slices. Your selections will appear on the upper right corner of
+                        the map. The map will reflect the selections you have made by the change in 
+                        color for each neighborhood. The darker the color the higher the count. 
+                        Except for the Median Age slice, all values are the number of people for 
+                        that slice. 
+                        <br>
+                        <br>
+                        At any time you can clear the selections and start with a new 
+                        investigation. You can click on any colored section to see the makeup of that
+                        section. Since the popup stays open you can compare the makeup of the section against the Facebook checkins
+                        or the Twitter tweets by mousing over either. 
+                        <br>
+                        <br>
+                        Click on the Facebook tab
+                        <br>
+                        <br>
+                        The Facebook data is a collection of Checkins for businesses in ABQ. The checkins show where someone has been. The more checkins for a business the more likely it is popular. 
+                        <br>
+                        <br>
+                        Click on the Twitter tab
+                        <br>
+                        <br>
+                        The Twitter data is a collection of tweets in ABQ over September 30 2014. 
+                        The tweets are all location based.  
+                        </div>
 
                 </b-tab>      
                 <b-tab title="BC Census" >
-                    <div class="tabContent">
-        <div class="filterViewHeader">
-            Demographics Filter
-        </div>    
-        <div>
-        <div class="selectBlock">
-            <span class="selectLabel">Male Age</span>
-            <select id="MaleAgeSelect" v-model="selectedM" @change="selectedAgeBand">
-                    <option v-for="option in optionsM" v-bind:key="option.value" v-bind:value="option.value">
-                        {{ option.text }}
-                    </option>    
-            </select>
-        </div>
-        <div class="selectBlock">        
-            <span class="selectLabel">Female Age</span>
-            <select id="FemaleAgeSelect" v-model="selectedF" @change="selectedAgeBand">
-                    <option v-for="option in optionsF" v-bind:key="option.value" v-bind:value="option.value">
-                        {{ option.text }}
-                    </option>    
-            </select>
-        </div>
-        <div class="selectBlock">        
-            <span class="selectLabel">Median Age</span>
-            <select id="MedianAgeSelect" v-model="selectedMedianAge" @change="selectedMedAge">
-                    <option v-for="option in optionsMedianAge" v-bind:key="option.value" v-bind:value="option.value">
-                        {{ option.text }}
-                    </option>    
-            </select>
-        </div>
-    
+                    <div class="tabContent" style="overflow: auto; height: 500px;">
+                        <div class="filterViewHeader">
+                            Demographics Filter
+                        </div>    
+                        <div>
+                        <div class="selectBlock">
+                            <span class="selectLabel">Male Age</span>
+                            <select id="MaleAgeSelect" v-model="selectedM" @change="selectedAgeBand">
+                                    <option v-for="option in optionsM" v-bind:key="option.value" v-bind:value="option.value">
+                                        {{ option.text }}
+                                    </option>    
+                            </select>
+                        </div>
+                        <div class="selectBlock">        
+                            <span class="selectLabel">Female Age</span>
+                            <select id="FemaleAgeSelect" v-model="selectedF" @change="selectedAgeBand">
+                                    <option v-for="option in optionsF" v-bind:key="option.value" v-bind:value="option.value">
+                                        {{ option.text }}
+                                    </option>    
+                            </select>
+                        </div>
+                        <div class="selectBlock">        
+                            <span class="selectLabel">Median Age</span>
+                            <select id="MedianAgeSelect" v-model="selectedMedianAge" @change="selectedMedAge">
+                                    <option v-for="option in optionsMedianAge" v-bind:key="option.value" v-bind:value="option.value">
+                                        {{ option.text }}
+                                    </option>    
+                            </select>
+                        </div>
+                    
 
-        <div class="selectBlock">        
-            <span class="selectLabel">Transport</span>
-            <select id="TransportSelect" v-model="selectedTransportation" @change="selectedTransport">
-                    <option v-for="option in optionsTransportation" v-bind:key="option.value" v-bind:value="option.value">
-                        {{ option.text }}
-                    </option>    
-            </select>
-        </div>
-        <div class="selectBlock">        
-            <span class="selectLabel">Household</span>
-            <select id="HouseholdSelect" v-model="selectedHousehold" @change="selectedHouse">
-                    <option v-for="option in optionsHousehold" v-bind:key="option.value" v-bind:value="option.value">
-                        {{ option.text }}
-                    </option>    
-            </select>
-        </div>
-        <div class="selectBlock">        
-            <span class="selectLabel">Earnings</span>
-            <select id="EarningsSelect" v-model="selectedEarnings" @change="selectedEarn">
-                    <option v-for="option in optionsEarnings" v-bind:key="option.value" v-bind:value="option.value">
-                        {{ option.text }}
-                    </option>    
-            </select>
-        </div>
-        </div>
-        <div class="filterButtons"> 
-           <button id="clearSelection" @click="clearSelections">Clear</button>
+                        <div class="selectBlock">        
+                            <span class="selectLabel">Transport</span>
+                            <select id="TransportSelect" v-model="selectedTransportation" @change="selectedTransport">
+                                    <option v-for="option in optionsTransportation" v-bind:key="option.value" v-bind:value="option.value">
+                                        {{ option.text }}
+                                    </option>    
+                            </select>
+                        </div>
+                        <div class="selectBlock">        
+                            <span class="selectLabel">Household</span>
+                            <select id="HouseholdSelect" v-model="selectedHousehold" @change="selectedHouse">
+                                    <option v-for="option in optionsHousehold" v-bind:key="option.value" v-bind:value="option.value">
+                                        {{ option.text }}
+                                    </option>    
+                            </select>
+                        </div>
+                        <div class="selectBlock">        
+                            <span class="selectLabel">Earnings</span>
+                            <select id="EarningsSelect" v-model="selectedEarnings" @change="selectedEarn">
+                                    <option v-for="option in optionsEarnings" v-bind:key="option.value" v-bind:value="option.value">
+                                        {{ option.text }}
+                                    </option>    
+                            </select>
+                        </div>
+                        </div>
+                        <div class="filterButtons"> 
+                        <button id="clearSelection" @click="clearSelections">Clear</button>
 
-        </div>
+                        </div>
                         <table class="table">
                         <tbody>
                             <tr>
@@ -155,14 +149,14 @@ The tweets are all location based.
                             </tr>
                         </tbody>
                         </table>        
-<div>
-  At any time you can clear the selections and start with a new 
-  investigation. You can click on any colored section to see the makeup of that
-  section. Since the popup stays open you can compare the makeup of the section against the Facebook checkins
-  or the Twitter tweets by mousing over either. 
-<br>
-<br>
-</div>
+                <div>
+                At any time you can clear the selections and start with a new 
+                investigation. You can click on any colored section to see the makeup of that
+                section. Since the popup stays open you can compare the makeup of the section against the Facebook checkins
+                or the Twitter tweets by mousing over either. 
+                <br>
+                <br>
+                </div>
         
             </div>                    
                 </b-tab>
@@ -504,6 +498,7 @@ function loadSelect(file) {
 
 .tabContent {
   font-size: 12px;
+  overflow: auto;
 }
 
 .iconStyle {
@@ -522,7 +517,7 @@ select {
 }
 
 button {
-  font-size: 14px;
+  font-size: 12px;
   margin-right: 10px;
   border-radius: 5px;
   padding-bottom: 5px;

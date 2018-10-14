@@ -1,16 +1,14 @@
 <template>
-  <!-- <div id="app">
-  </div> -->
-
+  
 <div id="mainPage" class="wrapper">
-        <header class="main-head">RS21 Code Challenge</header>
+        <header class="main-head">ABQ VIEW</header>
            <MapView/>
 
         <aside class="side">
           <FilterView fileLocation="data/lookups/B01001_lookup.csv"/>
         </aside>
         <footer class="main-footer">
-          Developed by: John Hellier &nbsp; Contact: qmnoise@gmail.com
+          Purpose: In support of the RS21 Code Challenge &nbsp; Developed by: John Hellier &nbsp; Contact: qmnoise@gmail.com
         </footer>
 </div>
 
@@ -32,17 +30,13 @@ export default {
 </script>
 
 <style>
-#mainPage {
-  margin: 5px;
-}
 
-#app {
+#mainPage {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 5px;
 }
 
 * {box-sizing: border-box;}
