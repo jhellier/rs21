@@ -206,7 +206,7 @@ export default {
     getFacebookCheckins() {
       let that = this;
 
-      d3.csv("data/clean/BusTypes.csv", function(d) {
+      d3.csv("data/clean/BTypes.csv", function(d) {
         return {
           name: d.column1
         };

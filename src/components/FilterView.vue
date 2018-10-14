@@ -3,7 +3,7 @@
         <div class="filterButtons">
           <div class="toggleElement">  
           <span id="filterButtonsTitle">
-              Toggle Views
+              Views
           </span>
           </div>  
           <div class="toggleElement">  
@@ -50,17 +50,36 @@ sections correspond to different data sets: Bernallilo County
                    </div>                         
                 </b-tab>  
                 <b-tab title="Get Started">
-                  <div  id="getStartedPanel">  
+                  <div  id="getStartedPanel" style="overflow: auto; height: 400px">  
 Click on the BC Census tab
 <br>
 <br>
-The Demographics Filter allows you to select any demographic slice of the ABQ population and see the makeup of all the ABQ neighborhoods. You can combine selections across most slices. Your selections will appear on the upper right corner of the map. The map will reflect the selections you have made by the change in color for each neighborhood. The darker the color the higher the count. Except for the Median Age slice, all values are the number of people for that slice. At any time you can clear the selections and start with a new investigation.                    
+The Demographics Filter allows you to select any demographic slice of the ABQ population
+ and see the makeup of all the ABQ neighborhoods. You can combine selections 
+ across most slices. Your selections will appear on the upper right corner of
+  the map. The map will reflect the selections you have made by the change in 
+  color for each neighborhood. The darker the color the higher the count. 
+  Except for the Median Age slice, all values are the number of people for 
+  that slice. 
+  <br>
+  <br>
+  At any time you can clear the selections and start with a new 
+  investigation. You can click on any colored section to see the makeup of that
+  section. Since the popup stays open you can compare the makeup of the section against the Facebook checkins
+  or the Twitter tweets by mouse over either. 
 <br>
 <br>
 Click on the Facebook tab
 <br>
 <br>
 The Facebook data is a collection of Checkins for businesses in ABQ. The checkins show where someone has been. The more checkins for a business the more likely it is popular. 
+<br>
+<br>
+Click on the Twitter tab
+<br>
+<br>
+The Twitter data is a collection of tweets in ABQ over September 30 2014. 
+The tweets are all location based.  
 </div>
 
                 </b-tab>      
@@ -128,7 +147,7 @@ The Facebook data is a collection of Checkins for businesses in ABQ. The checkin
                     </div>                    
                 </b-tab>
                 <b-tab title="Facebook" >
-                    <div class="tabContent" style="overflow:scroll; height: 400px;">
+                    <div class="tabContent" style="overflow:auto; height: 400px;">
                         <br>
                         The Facebook data is a collection of Checkins for businesses in ABQ. The checkins show where someone has been. The more checkins for a business the more likely it is popular.
                         The map will show each checkin site as a colored circle. The color of the circle corresponds
