@@ -4,14 +4,18 @@
           <span id="filterButtonsTitle">
               Toggle Views
           </span>  
-          <span id="twitterToggle" @click="twitterToggle">
+          <span id="twitterToggle" @click="twitterToggle"  title="Click to toggle display">
               <font-awesome-icon :icon="['fab','twitter']" transform="down-3" class="iconStyle" style="color: lightblue"/>
           </span>  
 
-          <span id="facebookToggle" @click="facebookToggle">
+          <span id="facebookToggle" @click="facebookToggle" title="Click to toggle display">
               <font-awesome-icon :icon="['fab','facebook']" transform="down-3" class="iconStyle" style="color: blue"/>
           </span>
-          <input id="facebookCheckinThreshold" size="10">            
+          Checkins ><input id="facebookCheckinThreshold" size="5" v-model="checkinThreshold" title="Checkin Threshold">            
+          <span id="facebookResetCheckinThreshold" @click="resetCheckinThreshold" title="Click to Redo">
+            <font-awesome-icon :icon="['fas','redo']" transform="right-3"/>
+          </span>
+
         </div>
        <div id="tabPanel">
            <b-tabs>
@@ -105,12 +109,12 @@ import { EventBus } from "../main.js";
 import bTabs from 'bootstrap-vue/es/components/tabs/tabs';
 import bTab from 'bootstrap-vue/es/components/tabs/tab';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faRedo } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faCoffee,faFacebook,faTwitter)
+library.add(faRedo,faFacebook,faTwitter)
 
 /* eslint-disable */
 
@@ -120,7 +124,7 @@ export default {
     bTabs,
     bTab,
     library,
-    faCoffee,
+    faRedo,
     faFacebook,
     faTwitter,
     FontAwesomeIcon
@@ -142,7 +146,8 @@ export default {
       optionsEarnings: loadSelect('data/lookups/B19051_earnings.csv'),
       selectedList: [],
       twitterShowing: false,
-      facebookShowing: false
+      facebookShowing: false,
+      checkinThreshold: 5000
     };
   },
   methods: {
@@ -214,6 +219,10 @@ export default {
         console.log('Clicked it');
         this.facebookShowing = !this.facebookShowing;
         EventBus.$emit("toggleFacebookView", this.facebookShowing);
+    },
+
+    resetCheckinThreshold: function(event) {
+        EventBus.$emit('resetThreshold', this.checkinThreshold);
     }
   }
 };

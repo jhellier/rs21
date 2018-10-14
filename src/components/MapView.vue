@@ -53,7 +53,8 @@ export default {
       cHeight: {},
       selectedAges: [],
       totalPopulation: {},
-      totalTargetPopulation: {}
+      totalTargetPopulation: {},
+      checkinThreshold: 5000
     };
   },
 
@@ -224,7 +225,7 @@ export default {
         //console.log(that.fbCheckins);
         that.gMap
           .selectAll("circle")
-          .data(that.fbCheckins.filter(element => element.checkins > 5000))
+          .data(that.fbCheckins.filter(element => element.checkins > that.checkinThreshold))
           .enter()
           .append("circle")
           .attr('class','facebookLocations')
@@ -421,6 +422,22 @@ export default {
               .style('opacity',1)
               .attr("pointer-events", "visible")
       });
+
+      EventBus.$on('resetThreshold', msg => {
+        let threshold = +msg;
+        if (threshold < this.checkinThreshold) {
+          this.checkinThreshold = threshold;
+          // Get a new set of data for the facebook checkins
+          this.getFacebookCheckins();
+        } else {
+        d3.selectAll('.facebookLocations')
+          .style('opacity', function(d) {
+            if (d.checkins > +msg) 
+              return 1
+            else return 0
+          })
+        }
+      })
 
     }
   }
