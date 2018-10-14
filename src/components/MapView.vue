@@ -160,6 +160,21 @@ export default {
 
       }).addTo(that.mainMap);
 
+    var legend = L.control({position: 'bottomleft'});
+
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'info legend');
+        var labels = ['<strong>Legend</strong>'];
+
+        div.innerHTML += labels.push('&nbsp;&#9711; Facebook Checkins');
+        div.innerHTML += labels.push('&#9726; Tweet Locations');
+        div.innerHTML = labels.join('<br>');
+        return div;
+    };
+
+    legend.addTo(that.mainMap);
+
+
       L.svg().addTo(that.mainMap);
 
       // Add a D3 SVG and group for later SVG element placement
