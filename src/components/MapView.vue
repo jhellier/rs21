@@ -243,7 +243,6 @@ export default {
         };
       }).then(function(data) {
         that.fbCheckins = data;
-        //console.log(that.fbCheckins);
         that.gMap
           .selectAll("circle")
           .data(that.fbCheckins.filter(element => element.checkins > that.checkinThreshold))
@@ -291,7 +290,6 @@ export default {
         };
       }).then(function(data) {
         that.twitterFeeds = data;
-        //console.log(that.fbCheckins);
         that.gMap
           .selectAll("rect")
           .data(that.twitterFeeds)
@@ -464,7 +462,6 @@ export default {
       });
 
       EventBus.$on('highlightTweeter', msg => {
-        //console.log('Highlight tweeter ', msg);
         d3.selectAll('.tweetLocations')
           .style('opacity', function(d) {
             if (d.username == msg) {
@@ -481,7 +478,6 @@ export default {
       });
 
       EventBus.$on('highlightFilteredCheckin', msg => {
-        //console.log(' Highlight Checking',msg);
         d3.selectAll('.facebookLocations')
           .style('opacity', function(d) {
             if (d.checkins == msg && d.checkins > 20000)

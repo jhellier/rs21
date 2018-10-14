@@ -287,6 +287,12 @@
        </div>     
     </div>       
 </template>
+// TODO: This file needs major refactoring to clean up the html
+// Should split this off into another template file maybe
+// The select element should be broken out into new components
+// and brought in. A lot of the select code that would be difficult
+// to maintain. Need to work on my understanding of creating 
+// custom Vue components
 
 <script>
 import * as d3 from "d3";
@@ -443,6 +449,8 @@ export default {
   }
 };
 
+// This laods the target list of select options. It is called for each
+// select element on this page.
 function loadSelect(file) {
   let selectArray = [];
   d3.csv(file, function(d) {
@@ -461,6 +469,9 @@ function loadSelect(file) {
 </script>
 
 <style>
+
+
+/* TODO Clean up the styles. There is some redundancy */
 
 .linkTweeter, .linkCheckin {
     color: blue;

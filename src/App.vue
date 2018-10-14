@@ -1,18 +1,21 @@
 <template>
   
-<div id="mainPage" class="wrapper">
-        <header class="main-head">ABQ VIEW</header>
-           <MapView/>
+    <div id="mainPage" class="wrapper">
 
-        <aside class="side">
-          <FilterView fileLocation="data/lookups/B01001_lookup.csv"/>
-        </aside>
-        <footer class="main-footer">
-          Purpose: In support of the RS21 Code Challenge &nbsp; Developed by: John Hellier &nbsp; Contact: qmnoise@gmail.com
-        </footer>
-</div>
+            <header class="main-head">ABQ VIEW</header>
 
+              <MapView/>
 
+            <aside class="side">
+
+              <FilterView/>
+
+            </aside>
+            
+            <footer class="main-footer">
+              Purpose: In support of the RS21 Code Challenge &nbsp; Developed by: John Hellier &nbsp; Contact: qmnoise@gmail.com
+            </footer>
+    </div>
 
 </template>
 
@@ -76,10 +79,6 @@ export default {
     "sidebar"
     "footer";
 }
-
-/* #challengeSelect {
-  float: right;
-} */
 
 @media (min-width: 500px) {
   .wrapper {
