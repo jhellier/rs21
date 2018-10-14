@@ -458,6 +458,16 @@ export default {
             else return 0
           })
         }
+      });
+
+      EventBus.$on('highlightTweeter', msg => {
+        console.log('Highlight tweeter ', msg);
+        d3.selectAll('.tweetLocations')
+          .style('opacity', function(d) {
+            if (d.username == msg) {
+              return 1;
+            } else return 0;
+          });
       })
 
     }
