@@ -158,7 +158,10 @@ The tweets are all location based.
                         as well as set the number of checkins to limit to view for. For example, if you only wanted
                         places that had checkins more than 5000 then you would enter 5000 into the textfield
                         next the Facebook icon. Then hit the redo button. This will show an updated selection
-                        of checkins sites on the map. 
+                        of checkins sites on the map.
+                        <br><br>
+                        Clicking on any one of the most popular checkins will
+                        highlight only that location. Toggle the Facebook icon above twice to reset. 
                         <br>
                         <br>
                         <span style="font-weight: bold;">Most Popular Checkins</span>
@@ -223,6 +226,9 @@ The tweets are all location based.
                         The Twitter data is a collection of tweets in ABQ from 2014-10-30 -> 2014-10-31. 
                         There are 2130 tweets by 647 Twitter users. These tweets are displayed on the map as squares.
                         You can toggle the tweet view by clicking on the Twitter icon above.
+                        <br><br>
+                        Clicking on any one of the top 5 tweeters will display only their locations.
+                        To reset toggle the Twitter icon above twice.
                         <br>
                         <br>
                         <span style="font-weight: bold;">Top 5 Tweeters</span>

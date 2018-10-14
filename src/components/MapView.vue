@@ -467,7 +467,14 @@ export default {
             if (d.username == msg) {
               return 1;
             } else return 0;
-          });
+          })
+          .attr("pointer-events",function(d) {
+            if (d.username == msg)
+              return "visible";
+            else 
+              return "none";  
+          })
+
       });
 
       EventBus.$on('highlightFilteredCheckin', msg => {
@@ -478,6 +485,12 @@ export default {
               return 1;
             else 
               return 0;  
+          })
+          .attr("pointer-events",function(d) {
+            if (d.checkins == msg && d.checkins > 20000)
+              return "visible";
+            else 
+              return "none";  
           })
       })
 
