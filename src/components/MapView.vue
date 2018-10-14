@@ -54,7 +54,8 @@ export default {
       selectedAges: [],
       totalPopulation: {},
       totalTargetPopulation: {},
-      checkinThreshold: 5000
+      checkinThreshold: 5000,
+      showBCCountTotal: {}
     };
   },
 
@@ -138,10 +139,14 @@ export default {
                 +e.sourceTarget.feature.properties[element.value] +
                 "</div>";
             });
-            let popupHeader =
-              "<div class='popupHeader'>Total Count For Section: " +
-              count +
-              "</div>";
+
+            let popupHeader = '';
+            if (that.showBCCountTotal) {
+              popupHeader =
+                "<div class='popupHeader'>Total Count For Section: " +
+                count +
+                "</div>";
+            }
 
             popup
               .setLatLng(e.latlng)
@@ -393,9 +398,10 @@ export default {
       let that = this;
 
       EventBus.$on("selectionChange", msg => {
-        this.selectedAges = msg;
+        this.selectedAges = msg.selectedList;
+        this.showBCCountTotal = msg.showBCCountTotal;
 
-        if (msg.length != 0) this.clearLayer(false);
+        if (this.selectedAges != 0) this.clearLayer(false);
         else this.clearLayer(true);
       });
 

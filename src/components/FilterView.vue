@@ -147,18 +147,31 @@ export default {
       selectedList: [],
       twitterShowing: false,
       facebookShowing: false,
-      checkinThreshold: 5000
+      checkinThreshold: 5000,
+      showBCCountTotal: true
     };
   },
   methods: {
+    toggleShowBCCountTotal: function(stringCheck) {
+        // Checking to see if all is in the list of selected bands
+        // If is is then the toatl coutns wont' make sense, so don't display 
+        // total count for those cases.
+        if (stringCheck.toUpperCase().indexOf('ALL') != -1)
+            this.showBCCountTotal = false;
+
+    },   
     selectedAgeBand: function(event) {
       console.log(event.currentTarget.value);
       let msg = {};
       msg.meta = event.currentTarget.id.split("Age")[0];
       msg.value = event.currentTarget.value;
       msg.label = event.currentTarget.selectedOptions[0].label;
+      this.toggleShowBCCountTotal(msg.label);
       this.selectedList.push(msg);
-      EventBus.$emit("selectionChange", this.selectedList);
+      let sendMsg= {};
+      sendMsg.showBCCountTotal = this.showBCCountTotal;
+      sendMsg.selectedList = this.selectedList;
+      EventBus.$emit("selectionChange", sendMsg);
     },
     selectedMedAge: function(event) {
       console.log(event.currentTarget.value);
@@ -166,8 +179,12 @@ export default {
       msg.meta = event.currentTarget.id.split("Select")[0];
       msg.value = event.currentTarget.value;
       msg.label = event.currentTarget.selectedOptions[0].label;
+      this.toggleShowBCCountTotal(msg.label);
       this.selectedList.push(msg);
-      EventBus.$emit("selectionChange", this.selectedList);
+      let sendMsg = {};
+      sendMsg.showBCCountTotal = this.showBCCountTotal;
+      sendMsg.selectedList = this.selectedList;
+      EventBus.$emit("selectionChange", sendMsg);
     },
     selectedTransport: function(event) {
       console.log(event.currentTarget.value);
@@ -175,8 +192,12 @@ export default {
       msg.meta = event.currentTarget.id.split("Select")[0];
       msg.value = event.currentTarget.value;
       msg.label = event.currentTarget.selectedOptions[0].label;
+      this.toggleShowBCCountTotal(msg.label);
       this.selectedList.push(msg);
-      EventBus.$emit("selectionChange", this.selectedList);
+      let sendMsg = {};
+      sendMsg.showBCCountTotal = this.showBCCountTotal;
+      sendMsg.selectedList = this.selectedList;
+      EventBus.$emit("selectionChange", sendMsg);
     },
     selectedHouse: function(event) {
       console.log(event.currentTarget.value);
@@ -184,8 +205,12 @@ export default {
       msg.meta = event.currentTarget.id.split("Select")[0];
       msg.value = event.currentTarget.value;
       msg.label = event.currentTarget.selectedOptions[0].label;
+      this.toggleShowBCCountTotal(msg.label);
       this.selectedList.push(msg);
-      EventBus.$emit("selectionChange", this.selectedList);
+      let sendMsg = {};
+      sendMsg.showBCCountTotal = this.showBCCountTotal;
+      sendMsg.selectedList = this.selectedList;
+      EventBus.$emit("selectionChange", sendMsg);
     },
     selectedEarn: function(event) {
       console.log(event.currentTarget.value);
@@ -193,8 +218,12 @@ export default {
       msg.meta = '';
       msg.value = event.currentTarget.value;
       msg.label = event.currentTarget.selectedOptions[0].label;
+      this.toggleShowBCCountTotal(msg.label);
       this.selectedList.push(msg);
-      EventBus.$emit("selectionChange", this.selectedList);
+      let sendMsg = {};
+      sendMsg.showBCCountTotal = this.showBCCountTotal;
+      sendMsg.selectedList = this.selectedList;
+      EventBus.$emit("selectionChange", sendMsg);
     },
     selectMedianAge: function(event) {
         console.log(event.currentTarget.value);
@@ -207,7 +236,11 @@ export default {
       this.selectedTransportation = "";
       this.selectedHousehold = "";
       this.selectedEarnings = "";
-      EventBus.$emit("selectionChange", this.selectedList);
+      this.showBCCountTotal = true;
+      let sendMsg = {};
+      sendMsg.showBCCountTotal = this.showBCCountTotal;
+      sendMsg.selectedList = this.selectedList;
+      EventBus.$emit("selectionChange", sendMsg);
     },
 
     twitterToggle: function(event) {
