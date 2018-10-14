@@ -38,7 +38,7 @@ businesses or drill down into who lives where. The tabbed
 sections correspond to different data sets: Bernallilo County
  Demographics, Facebook Checkins and Twitter Feeds.  By 
  clicking on any one tab you can explore what the data has 
- to offer and how it is related to the other data sets.  
+ to offer and how it is potentially connected to data in the other data sets.  
  <br>
  <br>
  Click on the <b>Get Started</b> tab to see what you can do</p>
@@ -66,7 +66,7 @@ The Demographics Filter allows you to select any demographic slice of the ABQ po
   At any time you can clear the selections and start with a new 
   investigation. You can click on any colored section to see the makeup of that
   section. Since the popup stays open you can compare the makeup of the section against the Facebook checkins
-  or the Twitter tweets by mouse over either. 
+  or the Twitter tweets by mousing over either. 
 <br>
 <br>
 Click on the Facebook tab
@@ -144,7 +144,16 @@ The tweets are all location based.
            <button id="clearSelection" @click="clearSelections">Clear</button>
 
         </div>
-                    </div>                    
+<div>
+  At any time you can clear the selections and start with a new 
+  investigation. You can click on any colored section to see the makeup of that
+  section. Since the popup stays open you can compare the makeup of the section against the Facebook checkins
+  or the Twitter tweets by mousing over either. 
+<br>
+<br>
+</div>
+        
+            </div>                    
                 </b-tab>
                 <b-tab title="Facebook" >
                     <div class="tabContent" style="overflow:auto; height: 400px;">
