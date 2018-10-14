@@ -362,7 +362,7 @@ export default {
         let amount = element.properties[targetKey];
         this.totalPopulation += +amount;
       });
-      console.log(this.totalPopulation);
+      //console.log(this.totalPopulation);
     },
 
     // This gets the target population from the BC Census data
@@ -464,7 +464,7 @@ export default {
       });
 
       EventBus.$on('highlightTweeter', msg => {
-        console.log('Highlight tweeter ', msg);
+        //console.log('Highlight tweeter ', msg);
         d3.selectAll('.tweetLocations')
           .style('opacity', function(d) {
             if (d.username == msg) {
@@ -481,7 +481,7 @@ export default {
       });
 
       EventBus.$on('highlightFilteredCheckin', msg => {
-        console.log(' Highlight Checking',msg);
+        //console.log(' Highlight Checking',msg);
         d3.selectAll('.facebookLocations')
           .style('opacity', function(d) {
             if (d.checkins == msg && d.checkins > 20000)
