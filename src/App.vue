@@ -10,6 +10,7 @@
           <FilterView fileLocation="data/lookups/B01001_lookup.csv"/>
         </aside>
         <footer class="main-footer">
+          Developed by: John Hellier &nbsp; Contact: qmnoise@gmail.com
         </footer>
 </div>
 
@@ -72,6 +73,7 @@ export default {
 }
 .main-footer {
   grid-area: footer;
+  font-size: 12px;
 }
 .wrapper {
   display: grid;
