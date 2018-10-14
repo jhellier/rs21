@@ -15,7 +15,12 @@
         </div>
        <div id="tabPanel">
            <b-tabs>
-                <b-tab title="BC Census" active>
+                <b-tab title="Overview" active>
+                   <div id="overviewPanel">
+                       Welcome to the ABQ View
+                   </div>                         
+                </b-tab>    
+                <b-tab title="BC Census" >
                     <div class="tabContent">
         <div class="filterViewHeader">
             Demographics Filter
@@ -233,6 +238,12 @@ function loadSelect(file) {
 
 <style>
 
+#overviewPanel {
+    margin: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+}
 #facebookCheckinThreshold {
     margin-left: 10px;
 }
