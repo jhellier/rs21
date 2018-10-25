@@ -47,7 +47,6 @@ export default {
 
     methods: {
         selected: function(event) {
-            console.log(event);
             let msg = {};
             msg.selectName = this.selectName;
             msg.value = event.currentTarget.value;
