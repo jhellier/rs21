@@ -51,7 +51,11 @@ export default {
             msg.selectName = this.selectName;
             msg.value = event.currentTarget.value;
             msg.label = event.currentTarget.selectedOptions[0].label;
-            EventBus.$emit('selectionChange1',msg);
+            EventBus.$emit('selectionChange',msg);
+        },
+
+        clearSelection: function() {
+            this.selectedOption = '';
         }
 
     }

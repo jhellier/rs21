@@ -413,7 +413,8 @@ export default {
     addEventBusHandlers() {
       let that = this;
 
-      EventBus.$on("selectionChange", msg => {
+      EventBus.$on("BCCensusSelectionChange", msg => {
+        //console.log('Mapview event selection change ',msg);
         this.demographicSelect = msg.selectedList;
         this.showBCCountTotal = msg.showBCCountTotal;
 
