@@ -2,9 +2,9 @@
 <template>
     <div class="map-view"> 
         <div id='world'>
-          <ul id="selectedAges" class="selectedAges">
-            <li v-for="age in selectedAges" v-bind:key="age.label">
-              {{ age.meta + " " + age.label }}
+          <ul id="demographicSelect" class="demographicSelect">
+            <li v-for="dg in demographicSelect" v-bind:key="dg.label">
+              {{ dg.selectName + " " + dg.label }}
             </li>
           </ul>
         </div>    
@@ -51,7 +51,7 @@ export default {
       gMap: {},
       cWidth: {},
       cHeight: {},
-      selectedAges: [],
+      demographicSelect: [],
       totalPopulation: {},
       totalTargetPopulation: {},
       checkinThreshold: 5000,
@@ -129,7 +129,7 @@ export default {
             let target = e.target;
             let count = 0;
             let popupText = "";
-            that.selectedAges.forEach(function(element) {
+            that.demographicSelect.forEach(function(element) {
               count += +e.sourceTarget.feature.properties[element.value];
               popupText +=
                 "<div>" +
@@ -387,11 +387,11 @@ export default {
               return { color: "#8cc48b", fillOpacity: 0.2 };
             }
             let count = 0;
-            that.selectedAges.forEach(function(element) {
+            that.demographicSelect.forEach(function(element) {
               count += +feature.feature.properties[element.value];
               return count;
             });
-            var opacity = count / (that.selectedAges.length * 200);
+            var opacity = count / (that.demographicSelect.length * 200);
             return { color: "rgba(0,215,0,0.8", fillOpacity: opacity };
           })(that, featureLayer)
         );
@@ -414,10 +414,10 @@ export default {
       let that = this;
 
       EventBus.$on("selectionChange", msg => {
-        this.selectedAges = msg.selectedList;
+        this.demographicSelect = msg.selectedList;
         this.showBCCountTotal = msg.showBCCountTotal;
 
-        if (this.selectedAges != 0) this.clearLayer(false);
+        if (this.demographicSelect != 0) this.clearLayer(false);
         else this.clearLayer(true);
       });
 
@@ -505,7 +505,7 @@ export default {
   margin-left: 10px;
 }
 
-.selectedAges {
+.demographicSelect {
   z-index: 1000;
   position: absolute;
   right: 30px;

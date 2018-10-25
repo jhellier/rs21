@@ -27,7 +27,7 @@ export default {
   name: 'mainPage',
   components: {
     MapView,
-    FilterView
+    FilterView,
   }
 }
 </script>

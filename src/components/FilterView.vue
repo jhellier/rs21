@@ -1,5 +1,24 @@
 <template>
     <div id='sidebar'>
+
+         <!-- <Select id="cities" 
+           :options="[{label:'Who',value:20},{label:'Where', value:30}]" />
+
+         <Select id="femaleAge" 
+           :options="optionsF" /> 
+
+        <Select id="maleAge" 
+          :options="optionsM" />
+
+        <Select id="maleMedianAge" 
+          :options="optionsMedianAge" />
+
+         <vselect :options="optionsF"></vselect> 
+         <vselect :options="optionsMedianAge"></vselect>  -->
+
+
+          <!-- :options="[{label:'Zho',value:10},{label:'WhereZ', value:40}]" />  -->
+           
         <div class="filterButtons">
           <div class="toggleElement">  
           <span id="twitterToggle" @click="twitterToggle"  title="Click to toggle display">
@@ -78,56 +97,16 @@
                             Demographics Filter
                         </div>    
                         <div>
-                        <div class="selectBlock">
-                            <span class="selectLabel">Male Age</span>
-                            <select id="MaleAgeSelect" v-model="selectedM" @change="selectedAgeBand">
-                                    <option v-for="option in optionsM" v-bind:key="option.value" v-bind:value="option.value">
-                                        {{ option.text }}
-                                    </option>    
-                            </select>
-                        </div>
-                        <div class="selectBlock">        
-                            <span class="selectLabel">Female Age</span>
-                            <select id="FemaleAgeSelect" v-model="selectedF" @change="selectedAgeBand">
-                                    <option v-for="option in optionsF" v-bind:key="option.value" v-bind:value="option.value">
-                                        {{ option.text }}
-                                    </option>    
-                            </select>
-                        </div>
-                        <div class="selectBlock">        
-                            <span class="selectLabel">Median Age</span>
-                            <select id="MedianAgeSelect" v-model="selectedMedianAge" @change="selectedMedAge">
-                                    <option v-for="option in optionsMedianAge" v-bind:key="option.value" v-bind:value="option.value">
-                                        {{ option.text }}
-                                    </option>    
-                            </select>
-                        </div>
-                    
-
-                        <div class="selectBlock">        
-                            <span class="selectLabel">Transport</span>
-                            <select id="TransportSelect" v-model="selectedTransportation" @change="selectedTransport">
-                                    <option v-for="option in optionsTransportation" v-bind:key="option.value" v-bind:value="option.value">
-                                        {{ option.text }}
-                                    </option>    
-                            </select>
-                        </div>
-                        <div class="selectBlock">        
-                            <span class="selectLabel">Household</span>
-                            <select id="HouseholdSelect" v-model="selectedHousehold" @change="selectedHouse">
-                                    <option v-for="option in optionsHousehold" v-bind:key="option.value" v-bind:value="option.value">
-                                        {{ option.text }}
-                                    </option>    
-                            </select>
-                        </div>
-                        <div class="selectBlock">        
-                            <span class="selectLabel">Earnings</span>
-                            <select id="EarningsSelect" v-model="selectedEarnings" @change="selectedEarn">
-                                    <option v-for="option in optionsEarnings" v-bind:key="option.value" v-bind:value="option.value">
-                                        {{ option.text }}
-                                    </option>    
-                            </select>
-                        </div>
+                            <Select id="MaleAgeSelect" 
+                                      :options="optionsM" selectName="Male Age" />
+                            <Select id="FemaleAgeSelect" 
+                                      :options="optionsF" selectName="Female Age" />
+                            <Select id="MedianAgeSelect" 
+                                      :options="optionsMedianAge" selectName="Median Age"/>
+                            <Select id="TransportSelect" 
+                                      :options="optionsHousehold" selectName="Transport"/>
+                            <Select id="EarningsSelect" 
+                                      :options="optionsEarnings" selectName="Earnings"/>
                         </div>
                         <div class="filterButtons"> 
                         <button id="clearSelection" @click="clearSelections">Clear</button>
@@ -297,6 +276,8 @@
 <script>
 import * as d3 from "d3";
 import { EventBus } from "../main.js";
+import Select from './Select.vue';
+import vselect from "vue-select";
 import bTabs from "bootstrap-vue/es/components/tabs/tabs";
 import bTab from "bootstrap-vue/es/components/tabs/tab";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -318,7 +299,9 @@ export default {
     faRedo,
     faFacebook,
     faTwitter,
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    Select,
+    vselect
   },
 
   data() {
@@ -344,14 +327,16 @@ export default {
       showBCCountTotal: true
     };
   },
+  created() {
+   this.addEventBusHandlers();
+  },
   methods: {
-
     highlightFilteredCheckin: function(count) {
-        EventBus.$emit('highlightFilteredCheckin', count);
-    },  
+      EventBus.$emit("highlightFilteredCheckin", count);
+    },
     highlightTweeter: function(tweeter) {
-        EventBus.$emit('highlightTweeter',tweeter);
-    },  
+      EventBus.$emit("highlightTweeter", tweeter);
+    },
     toggleShowBCCountTotal: function(stringCheck) {
       // Checking to see if all is in the list of selected bands
       // If is is then the toatl coutns wont' make sense, so don't display
@@ -445,11 +430,28 @@ export default {
 
     resetCheckinThreshold: function(event) {
       EventBus.$emit("resetThreshold", this.checkinThreshold);
+    },
+
+    addEventBusHandlers() {
+      EventBus.$on("selectionChange1", msg => {
+          console.log('The is the msg payload ', msg);
+          this.toggleShowBCCountTotal(msg.label);
+          this.selectedList.push(msg);
+          let sendMsg = {};
+          sendMsg.showBCCountTotal = this.showBCCountTotal;
+          sendMsg.selectedList = this.selectedList;
+          EventBus.$emit("selectionChange", sendMsg);
+      });
     }
+
+
+
+
+
   }
 };
 
-// This laods the target list of select options. It is called for each
+// This loads the target list of select options. It is called for each
 // select element on this page.
 function loadSelect(file) {
   let selectArray = [];
@@ -461,7 +463,7 @@ function loadSelect(file) {
     };
   }).then(function(data) {
     data.forEach(element => {
-      selectArray.push({ text: element.value, value: element.key });
+      selectArray.push({ label: element.value, value: element.key });
     });
   });
   return selectArray;
@@ -469,19 +471,18 @@ function loadSelect(file) {
 </script>
 
 <style>
-
-
 /* TODO Clean up the styles. There is some redundancy */
 
-.linkTweeter, .linkCheckin {
-    color: blue;
-    cursor: pointer;
+.linkTweeter,
+.linkCheckin {
+  color: blue;
+  cursor: pointer;
 }
 
 .toggleElement {
-    white-space: no-wrap;
-    float: left;
-    cursor: pointer;
+  white-space: no-wrap;
+  float: left;
+  cursor: pointer;
 }
 
 #overviewPanel {
