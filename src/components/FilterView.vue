@@ -1,24 +1,6 @@
 <template>
     <div id='sidebar'>
 
-         <!-- <Select id="cities" 
-           :options="[{label:'Who',value:20},{label:'Where', value:30}]" />
-
-         <Select id="femaleAge" 
-           :options="optionsF" /> 
-
-        <Select id="maleAge" 
-          :options="optionsM" />
-
-        <Select id="maleMedianAge" 
-          :options="optionsMedianAge" />
-
-         <vselect :options="optionsF"></vselect> 
-         <vselect :options="optionsMedianAge"></vselect>  -->
-
-
-          <!-- :options="[{label:'Zho',value:10},{label:'WhereZ', value:40}]" />  -->
-           
         <div class="filterButtons">
           <div class="toggleElement">  
           <span id="twitterToggle" @click="twitterToggle"  title="Click to toggle display">
@@ -266,12 +248,6 @@
        </div>     
     </div>       
 </template>
-// TODO: This file needs major refactoring to clean up the html
-// Should split this off into another template file maybe
-// The select element should be broken out into new components
-// and brought in. A lot of the select code that would be difficult
-// to maintain. Need to work on my understanding of creating 
-// custom Vue components
 
 <script>
 import * as d3 from "d3";
@@ -344,66 +320,7 @@ export default {
       if (stringCheck.toUpperCase().indexOf("ALL") != -1)
         this.showBCCountTotal = false;
     },
-    selectedAgeBand: function(event) {
-      let msg = {};
-      msg.meta = event.currentTarget.id.split("Age")[0];
-      msg.value = event.currentTarget.value;
-      msg.label = event.currentTarget.selectedOptions[0].label;
-      this.toggleShowBCCountTotal(msg.label);
-      this.selectedList.push(msg);
-      let sendMsg = {};
-      sendMsg.showBCCountTotal = this.showBCCountTotal;
-      sendMsg.selectedList = this.selectedList;
-      EventBus.$emit("selectionChange", sendMsg);
-    },
-    selectedMedAge: function(event) {
-      let msg = {};
-      msg.meta = event.currentTarget.id.split("Select")[0];
-      msg.value = event.currentTarget.value;
-      msg.label = event.currentTarget.selectedOptions[0].label;
-      this.toggleShowBCCountTotal(msg.label);
-      this.selectedList.push(msg);
-      let sendMsg = {};
-      sendMsg.showBCCountTotal = this.showBCCountTotal;
-      sendMsg.selectedList = this.selectedList;
-      EventBus.$emit("selectionChange", sendMsg);
-    },
-    selectedTransport: function(event) {
-      let msg = {};
-      msg.meta = event.currentTarget.id.split("Select")[0];
-      msg.value = event.currentTarget.value;
-      msg.label = event.currentTarget.selectedOptions[0].label;
-      this.toggleShowBCCountTotal(msg.label);
-      this.selectedList.push(msg);
-      let sendMsg = {};
-      sendMsg.showBCCountTotal = this.showBCCountTotal;
-      sendMsg.selectedList = this.selectedList;
-      EventBus.$emit("selectionChange", sendMsg);
-    },
-    selectedHouse: function(event) {
-      let msg = {};
-      msg.meta = event.currentTarget.id.split("Select")[0];
-      msg.value = event.currentTarget.value;
-      msg.label = event.currentTarget.selectedOptions[0].label;
-      this.toggleShowBCCountTotal(msg.label);
-      this.selectedList.push(msg);
-      let sendMsg = {};
-      sendMsg.showBCCountTotal = this.showBCCountTotal;
-      sendMsg.selectedList = this.selectedList;
-      EventBus.$emit("selectionChange", sendMsg);
-    },
-    selectedEarn: function(event) {
-      let msg = {};
-      msg.meta = "";
-      msg.value = event.currentTarget.value;
-      msg.label = event.currentTarget.selectedOptions[0].label;
-      this.toggleShowBCCountTotal(msg.label);
-      this.selectedList.push(msg);
-      let sendMsg = {};
-      sendMsg.showBCCountTotal = this.showBCCountTotal;
-      sendMsg.selectedList = this.selectedList;
-      EventBus.$emit("selectionChange", sendMsg);
-    },
+    
     clearSelections: function(event) {
       this.selectedList = [];
       this.selectedM = "";
@@ -443,11 +360,6 @@ export default {
           EventBus.$emit("selectionChange", sendMsg);
       });
     }
-
-
-
-
-
   }
 };
 
