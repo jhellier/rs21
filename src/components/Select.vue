@@ -42,7 +42,7 @@ export default {
     },
 
     beforeDestroy() {
-        console.log('Hit before destroy');
+        //console.log('Hit before destroy');
     },
 
     methods: {
