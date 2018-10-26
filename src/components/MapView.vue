@@ -57,6 +57,7 @@ export default {
       checkinThreshold: 5000,
       defaultCheckinThreshold: 5000,
       showBCCountTotal: {},
+      fbCircles: []
     };
   },
 
@@ -71,9 +72,6 @@ export default {
     // Use this constuct for summary BC census data.
     //this.totalTargetPopulation = this.getTargetPopulation('B01001-HD01_VD06');
     //this.getTotalPopulation('B01001-HD01_VD26');
-
-    // Once the map is placed adjust the dimensions
-    this.adjustDimensions();
 
     // Add the facebook checkin data as D3 circle elements
     this.getFacebookCheckins();
@@ -116,7 +114,6 @@ export default {
       ).addTo(that.mainMap);
 
       that.mainMap.on('zoom', that.adjustDimensions);
-      that.mainMap.on('moveend', that.adjustPan);
 
       let popup = L.popup();
 
@@ -176,7 +173,6 @@ export default {
 
     legend.addTo(that.mainMap);
 
-
       L.svg().addTo(that.mainMap);
 
       // Add a D3 SVG and group for later SVG element placement
@@ -218,6 +214,17 @@ export default {
       return colors[n % colors.length];
     },
 
+    updateMapSVG() {
+      let that = this;
+      d3.selectAll('.mapLocations').attr("transform", 
+        function(d) { 
+          return "translate("+ 
+            that.mainMap.latLngToLayerPoint(d.LatLng).x +","+ 
+            that.mainMap.latLngToLayerPoint(d.LatLng).y +")";
+          });
+
+    },
+
     // Get the facebook checkins and generates a set of D3 circle elements
     // based on the lat/lon data for each checkin location
     getFacebookCheckins() {
@@ -244,19 +251,19 @@ export default {
         };
       }).then(function(data) {
         that.fbCheckins = data;
-        that.gMap
+        that.fbCircles = that.gMap
           .selectAll('circle')
           .data(that.fbCheckins.filter(element => element.checkins > that.checkinThreshold))
           .enter()
           .append('circle')
-          .attr('class','facebookLocations')
+          .attr('class','facebookLocations mapLocations')
           .attr('pointer-events', 'visible')
           .attr('r', 5)
           .attr('fill', function(d, i) {
             return that.getColor(that.busTypes[d.bus_type]);
           })
-          .attr('cx', d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
-          .attr('cy', d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
+          // .attr('cx', d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
+          // .attr('cy', d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
           .on('mouseover', function(d) {
             d3.select('body')
               .append('div')
@@ -271,6 +278,7 @@ export default {
             d3.selectAll('#toolTip').remove();
 
           });
+          that.updateMapSVG();
       });
 
     },
@@ -296,10 +304,10 @@ export default {
           .data(that.twitterFeeds)
           .enter()
           .append('rect')
-          .attr('class','tweetLocations')
+          .attr('class','tweetLocations mapLocations')
           .attr('pointer-events', 'visible')
-          .attr('x', d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
-          .attr('y', d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
+          // .attr('x', d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
+          // .attr('y', d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
           .attr('height',5)
           .attr('width',5)
           .on('mouseover', function(d) {
@@ -317,7 +325,7 @@ export default {
           .on('mouseout', function(d) {
             d3.selectAll('#toolTip').remove();
           });
-      })          
+      })      
     },
 
     onResize(event) {
@@ -335,6 +343,9 @@ export default {
       d3.select('#world')
         .attr('height', this.cHeight)
         .attr('width', this.cWidth);
+
+      this.updateMapSVG();
+
     },
 
     // Used for get the pixel location given a set of lat long points
@@ -397,16 +408,6 @@ export default {
           })(that, featureLayer)
         );
       });
-    },
-
-    // FIXME  This is a poor way to handle the resetting of the SVG elements
-    // when the map moves. Need to put in a function that walks the SVG tree and
-    // resets the element position based on the movement of the map. 
-    adjustPan() {
-      this.gMap.selectAll('.tweetLocations').remove();
-      this.gMap.selectAll('.facebookLocations').remove();
-      this.getFacebookCheckins();
-      this.getTwitterFeeds();
     },
 
     // This is a utility function that will declare handlers any EventBus events
