@@ -61,7 +61,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faRedo, faFacebook, faTwitter);
 
-/* eslint-disable */
+
 
 export default {
   name: 'sidebar',
@@ -87,15 +87,15 @@ export default {
   },
 
   methods: {
-    facebookToggle: function(event) {
+    facebookToggle: function() {
       this.facebookShowing = !this.facebookShowing;
       EventBus.$emit('toggleFacebookView', this.facebookShowing);
     },
-    twitterToggle: function(event) {
+    twitterToggle: function() {
       this.twitterShowing = !this.twitterShowing;
       EventBus.$emit('toggleTwitterView', this.twitterShowing);
     },
-    resetCheckinThreshold: function(event) {
+    resetCheckinThreshold: function() {
       EventBus.$emit('resetThreshold', this.checkinThreshold);
     }
 

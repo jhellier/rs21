@@ -49,7 +49,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import * as d3 from 'd3';
 import Select from './../Select.vue';
 import { EventBus } from '../../main.js';
@@ -102,7 +101,7 @@ export default {
 // You need this so that you can reset them after a clear has been called.
 // You can using a EventBus but that seems heavy handed
 
-    clearSelections: function(event) {
+    clearSelections: function() {
       this.selectedList = [];
       this.selectedM = '';
       this.selectedF = '';

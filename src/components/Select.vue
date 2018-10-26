@@ -10,7 +10,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 
 import { EventBus } from '../main.js';
 
@@ -60,7 +60,7 @@ export default {
         },
 
         addEventBusHandlers() {
-            EventBus.$on('selectionClear', msg => {
+            EventBus.$on('selectionClear', () => {
                 this.clearSelection();
             });
         }
