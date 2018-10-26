@@ -50,14 +50,14 @@
 
 <script>
 
-import * as d3 from "d3";
+import * as d3 from 'd3';
 import Select from './../Select.vue';
-import { EventBus } from "../../main.js";
+import { EventBus } from '../../main.js';
 
 
 export default {
 
-  name:"bcCensusTab",
+  name:'bcCensusTab',
   
   components: {
       Select,
@@ -66,20 +66,20 @@ export default {
 
   data() {
     return {
-      selectedM: "",
-      selectedF: "",
-      selectedTransportation: "",
-      selectedHousehold: "",
-      selectedEarnings: "",
-      selectedMedianAge: "",
-      optionsM: loadSelect("data/lookups/B01001_Age_Male.csv"),
-      optionsF: loadSelect("data/lookups/B01001_Age_Female.csv"),
-      optionsMedianAge: loadSelect("data/lookups/B01002_Median_Age.csv"),
+      selectedM: '',
+      selectedF: '',
+      selectedTransportation: '',
+      selectedHousehold: '',
+      selectedEarnings: '',
+      selectedMedianAge: '',
+      optionsM: loadSelect('data/lookups/B01001_Age_Male.csv'),
+      optionsF: loadSelect('data/lookups/B01001_Age_Female.csv'),
+      optionsMedianAge: loadSelect('data/lookups/B01002_Median_Age.csv'),
       optionsTransportation: loadSelect(
-        "data/lookups/B08301_Transportation.csv"
+        'data/lookups/B08301_Transportation.csv'
       ),
-      optionsHousehold: loadSelect("data/lookups/B11001_Household.csv"),
-      optionsEarnings: loadSelect("data/lookups/B19051_earnings.csv"),
+      optionsHousehold: loadSelect('data/lookups/B11001_Household.csv'),
+      optionsEarnings: loadSelect('data/lookups/B19051_earnings.csv'),
       selectedList: [],
       showBCCountTotal: true
     };
@@ -95,7 +95,7 @@ export default {
       // Checking to see if all is in the list of selected bands
       // If is is then the toatl coutns wont' make sense, so don't display
       // total count for those cases.
-      if (stringCheck.toUpperCase().indexOf("ALL") != -1)
+      if (stringCheck.toUpperCase().indexOf('ALL') != -1)
         this.showBCCountTotal = false;
     },
     
@@ -105,28 +105,28 @@ export default {
 
     clearSelections: function(event) {
       this.selectedList = [];
-      this.selectedM = "";
-      this.selectedF = "";
-      this.selectedMedianAge = "";
-      this.selectedTransportation = "";
-      this.selectedHousehold = "";
-      this.selectedEarnings = "";
+      this.selectedM = '';
+      this.selectedF = '';
+      this.selectedMedianAge = '';
+      this.selectedTransportation = '';
+      this.selectedHousehold = '';
+      this.selectedEarnings = '';
       this.showBCCountTotal = true;
       let sendMsg = {};
       sendMsg.showBCCountTotal = this.showBCCountTotal;
       sendMsg.selectedList = this.selectedList;
-      EventBus.$emit("BCCensusSelectionChange", sendMsg);
+      EventBus.$emit('BCCensusSelectionChange', sendMsg);
     },
 
      addEventBusHandlers() {
-      EventBus.$on("selectionChange", msg => {
+      EventBus.$on('selectionChange', msg => {
           //console.log('The is the msg payload ', msg);
           this.toggleShowBCCountTotal(msg.label);
           this.selectedList.push(msg);
           let sendMsg = {};
           sendMsg.showBCCountTotal = this.showBCCountTotal;
           sendMsg.selectedList = this.selectedList;
-          EventBus.$emit("BCCensusSelectionChange", sendMsg);
+          EventBus.$emit('BCCensusSelectionChange', sendMsg);
       });
     }
 

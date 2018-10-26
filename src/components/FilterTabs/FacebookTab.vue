@@ -76,10 +76,10 @@
 
 <script>
 
-import { EventBus } from "../../main.js";
+import { EventBus } from '../../main.js';
 
 export default {
-  name: "FacebookTab",
+  name: 'FacebookTab',
   components: {
 
   },
@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     highlightFilteredCheckin: function(count) {
-      EventBus.$emit("highlightFilteredCheckin", count);
+      EventBus.$emit('highlightFilteredCheckin', count);
     },
 
 

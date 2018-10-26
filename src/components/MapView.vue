@@ -1,7 +1,7 @@
 
 <template>
     <div class="map-view"> 
-        <div id='world'>
+        <div id="world">
           <ul id="demographicSelect" class="demographicSelect">
             <li v-for="dg in demographicSelect" v-bind:key="dg.label">
               {{ dg.selectName + " " + dg.label }}
@@ -15,9 +15,9 @@
 
 
 <script>
-import * as d3 from "d3";
-import { EventBus } from "../main.js";
-import bcData from "../../public/data/clean/BernallioCensusBlocks_Joined.json";
+import * as d3 from 'd3';
+import { EventBus } from '../main.js';
+import bcData from '../../public/data/clean/BernallioCensusBlocks_Joined.json';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
@@ -30,7 +30,7 @@ library.add(faFacebook,faTwitter)
 let log = true;
 
 export default {
-  name: "map-view",
+  name: 'map-view',
 
   components: {
     library,
@@ -81,41 +81,41 @@ export default {
     this.getTwitterFeeds();
 
     // Register an event listener when the Vue component is ready
-    window.addEventListener("resize", this.onResize);
+    window.addEventListener('resize', this.onResize);
   },
 
   beforeDestroy() {
-    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener('resize', this.onResize);
   },
 
   methods: {
 
     buildMap() {
       let that = this;
-      that.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.8;
+      that.cWidth = document.getElementsByTagName('html')[0].clientWidth * 0.8;
       that.cHeight =
-        document.getElementsByTagName("html")[0].clientHeight * 0.8;
+        document.getElementsByTagName('html')[0].clientHeight * 0.8;
 
       // Beware putting this after the tileLayer declaration. It will give you a mini map.
-      document.getElementById("world").style.height = that.cHeight + "px";
-      document.getElementById("world").style.width = that.cWidth + "px";
+      document.getElementById('world').style.height = that.cHeight + 'px';
+      document.getElementById('world').style.width = that.cWidth + 'px';
 
-      that.mainMap = L.map("world").setView([35.1240721, -106.594435], 12);
+      that.mainMap = L.map('world').setView([35.1240721, -106.594435], 12);
 
       L.tileLayer(
-        "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+        'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
         {
           attribution:
             'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
           maxZoom: 18,
           minZoom: 2,
-          id: "mapbox.light",
+          id: 'mapbox.light',
           accessToken: this.$mapboxAccessToken
         }
       ).addTo(that.mainMap);
 
-      that.mainMap.on("zoom", that.adjustDimensions);
-      that.mainMap.on("moveend", that.adjustPan);
+      that.mainMap.on('zoom', that.adjustDimensions);
+      that.mainMap.on('moveend', that.adjustPan);
 
       let popup = L.popup();
 
@@ -123,36 +123,36 @@ export default {
 
         onEachFeature: function(feature, layer) {
 
-          layer.setStyle({ color: "#8cc48b", fillOpacity: 0.2 });
+          layer.setStyle({ color: '#8cc48b', fillOpacity: 0.2 });
 
-          layer.on("click", function(e) {
+          layer.on('click', function(e) {
             let target = e.target;
             let count = 0;
-            let popupText = "";
+            let popupText = '';
             that.demographicSelect.forEach(function(element) {
               count += +e.sourceTarget.feature.properties[element.value];
               popupText +=
-                "<div>" +
+                '<div>' +
                 element.meta +
-                " " +
+                ' ' +
                 element.label +
-                " " +
+                ' ' +
                 +e.sourceTarget.feature.properties[element.value] +
-                "</div>";
+                '</div>';
             });
 
             let popupHeader = '';
             if (that.showBCCountTotal) {
               popupHeader =
-                "<div class='popupHeader'>Total Count For Section: " +
+                '<div class="popupHeader">Total Count For Section: ' +
                 count +
-                "</div>";
+                '</div>';
             }
 
             popup
               .setLatLng(e.latlng)
               .setContent(
-                "<div class='popupBody'>" + popupHeader + popupText + "</div>"
+                '<div class="popupBody">' + popupHeader + popupText + '</div>'
               )
               .openOn(that.mainMap);
           });
@@ -180,11 +180,11 @@ export default {
 
       // Add a D3 SVG and group for later SVG element placement
       // This creates something like a layer. In order to have mouse interaction on
-      // be sure to add .attr("pointer-events","visible") to any appended element
+      // be sure to add .attr('pointer-events','visible') to any appended element
       that.gMap = d3
-        .select("#world")
-        .select("svg")
-        .append("g");
+        .select('#world')
+        .select('svg')
+        .append('g');
     },
 
     // This is used to color the circles of the Facebook checkins
@@ -193,26 +193,26 @@ export default {
     // largely works. Another scheme might be needed for a more distributed data set    
     getColor(n) {
       var colors = [
-        "#3366cc",
-        "#dc3912",
-        "#ff9900",
-        "#109618",
-        "#990099",
-        "#0099c6",
-        "#dd4477",
-        "#66aa00",
-        "#b82e2e",
-        "#316395",
-        "#994499",
-        "#22aa99",
-        "#aaaa11",
-        "#6633cc",
-        "#e67300",
-        "#8b0707",
-        "#651067",
-        "#329262",
-        "#5574a6",
-        "#3b3eac"
+        '#3366cc',
+        '#dc3912',
+        '#ff9900',
+        '#109618',
+        '#990099',
+        '#0099c6',
+        '#dd4477',
+        '#66aa00',
+        '#b82e2e',
+        '#316395',
+        '#994499',
+        '#22aa99',
+        '#aaaa11',
+        '#6633cc',
+        '#e67300',
+        '#8b0707',
+        '#651067',
+        '#329262',
+        '#5574a6',
+        '#3b3eac'
       ];
       return colors[n % colors.length];
     },
@@ -222,7 +222,7 @@ export default {
     getFacebookCheckins() {
       let that = this;
 
-      d3.csv("data/clean/BTypes.csv", function(d) {
+      d3.csv('data/clean/BTypes.csv', function(d) {
         return {
           name: d.column1
         };
@@ -232,7 +232,7 @@ export default {
         });
       });
 
-      d3.csv("data/clean/FacebookPlaces_ABQ.csv", function(d) {
+      d3.csv('data/clean/FacebookPlaces_ABQ.csv', function(d) {
         return {
           place: d.place,
           bus_type: d.bus_type,
@@ -244,29 +244,29 @@ export default {
       }).then(function(data) {
         that.fbCheckins = data;
         that.gMap
-          .selectAll("circle")
+          .selectAll('circle')
           .data(that.fbCheckins.filter(element => element.checkins > that.checkinThreshold))
           .enter()
-          .append("circle")
+          .append('circle')
           .attr('class','facebookLocations')
-          .attr("pointer-events", "visible")
-          .attr("r", 5)
-          .attr("fill", function(d, i) {
+          .attr('pointer-events', 'visible')
+          .attr('r', 5)
+          .attr('fill', function(d, i) {
             return that.getColor(that.busTypes[d.bus_type]);
           })
-          .attr("cx", d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
-          .attr("cy", d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
-          .on("mouseover", function(d) {
-            d3.select("body")
-              .append("div")
-              .attr("class", "toolTip")
+          .attr('cx', d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
+          .attr('cy', d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
+          .on('mouseover', function(d) {
+            d3.select('body')
+              .append('div')
+              .attr('class', 'toolTip')
               .attr('id','toolTip')
-              .html(d.place + "<br>"  + d.checkins + ' checkins' + "<br><br>" + d.bus_type)
-              .style("left", d3.event.pageX + "px")
-              .style("top", d3.event.pageY - 28 + "px");
-            d3.select(this).style("cursor", "pointer");
+              .html(d.place + '<br>'  + d.checkins + ' checkins' + '<br><br>' + d.bus_type)
+              .style('left', d3.event.pageX + 'px')
+              .style('top', d3.event.pageY - 28 + 'px');
+            d3.select(this).style('cursor', 'pointer');
           })
-          .on("mouseout", function(d) {
+          .on('mouseout', function(d) {
             d3.selectAll('#toolTip').remove();
 
           });
@@ -279,7 +279,7 @@ export default {
     getTwitterFeeds() {
       let that = this;
 
-      d3.csv("data/clean/Twitter_ABQ_2014_10_30.csv", function(d) {
+      d3.csv('data/clean/Twitter_ABQ_2014_10_30.csv', function(d) {
         return {
           tweet: d.tweet,
           username: d.username,
@@ -291,29 +291,29 @@ export default {
       }).then(function(data) {
         that.twitterFeeds = data;
         that.gMap
-          .selectAll("rect")
+          .selectAll('rect')
           .data(that.twitterFeeds)
           .enter()
-          .append("rect")
+          .append('rect')
           .attr('class','tweetLocations')
-          .attr("pointer-events", "visible")
+          .attr('pointer-events', 'visible')
           .attr('x', d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
           .attr('y', d => that.mainMap.latLngToLayerPoint(d.LatLng).y)
           .attr('height',5)
           .attr('width',5)
-          .on("mouseover", function(d) {
-            d3.select("body")
-              .append("div")
-              .attr("class", "toolTip")
+          .on('mouseover', function(d) {
+            d3.select('body')
+              .append('div')
+              .attr('class', 'toolTip')
               .attr('id','toolTip')
               .classed('tweetToolTipSizing',true)
-                .html(d.tweet + "<br><br>" + d.username + "<br>" + d.time)
-              .style("left", d3.event.pageX + "px")
-              .style("top", d3.event.pageY - 28 + "px");
+                .html(d.tweet + '<br><br>' + d.username + '<br>' + d.time)
+              .style('left', d3.event.pageX + 'px')
+              .style('top', d3.event.pageY - 28 + 'px');
 
-            d3.select(this).style("cursor", "pointer");
+            d3.select(this).style('cursor', 'pointer');
           })
-          .on("mouseout", function(d) {
+          .on('mouseout', function(d) {
             d3.selectAll('#toolTip').remove();
           });
       })          
@@ -324,16 +324,16 @@ export default {
     },
 
     adjustDimensions() {
-      this.cWidth = document.getElementsByTagName("html")[0].clientWidth * 0.7;
+      this.cWidth = document.getElementsByTagName('html')[0].clientWidth * 0.7;
       this.cHeight =
-        document.getElementsByTagName("html")[0].clientHeight * 0.8;
+        document.getElementsByTagName('html')[0].clientHeight * 0.8;
 
-      document.getElementById("world").style.height = this.cHeight + "px";
-      document.getElementById("world").style.width = this.cWidth + "px";
+      document.getElementById('world').style.height = this.cHeight + 'px';
+      document.getElementById('world').style.width = this.cWidth + 'px';
 
-      d3.select("#world")
-        .attr("height", this.cHeight)
-        .attr("width", this.cWidth);
+      d3.select('#world')
+        .attr('height', this.cHeight)
+        .attr('width', this.cWidth);
     },
 
     // Used for get the pixel location given a set of lat long points
@@ -384,7 +384,7 @@ export default {
         featureLayer.setStyle(
           (function(el, feature) {
             if (clear) {
-              return { color: "#8cc48b", fillOpacity: 0.2 };
+              return { color: '#8cc48b', fillOpacity: 0.2 };
             }
             let count = 0;
             that.demographicSelect.forEach(function(element) {
@@ -392,7 +392,7 @@ export default {
               return count;
             });
             var opacity = count / (that.demographicSelect.length * 200);
-            return { color: "rgba(0,215,0,0.8", fillOpacity: opacity };
+            return { color: 'rgba(0,215,0,0.8', fillOpacity: opacity };
           })(that, featureLayer)
         );
       });
@@ -413,7 +413,7 @@ export default {
     addEventBusHandlers() {
       let that = this;
 
-      EventBus.$on("BCCensusSelectionChange", msg => {
+      EventBus.$on('BCCensusSelectionChange', msg => {
         //console.log('Mapview event selection change ',msg);
         this.demographicSelect = msg.selectedList;
         this.showBCCountTotal = msg.showBCCountTotal;
@@ -422,28 +422,28 @@ export default {
         else this.clearLayer(true);
       });
 
-      EventBus.$on("toggleTwitterView", msg => {
+      EventBus.$on('toggleTwitterView', msg => {
         if (msg)
           d3.selectAll('.tweetLocations')
               .style('opacity',0)
-              .attr("pointer-events", "none")
+              .attr('pointer-events', 'none')
 
         else
           d3.selectAll('.tweetLocations')
               .style('opacity',1)
-              .attr("pointer-events", "visible")
+              .attr('pointer-events', 'visible')
       });
 
-      EventBus.$on("toggleFacebookView", msg => {
+      EventBus.$on('toggleFacebookView', msg => {
         if (msg)
           d3.selectAll('.facebookLocations')
               .style('opacity',0)
-              .attr("pointer-events", "none")
+              .attr('pointer-events', 'none')
 
         else
           d3.selectAll('.facebookLocations')
               .style('opacity',1)
-              .attr("pointer-events", "visible")
+              .attr('pointer-events', 'visible')
       });
 
       EventBus.$on('resetThreshold', msg => {
@@ -469,11 +469,11 @@ export default {
               return 1;
             } else return 0;
           })
-          .attr("pointer-events",function(d) {
+          .attr('pointer-events',function(d) {
             if (d.username == msg)
-              return "visible";
+              return 'visible';
             else 
-              return "none";  
+              return 'none';  
           })
 
       });
@@ -486,11 +486,11 @@ export default {
             else 
               return 0;  
           })
-          .attr("pointer-events",function(d) {
+          .attr('pointer-events',function(d) {
             if (d.checkins == msg && d.checkins > 20000)
-              return "visible";
+              return 'visible';
             else 
-              return "none";  
+              return 'none';  
           })
       })
 

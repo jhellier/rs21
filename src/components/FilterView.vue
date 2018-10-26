@@ -1,5 +1,5 @@
 <template>
-    <div id='sidebar'>
+    <div id="sidebar">
 
         <div class="filterButtons">
           <div class="toggleElement">  
@@ -43,7 +43,7 @@
 
 <script>
 
-import { EventBus } from "../main.js";
+import { EventBus } from '../main.js';
 
 import OverviewTab from './FilterTabs/OverviewTab.vue'
 import GetStartedTab from './FilterTabs/GetStartedTab.vue'
@@ -51,20 +51,20 @@ import BCCensusTab from './FilterTabs/BCCensusTab.vue'
 import FacebookTab from './FilterTabs/FacebookTab.vue'
 import TwitterTab from './FilterTabs/TwitterTab.vue'
 
-import bTabs from "bootstrap-vue/es/components/tabs/tabs";
-import bTab from "bootstrap-vue/es/components/tabs/tab";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faRedo } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import bTabs from 'bootstrap-vue/es/components/tabs/tabs';
+import bTab from 'bootstrap-vue/es/components/tabs/tab';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faRedo } from '@fortawesome/free-solid-svg-icons';
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faRedo, faFacebook, faTwitter);
 
 /* eslint-disable */
 
 export default {
-  name: "sidebar",
+  name: 'sidebar',
   components: {
     bTabs,
     bTab,
@@ -89,14 +89,14 @@ export default {
   methods: {
     facebookToggle: function(event) {
       this.facebookShowing = !this.facebookShowing;
-      EventBus.$emit("toggleFacebookView", this.facebookShowing);
+      EventBus.$emit('toggleFacebookView', this.facebookShowing);
     },
     twitterToggle: function(event) {
       this.twitterShowing = !this.twitterShowing;
-      EventBus.$emit("toggleTwitterView", this.twitterShowing);
+      EventBus.$emit('toggleTwitterView', this.twitterShowing);
     },
     resetCheckinThreshold: function(event) {
-      EventBus.$emit("resetThreshold", this.checkinThreshold);
+      EventBus.$emit('resetThreshold', this.checkinThreshold);
     }
 
   }

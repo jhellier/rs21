@@ -49,10 +49,10 @@
 
 <script>
 
-import { EventBus } from "../../main.js";
+import { EventBus } from '../../main.js';
 
 export default {
-  name: "TwitterTab",
+  name: 'TwitterTab',
     components: {
       EventBus
   },
@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     highlightTweeter: function(tweeter) {
-      EventBus.$emit("highlightTweeter", tweeter);
+      EventBus.$emit('highlightTweeter', tweeter);
     }
 
 
