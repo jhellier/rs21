@@ -14,6 +14,7 @@ The component branch cleans up a lot of what was omitted or incomplete for the c
 * Adding custom select components
 * Breaking out the tab panels into individual vues
 * Making Leaflet a node module
+* Fixing the svg element handling so that svg elements are moved rather than recreated after zooming
 * All files pass es-lint
 * TODO: Testing
 
