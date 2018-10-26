@@ -55,7 +55,8 @@ export default {
       totalPopulation: {},
       totalTargetPopulation: {},
       checkinThreshold: 5000,
-      showBCCountTotal: {}
+      defaultCheckinThreshold: 5000,
+      showBCCountTotal: {},
     };
   },
 
@@ -465,12 +466,12 @@ export default {
       EventBus.$on('highlightTweeter', msg => {
         d3.selectAll('.tweetLocations')
           .style('opacity', function(d) {
-            if (d.username == msg) {
+            if (d.username === msg) {
               return 1;
             } else return 0;
           })
           .attr('pointer-events',function(d) {
-            if (d.username == msg)
+            if (d.username === msg)
               return 'visible';
             else 
               return 'none';  
@@ -481,13 +482,13 @@ export default {
       EventBus.$on('highlightFilteredCheckin', msg => {
         d3.selectAll('.facebookLocations')
           .style('opacity', function(d) {
-            if (d.checkins == msg && d.checkins > 20000)
+            if (d.checkins === msg && d.checkins > this.defaultCheckinThreshold)
               return 1;
             else 
               return 0;  
           })
           .attr('pointer-events',function(d) {
-            if (d.checkins == msg && d.checkins > 20000)
+            if (d.checkins === msg && d.checkins > this.defaultCheckinThreshold)
               return 'visible';
             else 
               return 'none';  
