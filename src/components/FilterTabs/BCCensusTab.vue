@@ -49,7 +49,7 @@
 </template>
 
 <script>
-
+/* eslint-disable */
 import * as d3 from 'd3';
 import Select from './../Select.vue';
 import { EventBus } from '../../main.js';
@@ -60,8 +60,7 @@ export default {
   name:'bcCensusTab',
   
   components: {
-      Select,
-      EventBus
+      Select
   },
 
   data() {
@@ -116,6 +115,7 @@ export default {
       sendMsg.showBCCountTotal = this.showBCCountTotal;
       sendMsg.selectedList = this.selectedList;
       EventBus.$emit('BCCensusSelectionChange', sendMsg);
+      EventBus.$emit('selectionClear', 'Clear Selection');
     },
 
      addEventBusHandlers() {

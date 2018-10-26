@@ -36,6 +36,7 @@ export default {
 
     created() {
         this.mutableOptions = this.options;
+        this.addEventBusHandlers();
     },
 
     mounted() {
@@ -56,6 +57,12 @@ export default {
 
         clearSelection: function() {
             this.selectedOption = '';
+        },
+
+        addEventBusHandlers() {
+            EventBus.$on('selectionClear', msg => {
+                this.clearSelection();
+            });
         }
 
     }
