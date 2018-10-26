@@ -16,6 +16,7 @@
 
 <script>
 import * as d3 from 'd3';
+import * as L from 'leaflet';
 import { EventBus } from '../main.js';
 import bcData from '../../public/data/clean/BernallioCensusBlocks_Joined.json';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -24,10 +25,6 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faFacebook,faTwitter)
-
-/* eslint-disable */
-
-let log = true;
 
 export default {
   name: 'map-view',
@@ -124,7 +121,6 @@ export default {
           layer.setStyle({ color: '#8cc48b', fillOpacity: 0.2 });
 
           layer.on('click', function(e) {
-            let target = e.target;
             let count = 0;
             let popupText = '';
             that.demographicSelect.forEach(function(element) {
@@ -161,7 +157,7 @@ export default {
 
     var legend = L.control({position: 'bottomleft'});
 
-    legend.onAdd = function (map) {
+    legend.onAdd = function () {
         var div = L.DomUtil.create('div', 'info legend');
         var labels = ['<strong>Legend</strong>'];
 
@@ -259,7 +255,7 @@ export default {
           .attr('class','facebookLocations mapLocations')
           .attr('pointer-events', 'visible')
           .attr('r', 5)
-          .attr('fill', function(d, i) {
+          .attr('fill', function(d) {
             return that.getColor(that.busTypes[d.bus_type]);
           })
           // .attr('cx', d => that.mainMap.latLngToLayerPoint(d.LatLng).x)
@@ -274,7 +270,7 @@ export default {
               .style('top', d3.event.pageY - 28 + 'px');
             d3.select(this).style('cursor', 'pointer');
           })
-          .on('mouseout', function(d) {
+          .on('mouseout', function() {
             d3.selectAll('#toolTip').remove();
 
           });
@@ -322,13 +318,13 @@ export default {
 
             d3.select(this).style('cursor', 'pointer');
           })
-          .on('mouseout', function(d) {
+          .on('mouseout', function() {
             d3.selectAll('#toolTip').remove();
           });
       })      
     },
 
-    onResize(event) {
+    onResize() {
       this.adjustDimensions();
     },
 
@@ -417,11 +413,11 @@ export default {
 
       EventBus.$on('BCCensusSelectionChange', msg => {
         //console.log('Mapview event selection change ',msg);
-        this.demographicSelect = msg.selectedList;
-        this.showBCCountTotal = msg.showBCCountTotal;
+        that.demographicSelect = msg.selectedList;
+        that.showBCCountTotal = msg.showBCCountTotal;
 
-        if (this.demographicSelect != 0) this.clearLayer(false);
-        else this.clearLayer(true);
+        if (that.demographicSelect != 0) this.clearLayer(false);
+        else that.clearLayer(true);
       });
 
       EventBus.$on('toggleTwitterView', msg => {
