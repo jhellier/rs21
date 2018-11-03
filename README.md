@@ -10,6 +10,15 @@ The app stack includes:
 * D3.js 5.7.0
 * Leaflet.js 1.3.4
 
+The component branch cleans up a lot of what was omitted or incomplete for the challenge including:
+* Adding custom select components
+* Breaking out the tab panels into individual vues
+* Making Leaflet a node module
+* Fixing the svg element handling so that svg elements are moved rather than recreated after zooming
+* All files pass es-lint
+* TODO: Testing
+
+
 
 You can checkout and build this project locally by following these steps. The primary data sets were provided by RS 21. All other data and development was performed by John Hellier. Any questions: qmnoise@gmail.com
 
