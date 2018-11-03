@@ -15,6 +15,9 @@
 
 
 <script>
+
+/* eslint-disable */
+
 import * as d3 from 'd3';
 import * as L from 'leaflet';
 import { EventBus } from '../main.js';
@@ -68,7 +71,9 @@ export default {
 
     // Use this constuct for summary BC census data.
     //this.totalTargetPopulation = this.getTargetPopulation('B01001-HD01_VD06');
-    //this.getTotalPopulation('B01001-HD01_VD26');
+    
+    //this.totalTargetPopulation = this.getTotalPopulation('B01001-HD01_VD26');
+    //console.log('Pop is ',this.totalTargetPopulation);
 
     // Add the facebook checkin data as D3 circle elements
     this.getFacebookCheckins();
@@ -362,27 +367,18 @@ export default {
     // The key required is of the form: B01001-HD01_VD01 depending on
     // which population band or other demographic band
     getTotalPopulation(targetKey) {
-      let features = this.bcData.features;
-      this.totalPopulation = 0;
-      features.forEach(element => {
-        let amount = element.properties[targetKey];
-        this.totalPopulation += +amount;
-      });
-      //console.log(this.totalPopulation);
+     return this.bcData.features.reduce(function(total, currentValue) {
+        return total + Number(currentValue.properties[targetKey]);
+      },0);
     },
 
     // This gets the target population from the BC Census data
     // The key required is of the form: B01001-HD01_VD01 depending on
     // which population band or other demographic band
     getTargetPopulation(targetKey) {
-      let features = this.bcData.features;
-      let total = 0;
-      features.forEach(element => {
-        let amount = element.properties[targetKey];
-        total += +amount;
-      });
-      //console.log(total);
-      return total;
+      return this.bcData.features.reduce(function(total, currentValue) {
+        return total + Number(currentValue.properties[targetKey]);
+      },0);
     },
 
     // This resets the filter and the map for BC Census data
