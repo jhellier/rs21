@@ -1,4 +1,6 @@
 # rs21 Challenge
+<i>This is the original submission for the interview challenge. The master branch and all other branches are experiments in what could be done.</i>
+
 This is a project in support of a coding challenge as part of the interview process for [RS 21](https://rs21.io/)
 
 The app is currently hosted on: [Quin Moto](http://quinmoto.com/rs21.html)
