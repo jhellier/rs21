@@ -155,8 +155,6 @@ export default {
                 .attr('transform', 'translate(150,150)');
 
       that.gaugeG.append('svg:foreignObject')
-              .attr('height', '25px')
-              .attr('width', '25px')
               .attr('x',-30)
               .attr('y',-70)
               .style('font-size',80)
