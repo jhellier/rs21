@@ -1,22 +1,16 @@
 <template>
     <div id="sidebar">
 
-        <div class="filterButtons">
-          <div class="toggleElement">  
-          <span id="twitterToggle" @click="twitterToggle"  title="Click to toggle display">
-              <font-awesome-icon :icon="['fab','twitter']" transform="down-3" class="iconStyle" style="color: lightblue"/>
-          </span>
-          </div>  
-          <div class="toggleElement">  
-          <span id="facebookToggle" @click="facebookToggle" title="Click to toggle display">
-              <font-awesome-icon :icon="['fab','facebook']" transform="down-3" class="iconStyle" style="color: blue"/>
-          </span>
-          <input id="facebookCheckinThreshold" size="5" v-model="checkinThreshold" title="Checkins Greater Than">            
-          <span id="facebookResetCheckinThreshold" @click="resetCheckinThreshold" title="Click to Redo">
-            <font-awesome-icon :icon="['fas','redo']" transform="right-3"/>
-          </span>
-          </div>
-
+        <!-- <div class="filterButtons"> -->
+        <div class="container">
+         <div class="row">
+           <div class="col-sm">   
+          <Gauge  gauge_id="facebookFilter" gauge_range_max="5000" gauge_icon="fa-facebook" icon_color="blue"/>
+           </div>
+           <div class="col-sm">   
+          <Gauge  gauge_id="twitterFilter" gauge_range_max="1000" gauge_icon="fa-twitter" icon_color="lightblue"/>
+           </div>
+           </div>
         </div>
        <div id="tabPanel">
            <b-tabs>
@@ -51,6 +45,7 @@ import BCCensusTab from './FilterTabs/BCCensusTab.vue'
 import FacebookTab from './FilterTabs/FacebookTab.vue'
 import TwitterTab from './FilterTabs/TwitterTab.vue'
 
+import Gauge from './Gauge.vue'
 import bTabs from 'bootstrap-vue/es/components/tabs/tabs';
 import bTab from 'bootstrap-vue/es/components/tabs/tab';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -77,7 +72,8 @@ export default {
     GetStartedTab,
     BCCensusTab,
     FacebookTab,
-    TwitterTab
+    TwitterTab,
+    Gauge
   },
 
   data() {
@@ -119,7 +115,7 @@ export default {
 }
 
 #tabPanel {
-  margin-top: 40px;
+  /* margin-top: 40px; */
   padding-top: 5px;
 }
 
