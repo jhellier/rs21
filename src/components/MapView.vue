@@ -416,7 +416,7 @@ export default {
         else that.clearLayer(true);
       });
 
-      EventBus.$on('toggleTwitterView', msg => {
+      EventBus.$on('twitterFilterToggleEvent', msg => {
         if (msg)
           d3.selectAll('.tweetLocations')
               .style('opacity',0)
@@ -428,7 +428,7 @@ export default {
               .attr('pointer-events', 'visible')
       });
 
-      EventBus.$on('toggleFacebookView', msg => {
+      EventBus.$on('facebookFilterToggleEvent', msg => {
         if (msg)
           d3.selectAll('.facebookLocations')
               .style('opacity',0)
@@ -486,7 +486,8 @@ export default {
             else 
               return 'none';  
           })
-      })
+      });
+
 
     }
   }

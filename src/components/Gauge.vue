@@ -56,6 +56,8 @@ export default {
       gaugeMarkerRing: {},
       gaugeArc: {},
       changeEventName: this.gauge_id + 'ChangeEvent',
+      toggleEventName: this.gauge_id + 'ToggleEvent',
+      viewShowing: false,
       gaugeIcon: this.gauge_icon,
       iconColor: this.icon_color
     };
@@ -112,7 +114,7 @@ export default {
         .append('path')
         .datum({ startAngle: -2.5, endAngle: -2.5 })
         .attr('id', 'marker')
-        .style('fill', '#aaa')
+        .style('fill', '#777')
         .attr('d', that.gaugeArc)
         .on('mouseover', function(event) {
           // console.log('This is the other one',event);
@@ -159,7 +161,17 @@ export default {
               .attr('y',-70)
               .style('font-size',80)
               .style('color',that.iconColor)
-              .html('<i class="fab ' + that.gaugeIcon + '"></i>');
+              .html('<i class="fab ' + that.gaugeIcon + '"></i>')
+              .on('click', function() {
+                that.viewShowing = !that.viewShowing;
+                EventBus.$emit(that.toggleEventName, that.viewShowing);
+              })
+              .on('mouseenter', function() {
+                d3.select(this).style('cursor', 'pointer');
+              })
+              .on('mouseout', function() {
+                d3.select(this).style('cursor', 'default');
+              })              
 
 
       let ticks = that.gaugeG
@@ -173,7 +185,7 @@ export default {
                 .attr('y1', that.tickStart)
                 .attr('y2', that.tickStart + that.tickLength)
                 .attr('transform', function(d) {
-                return 'rotate(' + (d * that.radToDegree + 180) + ')';
+                  return 'rotate(' + (d * that.radToDegree + 180) + ')';
                 });
 
       let tickLabelValues = d3.range(that.gaugeRange, -100, -that.tickSpacing);
