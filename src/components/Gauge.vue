@@ -1,6 +1,7 @@
 <template>
     <div class="gauge-div" :gauge_id="gauge_id" 
           :gauge_range_max="gauge_range_max"
+          :gauge_text="gauge_text"
           :gauge_icon="gauge_icon"
           :color="icon_color">
         <div :id="gauge_id" >
@@ -28,7 +29,8 @@ export default {
     gauge_id: String,
     gauge_range_max: String,
     gauge_icon: String,
-    icon_color: String
+    icon_color: String,
+    gauge_text: String
 
   },
 
@@ -52,7 +54,8 @@ export default {
       labelRadius: outerRadius + labelOffset,
       radToDegree: 180 / Math.PI,
       gaugeG: {},
-      gaugeText: {},
+      gaugeText: this.gauge_text,
+      gaugeCounterText: {},
       gaugeMarkerRing: {},
       gaugeArc: {},
       changeEventName: this.gauge_id + 'ChangeEvent',
@@ -86,7 +89,7 @@ export default {
     },
 
     setGaugeValue: function(value) {
-      //this.gaugeText.text(value);
+      //this.gaugeCounterText.text(value);
     },
 
     setGaugeArc: function() {
@@ -135,7 +138,7 @@ export default {
           let text = Math.round(
             (that.gaugeRange / that.radianMultipler) * (radians + 2.5)
           );
-          that.gaugeText.text(text);
+          that.gaugeCounterText.text(text);
 
           EventBus.$emit(that.changeEventName,text);
           
@@ -155,7 +158,7 @@ export default {
                 .attr('transform', 'translate(150,150)');
 
       that.gaugeG.append('svg:foreignObject')
-              .attr('x',-30)
+              .attr('x',-35)
               .attr('y',-70)
               .style('font-size',80)
               .style('color',that.iconColor)
@@ -204,12 +207,19 @@ export default {
                   return Number(tickLabelValues[i]).toFixed(0);
                 });
 
-      that.gaugeText = that.gaugeG
+      that.gaugeCounterText = that.gaugeG
         .append('text')
             .attr('dy', 70)
             .style('text-anchor', 'middle')
             .style('font-size', 24)
             .text('0000');
+
+      that.gaugeG
+        .append('text')
+            .attr('dy', 40)
+            .style('text-anchor', 'middle')
+            .style('font-size', 18)
+            .text(that.gaugeText);
 
       let tau = 2 * Math.PI;
 
@@ -229,7 +239,7 @@ export default {
                 let text = Math.round(
                     (that.gaugeRange / that.radianMultipler) * (radians + 2.5)
                 );
-                that.gaugeText.text(text);
+                that.gaugeCounterText.text(text);
 
                 EventBus.$emit(that.changeEventName,text);
 
