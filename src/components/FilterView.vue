@@ -4,7 +4,7 @@
         <div class="container">
          <div class="row">
            <div class="col-sm">   
-          <Gauge  gauge_id="facebookFilter" gauge_range_max="5000" gauge_range_default="2000" gauge_icon="fa-facebook" gauge_text="Checkins" icon_color="blue"/>
+          <Gauge  gauge_id="facebookFilter" gauge_range_max="15000" gauge_range_default="2000" gauge_icon="fa-facebook" gauge_text="Checkins" icon_color="blue"/>
            </div>
            <div class="col-sm">   
           <Gauge  gauge_id="twitterFilter" gauge_range_max="1000" gauge_icon="fa-twitter" icon_color="lightblue" gauge_text="Tweets"/>

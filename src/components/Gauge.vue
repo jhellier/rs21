@@ -58,11 +58,12 @@ export default {
       radToDegree: 180 / Math.PI,
       gaugeG: {},
       gaugeText: this.gauge_text,
-      gaugeCounterText: {},
+      gaugeCounterText: this.gauge_range_default,
       gaugeMarkerRing: {},      
       gaugeArc: {},
       changeEventName: this.gauge_id + 'ChangeEvent',
       toggleEventName: this.gauge_id + 'ToggleEvent',
+      resetEventName: this.gauge_id + 'ResetEvent',
       viewShowing: false,
       gaugeIcon: this.gauge_icon,
       iconColor: this.icon_color
@@ -76,7 +77,7 @@ export default {
   mounted: function() {
     this.setGaugeArc();  
     this.buildGauge();
-    this.buildGaugeMarker();
+    this.buildGaugeMarker(this.getGaugeMarkerPosInRadians());
   },
 
   methods: {
@@ -115,17 +116,19 @@ export default {
 
 
       getGaugeMarkerPosInRadians: function() {
+        if (this.gaugeRangeDefault == undefined || this.gaugeRangeDefault == 0)
+          return -2.5;
         let gaugeRangeDivisor = this.gaugeRangeMax/this.radianMultipler;
         let gaugePortion = this.gaugeRangeDefault/gaugeRangeDivisor;
         return gaugePortion - 2.5;
       },
 
 
-    buildGaugeMarker: function() {
+    buildGaugeMarker: function(endAngle) {
       let that = this;  
       that.gaugeMarkerRing = that.gaugeG
         .append('path')
-        .datum({ startAngle: -2.5, endAngle: -2.5 })
+        .datum({ startAngle: -2.5, endAngle: endAngle })
         .attr('id', 'marker')
         .style('fill', '#777')
         .attr('d', that.gaugeArc)
@@ -175,14 +178,6 @@ export default {
               .html('<i class="fab ' + that.gaugeIcon + '"></i>')
               .on('click', function() {
                 that.viewShowing = !that.viewShowing;
-                that.gaugeCounterText.text(that.gaugeRangeDefault);
-
-                // Compute the position of the gauge marker by taking
-                // max and min of gauge
-                that.gaugeMarkerRing
-                  .transition()
-                  .duration(1000)
-                  .attrTween('d', that.arcTween(that.getGaugeMarkerPosInRadians()));
 
                 EventBus.$emit(that.toggleEventName, that.viewShowing);
               })
@@ -231,7 +226,25 @@ export default {
             .attr('dy', 70)
             .style('text-anchor', 'middle')
             .style('font-size', 24)
-            .text('0000');
+            .text(that.gaugeCounterText)
+         .on('click', function() {
+           that.gaugeCounterText.text(that.gaugeRangeDefault);
+            // Compute the position of the gauge marker by taking
+            // max and min of gauge
+            that.gaugeMarkerRing
+              .transition()
+              .duration(1000)
+              .attrTween('d', that.arcTween(that.getGaugeMarkerPosInRadians()));
+            
+            EventBus.$emit(that.resetEventName, that.gaugeRangeDefault);
+
+         }) 
+        .on('mouseenter', function() {
+            d3.select(this).style('cursor', 'pointer');
+         })
+        .on('mouseout', function() {
+            d3.select(this).style('cursor', 'default');
+         })   
 
       that.gaugeG
         .append('text')
