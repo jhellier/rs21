@@ -1,7 +1,6 @@
 <template>
     <div id="sidebar">
 
-        <!-- <div class="filterButtons"> -->
         <div class="container">
          <div class="row">
            <div class="col-sm">   

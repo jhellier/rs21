@@ -440,6 +440,22 @@ export default {
               .attr('pointer-events', 'visible')
       });
 
+      EventBus.$on('facebookFilterChangeEvent', msg => {
+        let threshold = +msg;
+        if (threshold < this.checkinThreshold) {
+          this.checkinThreshold = threshold;
+          // Get a new set of data for the facebook checkins
+          this.getFacebookCheckins();
+        } else {
+        d3.selectAll('.facebookLocations')
+          .style('opacity', function(d) {
+            if (d.checkins > +msg) 
+              return 1
+            else return 0
+          })
+        }
+      });
+
       EventBus.$on('resetThreshold', msg => {
         let threshold = +msg;
         if (threshold < this.checkinThreshold) {
