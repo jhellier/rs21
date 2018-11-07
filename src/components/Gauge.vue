@@ -1,6 +1,7 @@
 <template>
     <div class="gauge-div" :gauge_id="gauge_id" 
           :gauge_range_max="gauge_range_max"
+          :gauge_range_default="gauge_range_default"
           :gauge_text="gauge_text"
           :gauge_icon="gauge_icon"
           :color="icon_color">
@@ -28,6 +29,7 @@ export default {
     },
     gauge_id: String,
     gauge_range_max: String,
+    gauge_range_default: String,
     gauge_icon: String,
     icon_color: String,
     gauge_text: String
@@ -40,15 +42,16 @@ export default {
     let outerRadius = innerRadius + radiusWidth;
     let labelOffset = 20;
     let tickCount = 10;
-    let gaugeRange = this.gauge_range_max;
 
     return {
       gaugeId: this.gauge_id,
       innerRadius,
       outerRadius,
-      gaugeRange: gaugeRange,
+      gaugeRange: this.gauge_range_max,
+      gaugeRangeMax: this.gauge_range_max,
+      gaugeRangeDefault: this.gauge_range_default,
       radianMultipler: 5,
-      tickSpacing: gaugeRange/tickCount,
+      tickSpacing: this.gauge_range_max/tickCount,
       tickStart: outerRadius + radiusWidth,
       tickLength: -(2 * radiusWidth),
       labelRadius: outerRadius + labelOffset,
@@ -56,7 +59,7 @@ export default {
       gaugeG: {},
       gaugeText: this.gauge_text,
       gaugeCounterText: {},
-      gaugeMarkerRing: {},
+      gaugeMarkerRing: {},      
       gaugeArc: {},
       changeEventName: this.gauge_id + 'ChangeEvent',
       toggleEventName: this.gauge_id + 'ToggleEvent',
@@ -108,6 +111,13 @@ export default {
             return that.gaugeArc(d);
           };
         };
+      },
+
+
+      getGaugeMarkerPosInRadians: function() {
+        let gaugeRangeDivisor = this.gaugeRangeMax/this.radianMultipler;
+        let gaugePortion = this.gaugeRangeDefault/gaugeRangeDivisor;
+        return gaugePortion - 2.5;
       },
 
 
@@ -165,6 +175,15 @@ export default {
               .html('<i class="fab ' + that.gaugeIcon + '"></i>')
               .on('click', function() {
                 that.viewShowing = !that.viewShowing;
+                that.gaugeCounterText.text(that.gaugeRangeDefault);
+
+                // Compute the position of the gauge marker by taking
+                // max and min of gauge
+                that.gaugeMarkerRing
+                  .transition()
+                  .duration(1000)
+                  .attrTween('d', that.arcTween(that.getGaugeMarkerPosInRadians()));
+
                 EventBus.$emit(that.toggleEventName, that.viewShowing);
               })
               .on('mouseenter', function() {

@@ -422,7 +422,7 @@ export default {
               .style('opacity',0)
               .attr('pointer-events', 'none')
 
-        else
+        else 
           d3.selectAll('.tweetLocations')
               .style('opacity',1)
               .attr('pointer-events', 'visible')
@@ -434,10 +434,11 @@ export default {
               .style('opacity',0)
               .attr('pointer-events', 'none')
 
-        else
+        else {
           d3.selectAll('.facebookLocations')
               .style('opacity',1)
               .attr('pointer-events', 'visible')
+        }
       });
 
       EventBus.$on('facebookFilterChangeEvent', msg => {
