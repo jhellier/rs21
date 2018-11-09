@@ -173,7 +173,9 @@ export default {
       that.gaugeG.append('svg:foreignObject')
               .attr('x',-35)
               .attr('y',-70)
-              .style('font-size',80)
+              .attr('width','100px')
+              .attr('height','100px')
+              .style('font-size','80px')
               .style('color',that.iconColor)
               .html('<i class="fab ' + that.gaugeIcon + '"></i>')
               .on('click', function() {
