@@ -445,9 +445,17 @@ export default {
 
         else {
           d3.selectAll('.facebookLocations')
-              .style('opacity',1)
+          .style('opacity', function(d) {
+            if (d.checkins > that.checkinThreshold) {
+              return 1
+            }
+            else return 0
+          })
               .attr('pointer-events', 'visible')
         }
+
+
+
       });
 
       EventBus.$on('facebookFilterChangeEvent', msg => {
