@@ -275,7 +275,7 @@ export default {
           .on('mouseover', function(d) {
             d3.select('body')
               .append('div')
-              .attr('class', 'toolTip')
+              .attr('class', 'toolTipAV')
               .attr('id','toolTip')
               .html(d.place + '<br>'  + d.checkins + ' checkins' + '<br><br>' + d.bus_type)
               .style('left', d3.event.pageX + 'px')
@@ -323,7 +323,7 @@ export default {
           .on('mouseover', function(d) {
             d3.select('body')
               .append('div')
-              .attr('class', 'toolTip')
+              .attr('class', 'toolTipAV')
               .attr('id','toolTip')
               .classed('tweetToolTipSizing',true)
                 .html(d.tweet + '<br><br>' + d.username + '<br>' + d.time)
@@ -568,7 +568,7 @@ export default {
   font-size: 12px;
 }
 
-div.toolTip {
+div.toolTipAV {
   position: absolute;
   text-align: center;
   width: 200px;
@@ -583,7 +583,7 @@ div.toolTip {
   z-index: 2000;
 }
 
-div.toolTip.tweetToolTipSizing {
+div.toolTipAV.tweetToolTipSizing {
   height: 150px;
 
 } 
