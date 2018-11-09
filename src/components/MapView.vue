@@ -132,7 +132,7 @@ export default {
               count += +e.sourceTarget.feature.properties[element.value];
               popupText +=
                 '<div>' +
-                element.meta +
+                element.selectName +
                 ' ' +
                 element.label +
                 ' ' +
