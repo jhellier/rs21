@@ -229,8 +229,6 @@ export default {
             .text(that.gaugeCounterText)
          .on('click', function() {
            that.gaugeCounterText.text(that.gaugeRangeDefault);
-            // Compute the position of the gauge marker by taking
-            // max and min of gauge
             that.gaugeMarkerRing
               .transition()
               .duration(1000)

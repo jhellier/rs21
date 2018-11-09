@@ -117,9 +117,20 @@ export default {
   font-size: 12px;
 }
 
-.tab-pane {
-  height: 55vh;
+@media (min-height: 500px) {
+  .tab-pane {
+    height: 40vh;
+  }
 }
+
+@media (min-height: 700px) {
+  .tab-pane {
+    height: 55vh;
+  }
+}
+
+
+
 
 .iconStyle {
   margin-left: 25px;
