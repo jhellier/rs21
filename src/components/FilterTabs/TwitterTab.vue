@@ -1,5 +1,5 @@
 <template>
-        <div class="tabContent" style="overflow:auto; height: 400px;">
+        <div class="tabContent">
         <br>
         The Twitter data is a collection of tweets in ABQ from 2014-10-30 -> 2014-10-31. 
         There are 2130 tweets by 647 Twitter users. These tweets are displayed on the map as squares.

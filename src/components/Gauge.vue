@@ -265,7 +265,7 @@ export default {
                 let radians = that.getRadianAngle(this);
                 that.gaugeMarkerRing
                     .transition()
-                    .duration(2000)
+                    .duration(1000)
                     .attrTween('d', that.arcTween(radians));
 
                 let text = Math.round(

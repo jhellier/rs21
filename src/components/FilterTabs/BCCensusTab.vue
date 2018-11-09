@@ -1,48 +1,48 @@
 <template>
-        <div class="tabContent" style="overflow: auto; height: 500px;">
-        <div class="filterViewHeader">
-            Demographics Filter
-        </div>    
-        <div>
-            <Select id="MaleAgeSelect" 
-                        :options="optionsM" selectName="Male Age" />
-            <Select id="FemaleAgeSelect" 
-                        :options="optionsF" selectName="Female Age" />
-            <Select id="MedianAgeSelect" 
-                        :options="optionsMedianAge" selectName="Median Age"/>
-            <Select id="TransportSelect" 
-                        :options="optionsHousehold" selectName="Transport"/>
-            <Select id="EarningsSelect" 
-                        :options="optionsEarnings" selectName="Earnings"/>
-        </div>
-        <div class="filterButtons"> 
-        <button id="clearSelection" @click="clearSelections">Clear</button>
+        <div class="tabContent">
+            <div class="filterViewHeader">
+                Demographics Filter
+            </div>    
+            <div>
+                <Select id="MaleAgeSelect" 
+                            :options="optionsM" selectName="Male Age" />
+                <Select id="FemaleAgeSelect" 
+                            :options="optionsF" selectName="Female Age" />
+                <Select id="MedianAgeSelect" 
+                            :options="optionsMedianAge" selectName="Median Age"/>
+                <Select id="TransportSelect" 
+                            :options="optionsHousehold" selectName="Transport"/>
+                <Select id="EarningsSelect" 
+                            :options="optionsEarnings" selectName="Earnings"/>
+            </div>
+            <div class="filterButtons"> 
+            <button id="clearSelection" @click="clearSelections">Clear</button>
 
-        </div>
-        <table class="table">
-        <tbody>
-            <tr>
-            <td>Total Population</td>
-            <td align="right">667092</td>
-            </tr>
-            <tr>
-            <td>Total Male Population</td>
-            <td align="right">326983</td>
-            </tr>
-            <tr>
-            <td>Total Female Population</td>
-            <td align="right">340109</td>
-            </tr>
-        </tbody>
-        </table>        
-        <div>
-        At any time you can clear the selections and start with a new 
-        investigation. You can click on any colored section to see the makeup of that
-        section. Since the popup stays open you can compare the makeup of the section against the Facebook checkins
-        or the Twitter tweets by mousing over either. 
-        <br>
-        <br>
-        </div>
+            </div>
+            <table class="table">
+            <tbody>
+                <tr>
+                <td>Total Population</td>
+                <td align="right">667092</td>
+                </tr>
+                <tr>
+                <td>Total Male Population</td>
+                <td align="right">326983</td>
+                </tr>
+                <tr>
+                <td>Total Female Population</td>
+                <td align="right">340109</td>
+                </tr>
+            </tbody>
+            </table>        
+            <div>
+            At any time you can clear the selections and start with a new 
+            investigation. You can click on any colored section to see the makeup of that
+            section. Since the popup stays open you can compare the makeup of the section against the Facebook checkins
+            or the Twitter tweets by mousing over either. 
+            <br>
+            <br>
+            </div>
 
     </div>                    
 
@@ -154,13 +154,10 @@ function loadSelect(file) {
 
 <style>
 
-.tabContent {
-  font-size: 12px;
-  overflow: auto;
-}
+
 
 select {
-  font-size: 14px;
+  font-size: 12px;
   float: right;
 }
 
@@ -173,7 +170,7 @@ button {
 
 .selectLabel {
   padding: 5px;
-  font-size: 14px;
+  font-size: 12px;
   white-space: nowrap;
 }
 
@@ -192,7 +189,7 @@ button {
 }
 
 .filterButtons {
-  font-size: 14px;
+  font-size: 12px;
   padding: 10px;
   margin-bottom: 10px;
 }

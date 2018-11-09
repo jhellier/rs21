@@ -1,5 +1,5 @@
 <template>
-                        <div class="tabContent" style="overflow:auto; height: 400px;">
+                        <div class="tabContent">
                         <br>
                         The Facebook data is a collection of Checkins for businesses in ABQ. The checkins show where someone has been. The more checkins for a business the more likely it is popular.
                         The map will show each checkin site as a colored circle. The color of the circle corresponds

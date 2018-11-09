@@ -1,36 +1,34 @@
 <template>
     <div id="sidebar">
-
-        <div class="container">
-         <div class="row">
-           <div class="col-sm">   
-          <Gauge  gauge_id="facebookFilter" gauge_range_max="15000" gauge_range_default="2000" gauge_icon="fa-facebook" gauge_text="Checkins" icon_color="blue"/>
-           </div>
-           <div class="col-sm">   
-          <Gauge  gauge_id="twitterFilter" gauge_range_max="1000" gauge_icon="fa-twitter" icon_color="lightblue" gauge_text="Tweets"/>
-           </div>
-           </div>
-        </div>
-       <div id="tabPanel">
-           <b-tabs>
-                <b-tab title="Overview" active>
-                    <OverviewTab/>                        
-                </b-tab>  
-                <b-tab title="Get Started">
-                    <GetStartedTab/>
-                </b-tab>      
-                <b-tab title="BC Census" >
-                    <BCCensusTab/>
-                </b-tab>
-                <b-tab title="Facebook" >
-                    <FacebookTab/>
-                </b-tab>
-                <b-tab title="Twitter">
-                    <TwitterTab/>
-                </b-tab>
-           </b-tabs>
-
-       </div>     
+            <div class="container">
+              <div class="row">
+                  <div class="col-sm">   
+                    <Gauge  gauge_id="facebookFilter" gauge_range_max="25000" gauge_range_default="2000" gauge_icon="fa-facebook" gauge_text="Checkins" icon_color="blue"/>
+                  </div>
+                  <div class="col-sm">   
+                    <Gauge  gauge_id="twitterFilter" gauge_range_max="1000" gauge_icon="fa-twitter" icon_color="lightblue" gauge_text="Tweets"/>
+                  </div>
+                </div>
+             </div>
+             <div id="tabPanel">
+                  <b-tabs end >
+                        <b-tab title="Overview" active>
+                            <OverviewTab/>                        
+                        </b-tab>  
+                        <b-tab title="Get Started">
+                            <GetStartedTab/>
+                        </b-tab>      
+                        <b-tab title="BC Census" >
+                            <BCCensusTab/>
+                        </b-tab>
+                        <b-tab title="Facebook" >
+                            <FacebookTab/>
+                        </b-tab>
+                        <b-tab title="Twitter">
+                            <TwitterTab/>
+                        </b-tab>
+                  </b-tabs>
+              </div>    
     </div>       
 </template>
 
@@ -102,25 +100,25 @@ export default {
 
 <style>
 
+.tabContent {
+  font-size: 12px;
+  margin-top: 10px;
+  height: 100%;
+  overflow: scroll;
+} 
+
 .toggleElement {
   white-space: no-wrap;
   float: left;
   cursor: pointer;
 }
 
-
 .nav-tabs {
   font-size: 12px;
 }
 
-#tabPanel {
-  /* margin-top: 40px; */
-  padding-top: 5px;
-}
-
-.tabContent {
-  font-size: 12px;
-  overflow: auto;
+.tab-pane {
+  height: 55vh;
 }
 
 .iconStyle {

@@ -1,5 +1,5 @@
 <template>
-    <div id="overviewPanel">
+    <div class="tabContent" id="overviewPanel">
     <h6 style="text-align: center;">Welcome to ABQ View</h6>
         Let’s see Albuquerque! In a highly interactive space, we allow you to explore neighborhoods to see who lives there, what places they frequent and what they have to say about life, the universe and everything.
         <br>
@@ -19,11 +19,5 @@
 </template>
 
 <style>
-
-#overviewPanel {
-  margin: 10px;
-  margin-top: 20px;
-  font-size: 12px;
-}
 
 </style>

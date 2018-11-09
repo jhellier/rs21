@@ -54,8 +54,8 @@ export default {
       demographicSelect: [],
       totalPopulation: {},
       totalTargetPopulation: {},
-      checkinThreshold: 5000,
-      defaultCheckinThreshold: 5000,
+      checkinThreshold: 2000,
+      defaultCheckinThreshold: 2000,
       showBCCountTotal: {},
       fbCircles: []
     };
@@ -254,12 +254,19 @@ export default {
         that.fbCheckins = data;
         that.fbCircles = that.gMap
           .selectAll('circle')
-          .data(that.fbCheckins.filter(element => element.checkins > that.checkinThreshold))
+          //.data(that.fbCheckins.filter(element => element.checkins > that.checkinThreshold))
+          .data(that.fbCheckins)
           .enter()
           .append('circle')
           .attr('class','facebookLocations mapLocations')
           .attr('pointer-events', 'visible')
           .attr('r', 5)
+          .style('opacity', function(d) {
+            if (d.checkins > that.checkinThreshold)
+              return 1;
+            else
+              return 0;
+          })
           .attr('fill', function(d) {
             return that.getColor(that.busTypes[d.bus_type]);
           })
@@ -281,6 +288,8 @@ export default {
           });
           that.updateMapSVG();
       });
+
+    
 
     },
 
@@ -456,11 +465,11 @@ export default {
         //   })
         // }
        this.checkinThreshold = +msg;
-
         d3.selectAll('.facebookLocations')
           .style('opacity', function(d) {
-            if (d.checkins > +msg) 
+            if (d.checkins > +msg) {
               return 1
+            }
             else return 0
           })
         

@@ -1,6 +1,6 @@
 <template>
-        <div  id="getStartedPanel" style="overflow: auto; height: 400px">  
-        Click on the BC Census tab
+        <div  class="tabContent" id="getStartedPanel">  
+        <b>Click on the BC Census tab</b>
         <br>
         <br>
         The Demographics Filter allows you to select any demographic slice of the ABQ population
@@ -18,13 +18,13 @@
         or the Twitter tweets by mousing over either. 
         <br>
         <br>
-        Click on the Facebook tab
+        <b>Click on the Facebook tab</b>
         <br>
         <br>
         The Facebook data is a collection of Checkins for businesses in ABQ. The checkins show where someone has been. The more checkins for a business the more likely it is popular. 
         <br>
         <br>
-        Click on the Twitter tab
+        <b>Click on the Twitter tab</b>
         <br>
         <br>
         The Twitter data is a collection of tweets in ABQ over September 30 2014. 
@@ -32,9 +32,6 @@
         </div>
 </template>
 <style>
-#getStartedPanel {
-  margin: 10px;
-  margin-top: 20px;
-  font-size: 12px;
-}
+
+
 </style>
