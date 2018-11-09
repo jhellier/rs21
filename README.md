@@ -5,6 +5,9 @@ This is a project in support of a coding challenge as part of the interview proc
 
 The app is currently hosted on: [Quin Moto](http://quinmoto.com/rs21.html)
 
+A revised version is hosted on: [Quin Moto](http://quinmoto.com/rs21-1.html)
+<br>&nbsp;&nbsp;&nbsp;This includes new d3 gauges and fixes to the filter panel responsiveness
+
 The app stack includes:
 * Vue.js 2.5.17
   * Vue-Bootstrap
